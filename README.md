@@ -12,8 +12,9 @@ The Arcade project is an interactive and modular gaming platform developed as pa
 - **Project Management**: Collaborating in teams, managing project timelines, and ensuring effective communication.
 
 ## :page_facing_up: Project Info
-:package: [Epitech Private Repository](https://github.com/EpitechPromo2027/B-OOP-400-NAN-4-1-arcade-baptiste.moreau "Epitech Private Repository")
-:package: [Group Remote Repository](https://github.com/sdragos1/arcade "Group Remote Repository")
+- :package: [Epitech Private Repository](https://github.com/EpitechPromo2027/B-OOP-400-NAN-4-1-arcade-baptiste.moreau "Epitech Private Repository")
+
+- :package: [Group Remote Repository](https://github.com/sdragos1/arcade "Group Remote Repository")
 
 ## :computer: Developpers
 - [Axel](https://github.com/AxelF44 "Axel")
