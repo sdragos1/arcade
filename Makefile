@@ -9,24 +9,24 @@ NAME = 				arcade
 BUILD_PATH = 		build
 
 all:
-					@cmake -S . -B build
-					cmake --build $(BUILD_PATH)
-					@cp $(BUILD_PATH)/$(NAME) .
+	@cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+	cmake --build $(BUILD_PATH)
 
 clean:
-					@rm -rf $(BUILD_PATH)
+	@rm -rf $(BUILD_PATH)
+	rm -rf lib
 
-fclean:		clean
-					@rm -f $(NAME)
+fclean:	clean
+	rm -f $(NAME)
 
-re: 			fclean all
+re:	fclean all
 
 tests_run:
-					echo "pass"
+	echo "pass"
 
 update_module:
-					@git submodule init
-					@git submodule update
+	@git submodule init
+	@git submodule update
 
 .PHONY: all clean fclean re tests_run
 DEFAULT_GOAL := all
