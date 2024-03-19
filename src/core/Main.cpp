@@ -11,8 +11,14 @@
 int main(int argc, char **argv)
 {
     (void) argv;
-    UniqueCore arcadeCore = std::make_unique<Core>();
+    UniqueCore arcadeCore = nullptr;
 
+    try {
+        arcadeCore = std::make_unique<Core>();
+    } catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 84;
+    }
     if (argc != 2) {
         arcadeCore->helpMessage();
         return 84;

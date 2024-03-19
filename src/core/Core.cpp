@@ -6,10 +6,20 @@
 */
 
 #include <iostream>
+#include <dirent.h>
 #include "Core.hpp"
+#include "loader/Directory.hpp"
 
 Core::Core()
 {
+    try {
+        const std::string libPath = "./lib/";
+        UniqueDirectory libDirectory = std::make_unique<Directory>(libPath);
+        _LibrariesPath = libDirectory->getListLibraries();
+    } catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        throw std::runtime_error("Can't create Core class");
+    }
 }
 
 Core::~Core()

@@ -9,16 +9,33 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 class Core
 {
     public:
+
+        /**
+         * @brief Constructor of Core Class
+         *
+         */
         Core();
+
+        /**
+         * @brief Destructor of Core Class
+         *
+         */
         ~Core();
 
+        /**
+         * @brief Display how to use the arcade binary
+         *
+         */
         void helpMessage();
 
+
     private:
+        std::vector<std::string> _LibrariesPath;
         
 };
 
