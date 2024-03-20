@@ -35,7 +35,7 @@ class Core
 
 
     private:
-        std::vector<std::string> _LibrariesPath;
+        std::vector<std::string> _librariesPath;
         
 };
 

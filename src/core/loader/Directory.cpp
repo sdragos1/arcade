@@ -25,14 +25,14 @@ Directory::~Directory()
 
 std::vector<std::string> Directory::getListLibraries()
 {
-    std::vector<std::string> LibrariesPath;
+    std::vector<std::string> librariesPath;
 
     _entry = readdir(_dir);
     while (_entry != nullptr) {
         if ((_entry->d_type == DT_REG) && (std::strstr(_entry->d_name, ".so") != nullptr)) {
-            LibrariesPath.emplace_back(_libPath + _entry->d_name);
+            librariesPath.emplace_back(_libPath + _entry->d_name);
         }
         _entry = readdir(_dir);
     }
-    return LibrariesPath;
+    return librariesPath;
 }
