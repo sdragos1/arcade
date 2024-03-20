@@ -9,7 +9,7 @@ NAME = 				arcade
 BUILD_PATH = 		build
 
 all:
-	@cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+	cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 	cmake --build $(BUILD_PATH)
 
 clean:
@@ -21,8 +21,10 @@ fclean:	clean
 
 re:	fclean all
 
-tests_run:
-	echo "pass"
+tests_run: fclean
+	cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON
+	cmake --build build
+	./build/tests/arcade_tests
 
 update_module:
 	@git submodule init
