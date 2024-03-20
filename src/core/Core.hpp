@@ -19,7 +19,7 @@ class Core
         void helpMessage();
 
     private:
-        
+
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
