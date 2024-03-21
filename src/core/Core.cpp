@@ -5,8 +5,8 @@
 ** Core
 */
 
-#include <iostream>
 #include "Core.hpp"
+#include <iostream>
 
 Core::Core()
 {

@@ -31,7 +31,7 @@ update_module:
 	@git submodule update
 
 style: fclean
-	@cpplint --recursive .
+	@cpplint --recursive src tests shared
 
 .PHONY: all clean fclean re tests_run
 DEFAULT_GOAL := all
