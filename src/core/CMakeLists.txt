@@ -1,8 +1,7 @@
 set(SRCS_CORE
     Main.cpp
     Core.cpp
-    loader/Directory.cpp
-    loader/DLLoader.cpp)
+    library/loader/Directory.cpp)
 
 add_executable(arcade ${SRCS_CORE})
 

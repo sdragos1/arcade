@@ -10,6 +10,13 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <iostream>
+#include <dirent.h>
+#include "library/LibraryList.hpp"
+#include "library/loader/Directory.hpp"
+#include "../common/games/game/IGame.hpp"
+#include "../common/types/LibraryType.hpp"
+#include "../common/rendering/IRenderer.hpp"
 
 class Core
 {
@@ -35,7 +42,9 @@ class Core
 
 
     private:
-        std::vector<std::string> _librariesPath;
+        std::vector<std::string>                                       _librariesPath;
+        std::unique_ptr<LibraryList<shared::games::game::IGame>>       _librariesGame;
+        std::unique_ptr<LibraryList<shared::rendering::IRenderer>>     _librariesRenderer;
         
 };
 
