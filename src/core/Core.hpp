@@ -12,9 +12,10 @@
 #include <vector>
 #include <iostream>
 #include <dirent.h>
-#include "library/LibraryList.hpp"
-#include "library/loader/Directory.hpp"
+#include "library/GameList.hpp"
+#include "library/GraphicList.hpp"
 #include "../common/games/IGame.hpp"
+#include "library/loader/Directory.hpp"
 #include "../common/types/Libraries.hpp"
 #include "../common/graphics/IGraphicsProvider.hpp"
 
@@ -42,9 +43,9 @@ class Core
 
 
     private:
-        std::vector<std::string>                                            _librariesPath;
-        std::unique_ptr<LibraryList<shared::games::IGame>>                  _librariesGame;
-        std::unique_ptr<LibraryList<shared::graphics::IGraphicsProvider>>   _librariesRenderer;
+        std::vector<std::string>        _librariesPath;
+        std::unique_ptr<GameList>       _librariesGame;
+        std::unique_ptr<GraphicList>    _librariesRenderer;
         
 };
 

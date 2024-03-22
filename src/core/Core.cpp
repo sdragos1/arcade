@@ -13,15 +13,20 @@ Core::Core()
         const std::string libPath = "./lib/";
         UniqueDirectory libDirectory = std::make_unique<Directory>(libPath);
         _librariesPath = libDirectory->getListLibraries();
-        _librariesGame =  std::make_unique<LibraryList<shared::games::IGame>>(shared::types::LibraryType::GAME, _librariesPath);
-        _librariesRenderer = std::make_unique<LibraryList<shared::graphics::IGraphicsProvider>>(shared::types::LibraryType::GRAPHIC, _librariesPath);
-        
-        // _librariesRenderer->getCurrentLibrary()->init();
-        // _librariesRenderer->incrementeIndex();
-        // _librariesRenderer->getCurrentLibrary()->init();
-        // _librariesRenderer->incrementeIndex();
-        // _librariesRenderer->getCurrentLibrary()->init();
+        _librariesGame =  std::make_unique<GameList>(_librariesPath);
+        _librariesRenderer = std::make_unique<GraphicList>(_librariesPath);
 
+        std::cout << std::endl;
+        for (int index = 0; index < _librariesGame->getNbGame(); index++) {
+            std::cout << _librariesGame->getCurrentGame()->getManifest().name << std::endl;
+            _librariesGame->incrementeIndex();
+        }
+        for (int index = 0; index < _librariesRenderer->getNbGraphic(); index++) {
+            std::cout << _librariesRenderer->getCurrentLibrary()->getManifest().name << std::endl;
+            _librariesRenderer->incrementeIndex();
+        }
+        std::cout << std::endl;
+        
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
