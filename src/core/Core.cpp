@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include <iostream>
 
 Core::Core()
 {

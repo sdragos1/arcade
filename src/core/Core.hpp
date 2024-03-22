@@ -41,7 +41,6 @@ class Core
          */
         void helpMessage();
 
-
     private:
         std::vector<std::string>        _librariesPath;
         std::unique_ptr<GameList>       _librariesGame;
