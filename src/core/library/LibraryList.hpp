@@ -12,9 +12,9 @@
 #include <vector>
 #include <iostream>
 #include "loader/DLLoader.hpp"
-#include "../common/types/LibraryType.hpp"
-#include "../common/rendering/IRenderer.hpp"
-#include "../common/games/game/IGame.hpp"
+#include "../common/games/IGame.hpp"
+#include "../common/types/Libraries.hpp"
+#include "../common/graphics/IGraphicsProvider.hpp"
 
 template <typename T>
 class LibraryList
@@ -28,8 +28,8 @@ class LibraryList
 
             for (const auto& path : allLibrariesPath) {
                 std::shared_ptr<DLLoader<std::shared_ptr<T>>> loaders = std::make_shared<DLLoader<std::shared_ptr<T>>>(path);
-                if (loaders->getType("arcadeLibGetType") == type) {
-                    _libraryList.push_back(loaders->getInstance("arcadeLibGetRenderer"));
+                if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME)) == type) {
+                    _libraryList.push_back(loaders->getInstance(SHARED_STRINGIFY(SHARED_GRAPHICS_PROVIDER_LOADER_NAME)));
                     _libraryLoader.push_back(loaders);
                 }
             }

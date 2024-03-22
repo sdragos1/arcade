@@ -11,7 +11,7 @@
 #include <memory>
 #include <dlfcn.h>
 #include <cstring>
-#include "../common/types/LibraryType.hpp"
+#include "../common/types/Libraries.hpp"
 
 template <typename T>
 class DLLoader

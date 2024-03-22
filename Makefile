@@ -14,7 +14,6 @@ all:
 
 clean:
 	@rm -rf $(BUILD_PATH)
-	rm -rf lib
 
 fclean:	clean
 	rm -f $(NAME)
@@ -26,7 +25,7 @@ tests_run:
 
 update_module:
 	@git submodule init
-	@git submodule update
+	@git submodule update --remote --merge
 
 .PHONY: all clean fclean re tests_run
 DEFAULT_GOAL := all

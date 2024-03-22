@@ -13,14 +13,14 @@ Core::Core()
         const std::string libPath = "./lib/";
         UniqueDirectory libDirectory = std::make_unique<Directory>(libPath);
         _librariesPath = libDirectory->getListLibraries();
-        _librariesGame =  std::make_unique<LibraryList<shared::games::game::IGame>>(shared::types::LibraryType::GAME, _librariesPath);
-        _librariesRenderer = std::make_unique<LibraryList<shared::rendering::IRenderer>>(shared::types::LibraryType::RENDERER, _librariesPath);
+        _librariesGame =  std::make_unique<LibraryList<shared::games::IGame>>(shared::types::LibraryType::GAME, _librariesPath);
+        _librariesRenderer = std::make_unique<LibraryList<shared::graphics::IGraphicsProvider>>(shared::types::LibraryType::GRAPHIC, _librariesPath);
         
-        _librariesRenderer->getCurrentLibrary()->init();
-        _librariesRenderer->incrementeIndex();
-        _librariesRenderer->getCurrentLibrary()->init();
-        _librariesRenderer->incrementeIndex();
-        _librariesRenderer->getCurrentLibrary()->init();
+        // _librariesRenderer->getCurrentLibrary()->init();
+        // _librariesRenderer->incrementeIndex();
+        // _librariesRenderer->getCurrentLibrary()->init();
+        // _librariesRenderer->incrementeIndex();
+        // _librariesRenderer->getCurrentLibrary()->init();
 
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
