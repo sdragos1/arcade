@@ -8,7 +8,7 @@
 NAME = 				arcade
 BUILD_PATH = 		build
 
-all:
+all: update_module
 	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 	cmake --build $(BUILD_PATH)
 
