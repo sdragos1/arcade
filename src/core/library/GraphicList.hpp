@@ -12,8 +12,8 @@
 #include <vector>
 #include <iostream>
 #include "loader/DLLoader.hpp"
-#include "../common/types/Libraries.hpp"
-#include "../common/graphics/IGraphicsProvider.hpp"
+#include "../../common/types/Libraries.hpp"
+#include "../../common/graphics/IGraphicsProvider.hpp"
 
 class GraphicList
 {
