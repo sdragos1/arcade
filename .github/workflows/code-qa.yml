@@ -17,6 +17,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Update submodules
+        run: make update_module
+
       - name: Program Compilation
         run: make
 
