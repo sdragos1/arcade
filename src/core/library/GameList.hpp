@@ -18,12 +18,11 @@
 class GameList
 {
     public:
-
         /**
          * @brief Construct a new Graphic List object
          * @param allLibrariesPath All Libraries path
          */
-        GameList(std::vector<std::string> allLibrariesPath);
+        explicit GameList(std::vector<std::string> allLibrariesPath);
 
         /**
          * @brief Destroy the Game List object
@@ -54,7 +53,8 @@ class GameList
         std::shared_ptr<shared::games::IGame> getCurrentGame();
 
     protected:
-        std::vector<std::shared_ptr<shared::games::IGame>>                                          _libraryList;
-        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::games::IGameProvider>>>>       _libraryLoader;
-        std::size_t                                                                                 _index;
+        std::vector<std::shared_ptr<shared::games::IGame>> _libraryList;
+        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::games::IGameProvider>>>>
+        _libraryLoader;
+        std::size_t _index;
 };

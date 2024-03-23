@@ -14,8 +14,10 @@ GameList::GameList(std::vector<std::string> allLibrariesPath)
     for (const auto& path : allLibrariesPath) {
         std::shared_ptr<DLLoader<std::shared_ptr<shared::games::IGameProvider>>> loaders =
         std::make_shared<DLLoader<std::shared_ptr<shared::games::IGameProvider>>>(path);
-        if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME)) == shared::types::LibraryType::GAME) {
-            std::shared_ptr<shared::games::IGameProvider> instance = loaders->getInstance(SHARED_STRINGIFY(SHARED_GAME_PROVIDER_LOADER_NAME));
+        if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME))
+        == shared::types::LibraryType::GAME) {
+            std::shared_ptr<shared::games::IGameProvider> instance =
+            loaders->getInstance(SHARED_STRINGIFY(SHARED_GAME_PROVIDER_LOADER_NAME));
             _libraryList.push_back(instance->createInstance());
             _libraryLoader.push_back(loaders);
         }

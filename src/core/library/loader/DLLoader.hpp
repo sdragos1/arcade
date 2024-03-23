@@ -17,8 +17,7 @@ template <typename T>
 class DLLoader
 {
     public:
-
-        DLLoader(const std::string libraryPath) : _libraryInstance(nullptr)
+        explicit DLLoader(const std::string libraryPath) : _libraryInstance(nullptr)
         {
             _libraryPath = libraryPath;
             _libraryInstance = dlopen(libraryPath.c_str(), RTLD_LAZY);
@@ -36,7 +35,8 @@ class DLLoader
         {
             shared::types::LibraryType (*createInstance)();
 
-            createInstance = (shared::types::LibraryType (*)()) dlsym(_libraryInstance, functionName.c_str());
+            createInstance =
+            (shared::types::LibraryType (*)()) dlsym(_libraryInstance, functionName.c_str());
             if (createInstance == nullptr) {
                 throw std::runtime_error(dlerror());
             }

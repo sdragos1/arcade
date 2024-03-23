@@ -27,7 +27,6 @@ Core::Core()
             _librariesRenderer->incrementeIndex();
         }
         std::cout << std::endl;
-        
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");

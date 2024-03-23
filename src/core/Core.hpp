@@ -22,7 +22,6 @@
 class Core
 {
     public:
-
         /**
          * @brief Constructor of Core Class
          *
@@ -45,7 +44,6 @@ class Core
         std::vector<std::string>        _librariesPath;
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
-        
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

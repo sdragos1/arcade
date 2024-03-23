@@ -18,12 +18,11 @@
 class GraphicList
 {
     public:
-
         /**
          * @brief Construct a new Graphic List object
          * @param allLibrariesPath All Libraries path
          */
-        GraphicList(std::vector<std::string> allLibrariesPath);
+        explicit GraphicList(std::vector<std::string> allLibrariesPath);
 
         /**
          * @brief Destroy the Graphic List object
@@ -53,7 +52,8 @@ class GraphicList
         std::shared_ptr<shared::graphics::IGraphicsProvider> getCurrentLibrary();
 
     protected:
-        std::vector<std::shared_ptr<shared::graphics::IGraphicsProvider>>                                 _libraryList;
-        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::graphics::IGraphicsProvider>>>>      _libraryLoader;
-        std::size_t                                                                                       _index;
+        std::vector<std::shared_ptr<shared::graphics::IGraphicsProvider>>   _libraryList;
+        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::graphics::IGraphicsProvider>>>>
+        _libraryLoader;
+        std::size_t     _index;
 };

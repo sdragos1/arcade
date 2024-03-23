@@ -17,12 +17,11 @@
 class Directory
 {
     public:
-
         /**
          * @brief Construct a new Directory object
          * @param directoryPath Path of the directory to open
          */
-        Directory(const std::string &directoryPath);
+        explicit Directory(const std::string &directoryPath);
 
         /**
          * @brief Destroy the Directory object
@@ -37,7 +36,7 @@ class Directory
 
     private:
         DIR *           _dir;
-        struct dirent * _entry; 
+        struct dirent * _entry;
         std::string     _libPath;
 };
 

@@ -14,8 +14,10 @@ GraphicList::GraphicList(std::vector<std::string> allLibrariesPath)
     for (const auto& path : allLibrariesPath) {
         std::shared_ptr<DLLoader<std::shared_ptr<shared::graphics::IGraphicsProvider>>> loaders =
         std::make_shared<DLLoader<std::shared_ptr<shared::graphics::IGraphicsProvider>>>(path);
-        if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME)) == shared::types::LibraryType::GRAPHIC) {
-            std::shared_ptr<shared::graphics::IGraphicsProvider> instance = loaders->getInstance(SHARED_STRINGIFY(SHARED_GRAPHICS_PROVIDER_LOADER_NAME));
+        if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME)) ==
+        shared::types::LibraryType::GRAPHIC) {
+            std::shared_ptr<shared::graphics::IGraphicsProvider> instance =
+            loaders->getInstance(SHARED_STRINGIFY(SHARED_GRAPHICS_PROVIDER_LOADER_NAME));
             _libraryList.push_back(instance);
             _libraryLoader.push_back(loaders);
         }
