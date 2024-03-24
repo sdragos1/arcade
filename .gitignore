@@ -33,3 +33,6 @@
 build
 arcade
 lib
+
+# Folders
+.vscode/

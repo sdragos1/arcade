@@ -14,7 +14,6 @@ all:
 
 clean:
 	@rm -rf $(BUILD_PATH)
-	rm -rf lib
 
 fclean:	clean
 	rm -f $(NAME)
@@ -28,7 +27,7 @@ tests_run: fclean
 
 update_module:
 	@git submodule init
-	@git submodule update
+	@git submodule update --remote --merge
 
 style: fclean
 	@cpplint --recursive src tests shared
