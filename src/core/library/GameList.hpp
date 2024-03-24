@@ -39,12 +39,12 @@ class GameList
         /**
          * @brief Incremente index of Library
          */
-        void incrementeIndex();
+        void incrementIndex();
 
         /**
          * @brief Decremente index of Library
          */
-        void decrementeIndex();
+        void decrementIndex();
 
         /**
          * @brief Get the Current Game object

@@ -13,6 +13,8 @@
 #include <cstring>
 #include <dirent.h>
 #include <iostream>
+#include <stdexcept>
+#include <filesystem>
 
 class Directory
 {
@@ -35,8 +37,6 @@ class Directory
         std::vector<std::string> getListLibraries();
 
     private:
-        DIR *           _dir;
-        struct dirent * _entry;
         std::string     _libPath;
 };
 

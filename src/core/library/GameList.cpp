@@ -36,7 +36,7 @@ std::size_t GameList::getNbGame() const
     return _libraryList.size();
 }
 
-void GameList::incrementeIndex()
+void GameList::incrementIndex()
 {
     if (_index + 1 == _libraryList.size()) {
         _index = 0;
@@ -45,7 +45,7 @@ void GameList::incrementeIndex()
     }
 }
 
-void GameList::decrementeIndex()
+void GameList::decrementIndex()
 {
     if (_index - 1 == -1) {
         _index = _libraryList.size() - 1;

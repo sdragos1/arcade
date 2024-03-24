@@ -22,7 +22,7 @@ class GraphicList
          * @brief Construct a new Graphic List object
          * @param allLibrariesPath All Libraries path
          */
-        explicit GraphicList(std::vector<std::string> allLibrariesPath);
+        explicit GraphicList(std::vector<std::string> allLibrariesPath, std::string defaultLib);
 
         /**
          * @brief Destroy the Graphic List object
@@ -38,12 +38,12 @@ class GraphicList
         /**
          * @brief Incremente index of Library
          */
-        void incrementeIndex();
+        void incrementIndex();
 
         /**
          * @brief Decremente index of Library
          */
-        void decrementeIndex();
+        void decrementIndex();
 
         /**
          * @brief Get the Current Library object

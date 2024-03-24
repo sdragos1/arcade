@@ -14,11 +14,12 @@ int main(int argc, char **argv)
     UniqueCore arcadeCore = nullptr;
 
     try {
-        arcadeCore = std::make_unique<Core>();
         if (argc != 2) {
-            arcadeCore->helpMessage();
+            std::cout << USAGE_MESS << std::endl;
             return 84;
         }
+        std::string defaultLib(argv[1]);
+        arcadeCore = std::make_unique<Core>(defaultLib);
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 84;

@@ -19,6 +19,8 @@
 #include "../common/types/Libraries.hpp"
 #include "../common/graphics/IGraphicsProvider.hpp"
 
+#define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
+
 class Core
 {
     public:
@@ -26,7 +28,7 @@ class Core
          * @brief Constructor of Core Class
          *
          */
-        Core();
+        explicit Core(std::string defaultLib);
 
         /**
          * @brief Destructor of Core Class
