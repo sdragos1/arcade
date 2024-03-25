@@ -15,7 +15,7 @@ Core::Core(std::string defaultLib)
         UniqueDirectory libDirectory = std::make_unique<Directory>(libPath);
         _librariesPath = libDirectory->getListLibraries();
         _librariesGame =  std::make_unique<GameList>(_librariesPath);
-        // _librariesRenderer = std::make_unique<GraphicList>(_librariesPath, defaultLib);
+        _librariesRenderer = std::make_unique<GraphicList>(_librariesPath, defaultLib);
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
@@ -35,8 +35,8 @@ void Core::helpMessage()
 void Core::runArcade()
 {
     std::shared_ptr<shared::games::IGame> game = _librariesGame->getCurrentGame();
+    std::shared_ptr<shared::graphics::IGraphicsProvider> renderer = _librariesRenderer->getCurrentLibrary();
 
-    while (true) {
-        game.get()->compute(32);
-    }
+    game.get()->compute(32);
+    renderer.get()->createWindow({{800, 600}, shared::graphics::WindowMode::FULLSCREEN, 60, "sdl", "Arcade"});
 }

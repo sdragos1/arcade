@@ -65,5 +65,5 @@ void GraphicList::decrementIndex()
 
 std::shared_ptr<shared::graphics::IGraphicsProvider> GraphicList::getCurrentLibrary()
 {
-    return _libraryList[_index];
+    return _libraryList[0];
 }
