@@ -37,6 +37,10 @@ void Core::runArcade()
     std::shared_ptr<shared::games::IGame> game = _librariesGame->getCurrentGame();
     std::shared_ptr<shared::graphics::IGraphicsProvider> renderer = _librariesRenderer->getCurrentLibrary();
 
-    game.get()->compute(32);
-    renderer.get()->createWindow({{800, 600}, shared::graphics::WindowMode::FULLSCREEN, 60, "sdl", "Arcade"});
+    std::unique_ptr<shared::graphics::IWindow> window = renderer.get()->createWindow({{800, 600},
+        shared::graphics::WindowMode::FULLSCREEN, 60, "Ncurses Lib", "Arcade"});
+    while (true) {
+        window->display();
+        window->clear();
+    }
 }

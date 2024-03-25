@@ -11,14 +11,22 @@ NcursesWindow::NcursesWindow(const WindowInitProps &props)
     : _title(props.title), _size(props.size), _mode(props.mode), _icon(props.icon),_fps(60), _isOpen(true)
 {
     _window = initscr();
-    cbreak();
-    noecho();
+    raw();
     keypad(stdscr, TRUE);
-    refresh();
+    noecho();
+    curs_set(0);
+    nodelay(_window, true);
+    mousemask(ALL_MOUSE_EVENTS, NULL);
+    start_color();
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(3, COLOR_GREEN, COLOR_BLACK);
 }
 
 NcursesWindow::~NcursesWindow()
 {
+    delwin(_window);
+    endwin();
 }
 
 void NcursesWindow::setTitle(const std::string &title)
@@ -78,10 +86,14 @@ void NcursesWindow::render(const EntityProps &props)
 
 void NcursesWindow::clear()
 {
+    werase(_window);
+    wrefresh(_window);
 }
 
 void NcursesWindow::display()
 {
+    renderTitle();
+    wrefresh(_window);
 }
 
 void NcursesWindow::close()
@@ -97,4 +109,12 @@ bool NcursesWindow::isOpen() const
 std::vector<events::IEvent> NcursesWindow::getEvents(void)
 {
     return std::vector<events::IEvent>();
+}
+
+void NcursesWindow::renderTitle() const
+{
+    int titleLength = _title.length();
+    int windowWidth = getmaxx(_window);
+    int titleX = (windowWidth - titleLength) / 2;
+    mvwprintw(_window, 0, titleX, "%s", _title.c_str());
 }

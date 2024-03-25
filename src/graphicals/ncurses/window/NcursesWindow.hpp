@@ -35,6 +35,8 @@ class NcursesWindow : public shared::graphics::IWindow {
         std::vector<events::IEvent> getEvents(void) override;
 
     private:
+        void renderTitle() const;
+
         std::string _title;
         Vector2u _size;
         WindowMode _mode;
