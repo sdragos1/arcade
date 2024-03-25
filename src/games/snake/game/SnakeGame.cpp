@@ -29,12 +29,6 @@ const GameManifest &SnakeGame::getManifest(void) const noexcept
     return snakeManifest;
 }
 
-const Vector2u SnakeGame::getWindowMinSize(void) const noexcept
-{
-    return {20, 20};
-}
-
-
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
     return {20, 20};

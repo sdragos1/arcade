@@ -9,7 +9,7 @@
 
 #include "games/IGameProvider.hpp"
 #include "types/Libraries.hpp"
-#include "../game/SnakeGame.hpp"
+#include "game/SnakeGame.hpp"
 
 using namespace shared::games;
 
