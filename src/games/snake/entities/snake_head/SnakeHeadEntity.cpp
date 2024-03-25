@@ -22,3 +22,13 @@ SnakeHeadEntity::SnakeHeadEntity()
 SnakeHeadEntity::~SnakeHeadEntity()
 {
 }
+
+const shared::types::UUId &SnakeHeadEntity::getId(void) const noexcept
+{
+    return _id;
+}
+
+const components::ComponentsMap &SnakeHeadEntity::getComponents(void) const noexcept
+{
+    return _components;
+}

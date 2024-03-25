@@ -42,6 +42,8 @@ class Core
          */
         void helpMessage();
 
+        void runArcade();
+
     private:
         std::vector<std::string>        _librariesPath;
         std::unique_ptr<GameList>       _librariesGame;
