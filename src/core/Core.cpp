@@ -32,18 +32,18 @@ void Core::helpMessage()
     std::cout << "\tlibrary is the the graphics library to use initially" << std::endl;
 }
 
-bool Core::handleEvents(std::vector<shared::graphics::events::Event> events)
+Core::GeneralEventType Core::handleEvents(std::vector<shared::graphics::events::Event> events)
 {
     for (auto &event : events) {
         if (event.type == shared::graphics::events::EventType::KEY_PRESS) {
             shared::graphics::events::KeyPressEvent keyEvent =
                 static_cast<shared::graphics::events::KeyPressEvent &>(event);
             if (keyEvent.getKeyCode().arrow == shared::graphics::events::UP) {
-                return false;
+                return Core::GeneralEventType::EXIT;
             }
         }
     }
-    return true;
+    return Core::GeneralEventType::NONE;
 }
 
 void Core::runArcade()
@@ -57,7 +57,7 @@ void Core::runArcade()
 
     while (true) {
         events = window->getEvents();
-        if (handleEvents(events) == false) {
+        if (handleEvents(events) == Core::GeneralEventType::EXIT) {
             window->close();
             return;
         }

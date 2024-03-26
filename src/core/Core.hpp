@@ -25,6 +25,16 @@
 class Core
 {
     public:
+        typedef enum {
+            NONE,
+            EXIT,
+            RESTART_GAME,
+            NEXT_GAME,
+            PREV_GAME,
+            NEXT_GRAPHICS,
+            PREV_GRAPHICS,
+        } GeneralEventType ;
+
         /**
          * @brief Constructor of Core Class
          *
@@ -44,7 +54,7 @@ class Core
         void helpMessage();
 
         void handleEntities(std::vector<shared::graphics::EntityProps> entities);
-        bool handleEvents(std::vector<shared::graphics::events::Event> events);
+        GeneralEventType handleEvents(std::vector<shared::graphics::events::Event> events);
         void runArcade();
 
     private:

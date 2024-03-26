@@ -22,6 +22,7 @@ class SnakeGame : public IGame {
         const GameManifest &getManifest(void) const noexcept override;
         const Vector2u getSize(void) const noexcept override;
         const entity::EntitiesMap &getEntities(void) const override;
+        const unsigned int getFps() const noexcept override;
         std::shared_ptr<entity::IEntity> getEntityById(const UUId &id) const override;
 
     private:

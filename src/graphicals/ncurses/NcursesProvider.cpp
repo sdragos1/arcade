@@ -32,7 +32,8 @@ std::shared_ptr<shared::graphics::ISound> NcursesProvider::createSound(const std
     return nullptr;
 }
 
-std::shared_ptr<shared::graphics::ITexture> NcursesProvider::createTexture(const std::string &path)
+std::shared_ptr<shared::graphics::ITexture> NcursesProvider::createTexture(const std::string &path,
+const std::string &ascii)
 {
     return nullptr;
 }

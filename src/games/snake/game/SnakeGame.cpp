@@ -43,3 +43,8 @@ std::shared_ptr<entity::IEntity> SnakeGame::getEntityById(const UUId &id) const
 {
     return _entities.at(id);
 }
+
+const unsigned int SnakeGame::getFps() const noexcept
+{
+    return 60;
+}

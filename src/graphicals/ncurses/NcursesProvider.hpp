@@ -18,9 +18,11 @@ class NcursesProvider : public IGraphicsProvider {
         ~NcursesProvider();
 
         const shared::graphics::GraphicsManifest &getManifest(void) const noexcept override;
-        std::unique_ptr<shared::graphics::IWindow> createWindow(const WindowInitProps &settings) override;
+        std::unique_ptr<shared::graphics::IWindow> createWindow(
+            const WindowInitProps &settings) override;
         std::shared_ptr<shared::graphics::ISound> createSound(const std::string &path) override;
-        std::shared_ptr<shared::graphics::ITexture> createTexture(const std::string &path) override;
+        std::shared_ptr<shared::graphics::ITexture> createTexture(const std::string &path,
+        const std::string &ascii) override;
 };
 
 static GraphicsManifest NcursesManifest = {
