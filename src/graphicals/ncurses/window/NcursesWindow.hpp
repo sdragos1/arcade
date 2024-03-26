@@ -8,6 +8,7 @@
 #pragma once
 
 #include <ncurses.h>
+#include "graphics/events/key/KeyPressEvent.hpp"
 #include "graphics/window/IWindow.hpp"
 
 using namespace shared::graphics;
@@ -32,7 +33,7 @@ class NcursesWindow : public shared::graphics::IWindow {
         void display() override;
         void close() override;
         bool isOpen() const override;
-        std::vector<events::IEvent> getEvents(void) override;
+        std::vector<events::Event> getEvents(void) override;
 
     private:
         void renderTitle() const;
@@ -44,4 +45,5 @@ class NcursesWindow : public shared::graphics::IWindow {
         unsigned int _fps;
         bool _isOpen;
         WINDOW *_window;
+        std::vector<events::Event> _events;
 };

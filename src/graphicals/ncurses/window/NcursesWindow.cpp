@@ -8,7 +8,13 @@
 #include "NcursesWindow.hpp"
 
 NcursesWindow::NcursesWindow(const WindowInitProps &props)
-    : _title(props.title), _size(props.size), _mode(props.mode), _icon(props.icon),_fps(60), _isOpen(true)
+    : _title(props.title),
+        _size(props.size),
+        _mode(props.mode),
+        _icon(props.icon),
+        _fps(60),
+        _isOpen(true),
+        _events()
 {
     _window = initscr();
     raw();
@@ -86,14 +92,13 @@ void NcursesWindow::render(const EntityProps &props)
 
 void NcursesWindow::clear()
 {
-    werase(_window);
     wrefresh(_window);
+    wclear(_window);
 }
 
 void NcursesWindow::display()
 {
     renderTitle();
-    wrefresh(_window);
 }
 
 void NcursesWindow::close()
@@ -106,10 +111,34 @@ bool NcursesWindow::isOpen() const
     return _isOpen;
 }
 
-std::vector<events::IEvent> NcursesWindow::getEvents(void)
+std::vector<events::KeyPressEvent> NcursesWindow::getEvents(void)
 {
-    return std::vector<events::IEvent>();
+    std::vector<events::KeyPressEvent> events;
+    int ch = getch();
+
+    if (ch != ERR) {
+        switch (ch) {
+            case KEY_UP:
+                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::UP}));
+                break;
+            case KEY_DOWN:
+                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::DOWN}));
+                break;
+            case KEY_LEFT:
+                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::LEFT}));
+                break;
+            case KEY_RIGHT:
+                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::RIGHT}));
+                break;
+            default:
+                break;
+        }
+    }
+    return events;
 }
+
+
+
 
 void NcursesWindow::renderTitle() const
 {

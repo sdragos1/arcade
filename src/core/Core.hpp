@@ -18,6 +18,7 @@
 #include "library/loader/Directory.hpp"
 #include "../common/types/Libraries.hpp"
 #include "../common/graphics/IGraphicsProvider.hpp"
+#include "../common/graphics/events/key/KeyPressEvent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 
@@ -42,6 +43,7 @@ class Core
          */
         void helpMessage();
 
+        void handleEvents(std::unique_ptr<shared::graphics::IWindow> window);
         void runArcade();
 
     private:
