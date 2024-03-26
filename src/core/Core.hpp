@@ -43,7 +43,7 @@ class Core
          */
         void helpMessage();
 
-        void handleEvents(std::unique_ptr<shared::graphics::IWindow> window);
+        bool handleEvents(std::vector<shared::graphics::events::Event> events);
         void runArcade();
 
     private:

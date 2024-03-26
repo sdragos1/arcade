@@ -7,7 +7,7 @@
 
 #include "SnakeHeadKeyboard.hpp"
 
-SnakeHeadKeyboard::SnakeHeadKeyboard(entity::IEntity &entity)
+SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
     :
     _id(),
     _entity(entity)

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <iostream>
 #include <ncurses.h>
 #include "graphics/events/key/KeyPressEvent.hpp"
 #include "graphics/window/IWindow.hpp"
@@ -15,7 +16,7 @@ using namespace shared::graphics;
 
 class NcursesWindow : public shared::graphics::IWindow {
     public:
-        NcursesWindow(const WindowInitProps &props);
+        explicit NcursesWindow(const WindowInitProps &props);
         ~NcursesWindow();
 
         void setTitle(const std::string &title) override;

@@ -12,8 +12,10 @@ SnakeHeadEntity::SnakeHeadEntity()
     _id()
     , _components()
 {
-    std::shared_ptr<SnakeHeadDisplayable> displayable = std::make_shared<SnakeHeadDisplayable>(*this);
-    std::shared_ptr<SnakeHeadKeyboard> keyboard = std::make_shared<SnakeHeadKeyboard>(*this);
+    std::shared_ptr<SnakeHeadDisplayable> displayable =
+        std::make_shared<SnakeHeadDisplayable>(*this);
+    std::shared_ptr<SnakeHeadKeyboard> keyboard =
+        std::make_shared<SnakeHeadKeyboard>(*this);
 
     _components[displayable->getId()] = displayable;
     _components[keyboard->getId()] = keyboard;

@@ -13,7 +13,7 @@ using namespace shared::games;
 
 class SnakeHeadDisplayable : public components::IDisplayableComponent {
     public:
-        SnakeHeadDisplayable(entity::IEntity &entity);
+        explicit SnakeHeadDisplayable(const entity::IEntity &entity);
         ~SnakeHeadDisplayable();
 
         // IComponent
@@ -31,12 +31,11 @@ class SnakeHeadDisplayable : public components::IDisplayableComponent {
 
         // Position
         Vector2i &getPosition(void) noexcept override;
-
         Vector2i _position;
-    protected:
+
     private:
         UUId _id;
-        entity::IEntity &_entity;
+        const entity::IEntity &_entity;
         Vector2u _size;
         unsigned int _zIndex;
         components::TextureProps _textureProps;

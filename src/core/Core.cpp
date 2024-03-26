@@ -32,28 +32,36 @@ void Core::helpMessage()
     std::cout << "\tlibrary is the the graphics library to use initially" << std::endl;
 }
 
-void Core::handleEvents(std::unique_ptr<shared::graphics::IWindow> window)
+bool Core::handleEvents(std::vector<shared::graphics::events::Event> events)
 {
-    std::vector<shared::graphics::events::Event> events = window->getEvents();
     for (auto &event : events) {
         if (event.type == shared::graphics::events::EventType::KEY_PRESS) {
-            shared::graphics::events::KeyPressEvent keyEvent = std::get<shared::graphics::events::KeyPressEvent>(event);
+            shared::graphics::events::KeyPressEvent keyEvent =
+                static_cast<shared::graphics::events::KeyPressEvent &>(event);
             if (keyEvent.getKeyCode().arrow == shared::graphics::events::UP) {
-                window->close();
+                return false;
             }
         }
     }
+    return true;
 }
 
 void Core::runArcade()
 {
     std::shared_ptr<shared::games::IGame> game = _librariesGame->getCurrentGame();
-    std::shared_ptr<shared::graphics::IGraphicsProvider> renderer = _librariesRenderer->getCurrentLibrary();
-
+    std::shared_ptr<shared::graphics::IGraphicsProvider> renderer =
+        _librariesRenderer->getCurrentLibrary();
     std::unique_ptr<shared::graphics::IWindow> window = renderer.get()->createWindow({{800, 600},
         shared::graphics::WindowMode::FULLSCREEN, 60, "Ncurses Lib", "Arcade"});
+    std::vector<shared::graphics::events::Event> events;
+
     while (true) {
-        window->display();
+        events = window->getEvents();
+        if (handleEvents(events) == false) {
+            window->close();
+            return;
+        }
         window->clear();
+        window->display();
     }
 }

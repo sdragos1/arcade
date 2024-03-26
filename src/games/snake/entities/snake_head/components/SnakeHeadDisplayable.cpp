@@ -7,7 +7,7 @@
 
 #include "SnakeHeadDisplayable.hpp"
 
-SnakeHeadDisplayable::SnakeHeadDisplayable(entity::IEntity &entity)
+SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     :
     _id(),
     _entity(entity),

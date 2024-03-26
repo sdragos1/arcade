@@ -92,18 +92,18 @@ void NcursesWindow::render(const EntityProps &props)
 
 void NcursesWindow::clear()
 {
-    wrefresh(_window);
-    wclear(_window);
+    werase(_window);
 }
 
 void NcursesWindow::display()
 {
     renderTitle();
+    wrefresh(_window);
 }
 
 void NcursesWindow::close()
 {
-    _isOpen = false;
+    endwin();
 }
 
 bool NcursesWindow::isOpen() const
@@ -111,34 +111,31 @@ bool NcursesWindow::isOpen() const
     return _isOpen;
 }
 
-std::vector<events::KeyPressEvent> NcursesWindow::getEvents(void)
+std::vector<events::Event> NcursesWindow::getEvents(void)
 {
-    std::vector<events::KeyPressEvent> events;
-    int ch = getch();
+    int ch = wgetch(_window);
 
     if (ch != ERR) {
         switch (ch) {
-            case KEY_UP:
-                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::UP}));
+            case KEY_UP: {
+                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::UP}));
                 break;
+            }
             case KEY_DOWN:
-                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::DOWN}));
+                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::DOWN}));
                 break;
             case KEY_LEFT:
-                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::LEFT}));
+                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::LEFT}));
                 break;
             case KEY_RIGHT:
-                events.emplace_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::RIGHT}));
+                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::RIGHT}));
                 break;
             default:
                 break;
         }
     }
-    return events;
+    return _events;
 }
-
-
-
 
 void NcursesWindow::renderTitle() const
 {
