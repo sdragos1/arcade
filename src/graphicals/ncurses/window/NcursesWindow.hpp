@@ -11,6 +11,7 @@
 #include <ncurses.h>
 #include "graphics/events/key/KeyPressEvent.hpp"
 #include "graphics/window/IWindow.hpp"
+#include "events/NcursesEvents.hpp"
 
 using namespace shared::graphics;
 

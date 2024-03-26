@@ -21,7 +21,8 @@ const shared::graphics::GraphicsManifest &NcursesProvider::getManifest(void) con
     return NcursesManifest;
 }
 
-std::unique_ptr<shared::graphics::IWindow> NcursesProvider::createWindow(const WindowInitProps &settings)
+std::unique_ptr<shared::graphics::IWindow>
+NcursesProvider::createWindow(const WindowInitProps &settings)
 {
     return std::make_unique<NcursesWindow>(settings);
 }

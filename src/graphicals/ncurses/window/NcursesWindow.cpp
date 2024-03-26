@@ -116,23 +116,7 @@ std::vector<events::Event> NcursesWindow::getEvents(void)
     int ch = wgetch(_window);
 
     if (ch != ERR) {
-        switch (ch) {
-            case KEY_UP: {
-                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::UP}));
-                break;
-            }
-            case KEY_DOWN:
-                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::DOWN}));
-                break;
-            case KEY_LEFT:
-                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::LEFT}));
-                break;
-            case KEY_RIGHT:
-                _events.push_back(events::KeyPressEvent(events::KeyType::ARROW, events::KeyCode{.arrow = events::ArrowCode::RIGHT}));
-                break;
-            default:
-                break;
-        }
+        _events.push_back(NcursesEvents::getNcursesEvent(ch));
     }
     return _events;
 }

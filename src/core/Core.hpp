@@ -43,6 +43,7 @@ class Core
          */
         void helpMessage();
 
+        void handleEntities(std::vector<shared::graphics::EntityProps> entities);
         bool handleEvents(std::vector<shared::graphics::events::Event> events);
         void runArcade();
 
