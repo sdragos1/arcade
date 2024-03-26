@@ -29,7 +29,7 @@ static GraphicsManifest NcursesManifest = {
     .version = "1.0.0",
     .authors = {
         {
-            .name = "Epitech",
+            .name = "Dragos",
             .email = "dragos.suceveanu@epitech.eu",
             .website = "https://www.epitech.eu"
         }

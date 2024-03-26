@@ -1,5 +1,5 @@
 function(create_graphic_library TARGET_NAME DEPENDENCY)
-    file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp")
+    file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp" "abstracts/*.cpp")
 
     set(LIB_NAME arcade_${TARGET_NAME})
 
