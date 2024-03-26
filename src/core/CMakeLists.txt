@@ -5,9 +5,12 @@ set(SRCS_CORE
     Core.cpp
     library/GraphicList.cpp
     library/GameList.cpp
-    library/loader/Directory.cpp)
+    library/loader/Directory.cpp
+    ${PROJECT_SOURCE_DIR}/common/types/UUId.cpp)
 
 add_executable(arcade ${SRCS_CORE})
+
+target_link_libraries(arcade uuid)
 
 target_compile_options(arcade PRIVATE -fno-gnu-unique)
 

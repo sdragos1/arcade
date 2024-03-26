@@ -16,12 +16,12 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     _zIndex(1),
     _textureProps(
         {
-            {
-            "assets/readme_image.png",
-            "",
-                {0, 0}
+            .sources = {
+                .ascii = "$",
+                .bin = "$",
+                .binTileSize = {0, 0}
             },
-            {0, 0}
+            .origin = {0, 0}
         }
     )
 {

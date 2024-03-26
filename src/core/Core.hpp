@@ -14,11 +14,13 @@
 #include <dirent.h>
 #include "library/GameList.hpp"
 #include "library/GraphicList.hpp"
-#include "../common/games/IGame.hpp"
+#include "games/IGame.hpp"
 #include "library/loader/Directory.hpp"
-#include "../common/types/Libraries.hpp"
-#include "../common/graphics/IGraphicsProvider.hpp"
-#include "../common/graphics/events/key/KeyPressEvent.hpp"
+#include "types/Libraries.hpp"
+#include "graphics/IGraphicsProvider.hpp"
+#include "graphics/events/key/KeyPressEvent.hpp"
+#include "games/components/IComponent.hpp"
+#include "games/components/IDisplayableComponent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 
@@ -33,7 +35,7 @@ class Core
             PREV_GAME,
             NEXT_GRAPHICS,
             PREV_GRAPHICS,
-        } GeneralEventType ;
+        } GeneralEventType;
 
         /**
          * @brief Constructor of Core Class
@@ -47,20 +49,23 @@ class Core
          */
         ~Core();
 
-        /**
-         * @brief Display how to use the arcade binary
-         *
-         */
-        void helpMessage();
-
-        void handleEntities(std::vector<shared::graphics::EntityProps> entities);
-        GeneralEventType handleEvents(std::vector<shared::graphics::events::Event> events);
         void runArcade();
 
     private:
-        std::vector<std::string>        _librariesPath;
+        void _init();
+
+        GeneralEventType _handleEvents(std::vector<shared::graphics::events::Event> events);
+
+
+        void _displayEntities(shared::games::entity::EntitiesMap entities);
+        void _displayEntity(std::shared_ptr<shared::games::components::IDisplayableComponent> displayable);
+
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
+        std::map<void *, std::shared_ptr<shared::graphics::ITexture>> _textures;
+        std::shared_ptr<shared::games::IGame> _currGame;
+        std::shared_ptr<shared::graphics::IGraphicsProvider> _currRenderer;
+        std::unique_ptr<shared::graphics::IWindow> _currWindow;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

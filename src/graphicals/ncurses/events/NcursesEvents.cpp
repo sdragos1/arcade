@@ -28,6 +28,6 @@ shared::graphics::events::Event NcursesEvents::getNcursesEvent(int key)
         case KEY_RIGHT:
             return KeyPressEvent(KeyType::ARROW, KeyCode{.arrow = ArrowCode::RIGHT});
         default:
-            return KeyPressEvent(KeyType::ARROW, KeyCode{.arrow = ArrowCode::UP});
+            return KeyPressEvent(KeyType::ARROW, KeyCode{.arrow = ArrowCode::DOWN});
     }
 }

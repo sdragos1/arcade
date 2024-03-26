@@ -12,6 +12,7 @@
 #include "graphics/events/key/KeyPressEvent.hpp"
 #include "events/NcursesEvents.hpp"
 #include "../../abstracts/window/AWindow.hpp"
+#include "../ressources/texture/NcursesTexture.hpp"
 
 using namespace shared::graphics;
 

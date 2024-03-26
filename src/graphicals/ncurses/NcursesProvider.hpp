@@ -8,6 +8,7 @@
 #pragma once
 
 #include "window/NcursesWindow.hpp"
+#include "ressources/texture/NcursesTexture.hpp"
 #include "graphics/IGraphicsProvider.hpp"
 
 using namespace shared::graphics;

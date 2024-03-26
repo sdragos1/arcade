@@ -32,7 +32,11 @@ NcursesWindow::~NcursesWindow()
 
 void NcursesWindow::render(const EntityProps &props)
 {
-    (void)props;
+    std::shared_ptr<NcursesTexture> texture = std::dynamic_pointer_cast<NcursesTexture>(props.textureProps.texture);
+    std::string ascii = texture->getAscii();
+    Vector2u size = props.size;
+    Vector2i position = props.position;
+    mvwprintw(_window, position.y, position.x, "%s", ascii.c_str());
 }
 
 void NcursesWindow::clear()
