@@ -102,7 +102,8 @@ void SFMLWindow::render(const shared::graphics::TextureProps &props)
         sf::Texture entityTexture = sfmlTexture->getTexture();
         sf::Sprite sprite(entityTexture);
 
-        sf::IntRect rect(0, 0, props.size.x * props.binTileSize.x, props.size.y * props.binTileSize.y);
+        sf::IntRect rect
+        (0, 0, props.size.x * props.binTileSize.x, props.size.y * props.binTileSize.y);
         sprite.setTextureRect(rect);
 
         sprite.setOrigin(
@@ -125,23 +126,36 @@ void SFMLWindow::render(const shared::graphics::TextProps &props)
 
     if (sfmlFont != nullptr) {
         sf::Text text;
-        text.setFont(sfmlFont->getFont());
+        sf::Font font;
+        font.loadFromFile(sfmlFont->getPath());
+
+        text.setFont(font);
         text.setString(props.content);
-        
-        // text.setSC
+        text.setCharacterSize(props.fontSize);
+
         sf::Color colorFont(props.color.r, props.color.g, props.color.b, props.color.a);
         text.setFillColor(colorFont);
 
-        if (props.align == shared::graphics::TextAlign::CENTER)
-            horizontal = _window.getSize().x / 2;
-        if (props.verticalAlign == shared::graphics::TextVerticalAlign::MIDDLE)
-            horizontal = _window.getSize().y / 2;
+        if (props.align == shared::graphics::TextAlign::LEFT) {
+            horizontal = 0;
+        } else if (props.align == shared::graphics::TextAlign::CENTER) {
+            horizontal = (_window.getSize().x / 2) - (text.getLocalBounds().width / 2);
+        } else {
+            horizontal = (_window.getSize().x) - (text.getLocalBounds().width);
+        }
+        if (props.verticalAlign == shared::graphics::TextVerticalAlign::TOP) {
+            vertical = 0;
+        } else if (props.verticalAlign == shared::graphics::TextVerticalAlign::MIDDLE) {
+            vertical = (_window.getSize().y / 2) - (text.getLocalBounds().height / 2);
+        } else {
+            vertical = (_window.getSize().y) - (text.getLocalBounds().height);
+        }
 
         float posX = static_cast<float>(props.position.x);
         float posY = static_cast<float>(props.position.y);
 
-        text.setOrigin((sf::Vector2f) {posX, posY});
-        text.setPosition((sf::Vector2f) {posX * 1, posY * 1});
+        text.setPosition((sf::Vector2f) {horizontal + (props.position.x),
+        vertical + (props.position.y)});
         _window.draw(text);
     }
 }

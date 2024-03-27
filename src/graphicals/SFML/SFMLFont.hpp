@@ -20,8 +20,8 @@ class SFMLFont : public shared::graphics::IFont
 
         ~SFMLFont();
 
-        sf::Font getFont() const;
+        std::string getPath() const;
 
     private:
-        sf::Font _entitieFont;
+        std::string _path;
 };
