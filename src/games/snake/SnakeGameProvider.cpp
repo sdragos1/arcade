@@ -17,10 +17,10 @@ SnakeGameProvider::~SnakeGameProvider()
 
 const GameManifest &SnakeGameProvider::getManifest() const noexcept
 {
-    return _snakeGameManifest;
+    return snakeGameManifest;
 }
 
-std::shared_ptr<IGame> SnakeGameProvider::createGame()
+std::shared_ptr<IGame> SnakeGameProvider::createInstance()
 {
     return std::make_shared<SnakeGame>();
 }

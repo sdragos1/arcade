@@ -14,15 +14,13 @@
 
 using namespace shared::games;
 
-class SnakeGameProvider ; public IGameProvider {
+class SnakeGameProvider : public IGameProvider {
     public:
         SnakeGameProvider();
         ~SnakeGameProvider();
 
         const GameManifest &getManifest() const noexcept override;
-        std::shared_ptr<IGame> createGame() override;
-    protected:
-    private:
+        std::shared_ptr<IGame> createInstance() override;
 };
 
 #endif /* !SNAKEGAMEPROVIDER_HPP_ */
