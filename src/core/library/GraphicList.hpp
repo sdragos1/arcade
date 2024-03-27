@@ -49,11 +49,11 @@ class GraphicList
          * @brief Get the Current Library object
          * @return std::shared_ptr<shared::graphics::IGraphicsProvider> Current Library
          */
-        std::shared_ptr<shared::graphics::IGraphicsProvider> getCurrentLibrary();
+        shared::graphics::IGraphicsProvider *getCurrentLibrary();
 
     protected:
-        std::vector<std::shared_ptr<shared::graphics::IGraphicsProvider>>   _libraryList;
-        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::graphics::IGraphicsProvider>>>>
+        std::vector<shared::graphics::IGraphicsProvider *>   _libraryList;
+        std::vector<std::shared_ptr<DLLoader<shared::graphics::IGraphicsProvider *>>>
         _libraryLoader;
         std::size_t     _index;
 };
