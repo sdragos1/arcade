@@ -5,8 +5,8 @@
 ** Core
 */
 
-#include "Core.hpp"
 #include <iostream>
+#include "Core.hpp"
 
 Core::Core(std::string defaultLib)
 {
@@ -26,8 +26,4 @@ Core::~Core()
 {
 }
 
-void Core::helpMessage()
-{
-    std::cout << "USAGE: ./arcade library" << std::endl;
-    std::cout << "\tlibrary is the the graphics library to use initially" << std::endl;
-}
+
