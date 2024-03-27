@@ -62,7 +62,7 @@ void Core::_displayEntities(shared::games::entity::EntitiesMap entities)
         components = entity->getComponents();
         for (auto &component : components) {
             type = component->getType();
-            if (type == shared::games::components::ComponentType::DISPLAYABLE) {
+            if (type == shared::games::components::ComponentType::TEXTURE) {
                 _displayEntity(std::dynamic_pointer_cast<shared::games::components::ITextureComponent>(component));
             }
         }
@@ -72,6 +72,10 @@ void Core::_displayEntities(shared::games::entity::EntitiesMap entities)
 Core::GeneralEventType Core::_handleEvents(shared::games::entity::EntitiesMap entities)
 {
     std::vector<shared::graphics::events::EventPtr> events = _currWindow->getEvents();
+
+    if (events.size() == 0) {
+        return Core::GeneralEventType::NONE;
+    }
     for (auto &event : events) {
         if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
             std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent = std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);

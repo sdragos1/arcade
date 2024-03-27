@@ -59,14 +59,20 @@ void NcursesWindow::close()
     endwin();
 }
 
-std::vector<events::EventPtr> NcursesWindow::getEvents(void)
+std::vector<shared::graphics::events::EventPtr> NcursesWindow::getEvents()
 {
-    int ch = wgetch(_window);
+    std::vector<shared::graphics::events::EventPtr> eventsList;
 
-    if (ch != ERR) {
-        _events.push_back(NcursesEvents::getNcursesEvent(ch));
+    int ch;
+    while ((ch = getch()) != ERR) {
+        shared::graphics::events::IKeyEvent::KeyType keyType = NcursesEvents::mapNcursesKeyToKeyType(ch);
+        if (keyType != shared::graphics::events::IKeyEvent::UNKNOWN) {
+            eventsList.push_back(std::make_shared<shared::graphics::events::KeyPressedEvent>(
+                keyType, NcursesEvents::mapNcursesKeyToKeyCode(ch, keyType)));
+        }
     }
-    return _events;
+
+    return eventsList;
 }
 
 void NcursesWindow::renderTitle() const

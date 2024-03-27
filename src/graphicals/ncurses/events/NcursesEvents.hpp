@@ -7,16 +7,19 @@
 
 #pragma once
 
+#include <cctype>
 #include <ncurses.h>
 #include "events/key/KeyPressedEvent.hpp"
 #include "graphics/events/IEvent.hpp"
 
-using namespace shared::graphics::events;
+using namespace shared::graphics;
 
 class NcursesEvents {
     public:
         NcursesEvents();
         ~NcursesEvents();
 
-        static shared::graphics::events::EventPtr getNcursesEvent(int key);
+        static shared::graphics::events::IKeyEvent::KeyType mapNcursesKeyToKeyType(int key);
+        static shared::graphics::events::IKeyEvent::KeyCode mapNcursesKeyToKeyCode(int key,
+            shared::graphics::events::IKeyEvent::KeyType type);
 };

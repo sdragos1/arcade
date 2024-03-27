@@ -32,7 +32,7 @@ SnakeHeadDisplayable::~SnakeHeadDisplayable()
 
 const components::ComponentType SnakeHeadDisplayable::getType() const noexcept
 {
-    return components::DISPLAYABLE;
+    return components::ComponentType::TEXTURE;
 }
 
 const entity::IEntity &SnakeHeadDisplayable::getEntity() noexcept

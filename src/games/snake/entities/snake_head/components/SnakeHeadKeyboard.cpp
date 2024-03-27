@@ -32,7 +32,7 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyD
     (void)ctx;
     std::shared_ptr<SnakeHeadDisplayable> displayable = nullptr;
     for (auto &component : _entity.getComponents()) {
-        if (component->getType() == components::DISPLAYABLE) {
+        if (component->getType() == components::ComponentType::TEXTURE) {
             displayable = std::dynamic_pointer_cast<SnakeHeadDisplayable>(component);
             break;
         }
