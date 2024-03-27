@@ -49,8 +49,8 @@ extern "C" shared::types::LibraryType SHARED_LIBRARY_TYPE_GETTER_NAME()
     return shared::types::LibraryType::GRAPHIC;
 }
 
-extern "C" std::shared_ptr<shared::graphics::IGraphicsProvider>
-SHARED_GRAPHICS_PROVIDER_LOADER_NAME(void)
+extern "C" shared::graphics::IGraphicsProvider *
+SHARED_GRAPHICS_PROVIDER_GETTER_NAME(void)
 {
-    return std::make_shared<SFML>();
+    return new SFML();
 }
