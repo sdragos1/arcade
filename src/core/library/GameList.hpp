@@ -54,7 +54,7 @@ class GameList
 
     protected:
         std::vector<std::shared_ptr<shared::games::IGame>> _libraryList;
-        std::vector<std::shared_ptr<DLLoader<std::shared_ptr<shared::games::IGameProvider>>>>
+        std::vector<std::shared_ptr<DLLoader<shared::games::IGameProvider *>>>
         _libraryLoader;
         std::size_t _index;
 };
