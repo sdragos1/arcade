@@ -7,7 +7,7 @@
 
 #include "AWindow.hpp"
 
-AWindow::AWindow(const shared::graphics::WindowInitProps &props)
+AWindow::AWindow(const shared::graphics::IWindow::WindowInitProps &props)
     : _title(props.title),
     _size(props.size),
     _mode(props.mode),
@@ -24,11 +24,6 @@ AWindow::~AWindow()
 void AWindow::setTitle(const std::string &title)
 {
     _title = title;
-}
-
-std::string AWindow::getTitle() const
-{
-    return _title;
 }
 
 void AWindow::setSize(Vector2u size)
@@ -51,12 +46,12 @@ unsigned int AWindow::getFramerateLimit() const
     return _fps;
 }
 
-void AWindow::setMode(shared::graphics::WindowMode mode)
+void AWindow::setMode(shared::graphics::IWindow::WindowMode mode)
 {
     _mode = mode;
 }
 
-shared::graphics::WindowMode AWindow::getMode() const
+shared::graphics::IWindow::WindowMode AWindow::getMode() const
 {
     return _mode;
 }
@@ -69,9 +64,4 @@ void AWindow::setIcon(const std::string &icon)
 bool AWindow::isOpen(void) const
 {
     return _isOpen;
-}
-
-const std::string &AWindow::getIcon() const
-{
-    return _icon;
 }

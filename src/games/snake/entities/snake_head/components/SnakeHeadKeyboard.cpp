@@ -9,7 +9,6 @@
 
 SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
     :
-    _id(),
     _entity(entity)
 {
 }
@@ -23,11 +22,6 @@ const components::ComponentType SnakeHeadKeyboard::getType() const noexcept
     return components::KEYBOARD;
 }
 
-const UUId &SnakeHeadKeyboard::getId() const noexcept
-{
-    return _id;
-}
-
 const entity::IEntity &SnakeHeadKeyboard::getEntity() noexcept
 {
     return _entity;
@@ -38,8 +32,8 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyD
     (void)ctx;
     std::shared_ptr<SnakeHeadDisplayable> displayable = nullptr;
     for (auto &component : _entity.getComponents()) {
-        if (component.second->getType() == components::DISPLAYABLE) {
-            displayable = std::dynamic_pointer_cast<SnakeHeadDisplayable>(component.second);
+        if (component->getType() == components::DISPLAYABLE) {
+            displayable = std::dynamic_pointer_cast<SnakeHeadDisplayable>(component);
             break;
         }
     }

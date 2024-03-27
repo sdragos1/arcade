@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <map>
 #include <iostream>
 #include <dirent.h>
 #include "library/GameList.hpp"
@@ -18,9 +19,11 @@
 #include "library/loader/Directory.hpp"
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
+#include "graphics/IWindow.hpp"
 #include "games/components/IComponent.hpp"
-#include "games/components/IDisplayableComponent.hpp"
+#include "games/components/ITextureComponent.hpp"
 #include "games/components/IKeyboardComponent.hpp"
+#include "events/key/KeyPressedEvent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 
@@ -54,12 +57,11 @@ class Core
     private:
         void _init();
 
-        GeneralEventType _handleEvents(std::vector<shared::graphics::events::Event> events,
-        shared::games::entity::EntitiesMap entities);
+        GeneralEventType _handleEvents(shared::games::entity::EntitiesMap entities);
 
 
         void _displayEntities(shared::games::entity::EntitiesMap entities);
-        void _displayEntity(std::shared_ptr<shared::games::components::IDisplayableComponent> displayable);
+        void _displayEntity(std::shared_ptr<shared::games::components::ITextureComponent> displayable);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;

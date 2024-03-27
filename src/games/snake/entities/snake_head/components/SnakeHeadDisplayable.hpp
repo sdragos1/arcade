@@ -7,18 +7,17 @@
 
 #pragma once
 
-#include "games/components/IDisplayableComponent.hpp"
+#include "games/components/ITextureComponent.hpp"
 
 using namespace shared::games;
 
-class SnakeHeadDisplayable : public components::IDisplayableComponent {
+class SnakeHeadDisplayable : public components::ITextureComponent {
     public:
         explicit SnakeHeadDisplayable(const entity::IEntity &entity);
         ~SnakeHeadDisplayable();
 
         // IComponent
         const components::ComponentType getType() const noexcept override;
-        const UUId &getId() const noexcept override;
         const entity::IEntity &getEntity() noexcept override;
 
         // DisplayableComponent
@@ -34,7 +33,6 @@ class SnakeHeadDisplayable : public components::IDisplayableComponent {
         Vector2i _position;
 
     private:
-        UUId _id;
         const entity::IEntity &_entity;
         Vector2u _size;
         unsigned int _zIndex;

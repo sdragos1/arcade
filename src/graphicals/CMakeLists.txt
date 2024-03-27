@@ -5,7 +5,7 @@ function(create_graphic_library TARGET_NAME DEPENDENCY)
 
     add_library(${LIB_NAME} SHARED ${LIB_SOURCES})
 
-    target_include_directories(${LIB_NAME} PUBLIC ${TARGET_NAME} ${PROJECT_SOURCE_DIR}/common)
+    target_include_directories(${LIB_NAME} PUBLIC ${TARGET_NAME} ${PROJECT_SOURCE_DIR}/common ${PROJECT_SOURCE_DIR}/shared)
 
     set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 

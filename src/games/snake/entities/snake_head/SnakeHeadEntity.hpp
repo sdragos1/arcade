@@ -18,10 +18,8 @@ class SnakeHeadEntity : public entity::IEntity {
         SnakeHeadEntity();
         ~SnakeHeadEntity();
 
-        const shared::types::UUId &getId(void) const noexcept override;
         const components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:
-        shared::types::UUId _id;
         components::ComponentsMap _components;
 };

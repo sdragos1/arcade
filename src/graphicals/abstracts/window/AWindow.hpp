@@ -7,31 +7,27 @@
 
 #pragma once
 
-#include "graphics/window/IWindow.hpp"
-
-using namespace shared::types;
+#include "graphics/IWindow.hpp"
 
 class AWindow : public shared::graphics::IWindow {
     public:
-        explicit AWindow(const shared::graphics::WindowInitProps &props);
+        explicit AWindow(const shared::graphics::IWindow::WindowInitProps &props);
         ~AWindow();
 
         void setTitle(const std::string &title) override;
-        std::string getTitle() const override;
         void setSize(Vector2u size) override;
         Vector2u getSize() const override;
         void setFramerateLimit(unsigned int framerate) override;
         unsigned int getFramerateLimit() const override;
-        void setMode(shared::graphics::WindowMode mode) override;
-        shared::graphics::WindowMode getMode() const override;
+        void setMode(shared::graphics::IWindow::WindowMode mode) override;
+        shared::graphics::IWindow::WindowMode getMode() const override;
         void setIcon(const std::string &icon) override;
         bool isOpen(void) const override;
-        const std::string &getIcon() const override;
 
     protected:
         std::string _title;
         Vector2u _size;
-        shared::graphics::WindowMode _mode;
+        shared::graphics::IWindow::WindowMode _mode;
         std::string _icon;
         unsigned int _fps;
         bool _isOpen;

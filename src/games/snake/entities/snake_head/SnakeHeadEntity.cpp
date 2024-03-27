@@ -8,26 +8,19 @@
 #include "SnakeHeadEntity.hpp"
 
 SnakeHeadEntity::SnakeHeadEntity()
-    :
-    _id()
-    , _components()
+    : _components()
 {
     std::shared_ptr<SnakeHeadDisplayable> displayable =
         std::make_shared<SnakeHeadDisplayable>(*this);
     std::shared_ptr<SnakeHeadKeyboard> keyboard =
         std::make_shared<SnakeHeadKeyboard>(*this);
 
-    _components[displayable->getId()] = displayable;
-    _components[keyboard->getId()] = keyboard;
+    _components.push_back(displayable);
+    _components.push_back(keyboard);
 }
 
 SnakeHeadEntity::~SnakeHeadEntity()
 {
-}
-
-const shared::types::UUId &SnakeHeadEntity::getId(void) const noexcept
-{
-    return _id;
 }
 
 const components::ComponentsMap &SnakeHeadEntity::getComponents(void) const noexcept

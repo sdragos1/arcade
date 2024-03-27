@@ -22,7 +22,7 @@ const shared::graphics::GraphicsManifest &NcursesProvider::getManifest(void) con
 }
 
 std::unique_ptr<shared::graphics::IWindow>
-NcursesProvider::createWindow(const WindowInitProps &settings)
+NcursesProvider::createWindow(const shared::graphics::IWindow::WindowInitProps &settings)
 {
     return std::make_unique<NcursesWindow>(settings);
 }
@@ -36,6 +36,11 @@ std::shared_ptr<shared::graphics::ITexture> NcursesProvider::createTexture(const
 const std::string &ascii)
 {
     return std::make_shared<NcursesTexture>(ascii, path);
+}
+
+std::shared_ptr<IFont> NcursesProvider::createFont(const std::string &path)
+{
+    return nullptr;
 }
 
 extern "C" {

@@ -9,7 +9,8 @@
 
 #include <iostream>
 #include <ncurses.h>
-#include "graphics/events/key/KeyPressEvent.hpp"
+#include <memory>
+#include "events/key/KeyPressedEvent.hpp"
 #include "events/NcursesEvents.hpp"
 #include "../../abstracts/window/AWindow.hpp"
 #include "../ressources/texture/NcursesTexture.hpp"
@@ -21,15 +22,16 @@ class NcursesWindow : public AWindow {
         explicit NcursesWindow(const WindowInitProps &props);
         ~NcursesWindow();
 
-        void render(const EntityProps &props) override;
+        void render(const TextureProps &props) override;
+        void render(const TextProps &props) override;
         void clear() override;
         void display() override;
         void close() override;
-        std::vector<events::Event> getEvents(void) override;
+        std::vector<events::EventPtr> getEvents(void) override;
 
     private:
         void renderTitle() const;
 
         WINDOW *_window;
-        std::vector<events::Event> _events;
+        std::vector<events::EventPtr> _events;
 };

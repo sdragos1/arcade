@@ -8,7 +8,8 @@
 #pragma once
 
 #include <ncurses.h>
-#include "graphics/events/key/KeyPressEvent.hpp"
+#include "events/key/KeyPressedEvent.hpp"
+#include "graphics/events/IEvent.hpp"
 
 using namespace shared::graphics::events;
 
@@ -17,5 +18,5 @@ class NcursesEvents {
         NcursesEvents();
         ~NcursesEvents();
 
-        static shared::graphics::events::Event getNcursesEvent(int key);
+        static shared::graphics::events::EventPtr getNcursesEvent(int key);
 };

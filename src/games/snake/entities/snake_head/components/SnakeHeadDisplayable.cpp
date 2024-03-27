@@ -9,7 +9,6 @@
 
 SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     :
-    _id(),
     _entity(entity),
     _position({0, 0}),
     _size({1, 1}),
@@ -34,11 +33,6 @@ SnakeHeadDisplayable::~SnakeHeadDisplayable()
 const components::ComponentType SnakeHeadDisplayable::getType() const noexcept
 {
     return components::DISPLAYABLE;
-}
-
-const UUId &SnakeHeadDisplayable::getId() const noexcept
-{
-    return _id;
 }
 
 const entity::IEntity &SnakeHeadDisplayable::getEntity() noexcept

@@ -11,7 +11,7 @@ SnakeGame::SnakeGame()
     :   _entities()
 {
     SnakeHeadEntity head;
-    _entities[head.getId()] = std::make_shared<SnakeHeadEntity>(head);
+    _entities.push_back(std::make_shared<SnakeHeadEntity>(head));
 }
 
 SnakeGame::~SnakeGame()
@@ -37,11 +37,6 @@ const Vector2u SnakeGame::getSize(void) const noexcept
 const entity::EntitiesMap &SnakeGame::getEntities(void) const
 {
     return _entities;
-}
-
-std::shared_ptr<entity::IEntity> SnakeGame::getEntityById(const UUId &id) const
-{
-    return _entities.at(id);
 }
 
 const unsigned int SnakeGame::getFps() const noexcept

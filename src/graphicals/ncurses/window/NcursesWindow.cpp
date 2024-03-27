@@ -30,13 +30,17 @@ NcursesWindow::~NcursesWindow()
     endwin();
 }
 
-void NcursesWindow::render(const EntityProps &props)
+void NcursesWindow::render(const TextureProps &props)
 {
-    std::shared_ptr<NcursesTexture> texture = std::dynamic_pointer_cast<NcursesTexture>(props.textureProps.texture);
+    std::shared_ptr<NcursesTexture> texture = std::dynamic_pointer_cast<NcursesTexture>(props.texture);
     std::string ascii = texture->getAscii();
     Vector2u size = props.size;
     Vector2i position = props.position;
     mvwprintw(_window, position.y, position.x, "%s", ascii.c_str());
+}
+
+void NcursesWindow::render(const TextProps &props)
+{
 }
 
 void NcursesWindow::clear()
@@ -55,7 +59,7 @@ void NcursesWindow::close()
     endwin();
 }
 
-std::vector<events::Event> NcursesWindow::getEvents(void)
+std::vector<events::EventPtr> NcursesWindow::getEvents(void)
 {
     int ch = wgetch(_window);
 
