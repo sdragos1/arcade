@@ -94,23 +94,69 @@ void SFMLWindow::setIcon(const std::string &icon)
     _icon = icon;
 }
 
-void SFMLWindow::render(const shared::graphics::EntityProps &props)
+void SFMLWindow::render(const shared::graphics::TextureProps &props)
 {
-    auto sfmlTexture = std::dynamic_pointer_cast<SFMLTexture>(props.textureProps.texture);
+    auto sfmlTexture = std::dynamic_pointer_cast<SFMLTexture>(props.texture);
 
     if (sfmlTexture != nullptr) {
         sf::Texture entityTexture = sfmlTexture->getTexture();
         sf::Sprite sprite(entityTexture);
 
+        sf::IntRect rect
+        (0, 0, props.size.x * props.binTileSize.x, props.size.y * props.binTileSize.y);
+        sprite.setTextureRect(rect);
+
         sprite.setOrigin(
-        props.textureProps.origin.x * props.textureProps.binTileSize.x,
-        props.textureProps.origin.y * props.textureProps.binTileSize.y);
+        props.origin.x * props.binTileSize.x,
+        props.origin.y * props.binTileSize.y);
 
         sprite.setPosition(
-        props.position.x * props.textureProps.binTileSize.x,
-        props.position.y * props.textureProps.binTileSize.y);
+        props.position.x * props.binTileSize.x,
+        props.position.y * props.binTileSize.y);
 
         _window.draw(sprite);
+    }
+}
+
+void SFMLWindow::render(const shared::graphics::TextProps &props)
+{
+    auto sfmlFont = std::dynamic_pointer_cast<SFMLFont>(props.font);
+    float vertical = 0.0;
+    float horizontal = 0.0;
+
+    if (sfmlFont != nullptr) {
+        sf::Text text;
+        sf::Font font;
+        font.loadFromFile(sfmlFont->getPath());
+
+        text.setFont(font);
+        text.setString(props.content);
+        text.setCharacterSize(props.fontSize);
+
+        sf::Color colorFont(props.color.r, props.color.g, props.color.b, props.color.a);
+        text.setFillColor(colorFont);
+
+        if (props.align == shared::graphics::TextAlign::LEFT) {
+            horizontal = 0;
+        } else if (props.align == shared::graphics::TextAlign::CENTER) {
+            horizontal = (_window.getSize().x / 2) - (text.getLocalBounds().width / 2);
+        } else {
+            horizontal = (_window.getSize().x) - (text.getLocalBounds().width);
+        }
+        if (props.verticalAlign == shared::graphics::TextVerticalAlign::TOP) {
+            vertical = 0;
+        } else if (props.verticalAlign == shared::graphics::TextVerticalAlign::MIDDLE) {
+            vertical = (_window.getSize().y / 2) - (text.getLocalBounds().height / 2);
+        } else {
+            vertical = (_window.getSize().y) - (text.getLocalBounds().height);
+        }
+
+        float posX = static_cast<float>(props.position.x);
+        float posY = static_cast<float>(props.position.y);
+
+        text.setPosition((sf::Vector2f) {horizontal + (props.position.x),
+        vertical + (props.position.y)});
+        _window.draw(text);
     }
 }
 
