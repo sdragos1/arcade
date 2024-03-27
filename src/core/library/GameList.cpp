@@ -27,6 +27,9 @@ GameList::GameList(std::vector<std::string> allLibrariesPath)
 
 GameList::~GameList()
 {
+    for (int index = 0; index < _libraryList.size(); index++) {
+        _libraryList[index].reset();
+    }
 }
 
 std::size_t GameList::getNbGame() const
