@@ -10,13 +10,9 @@
 SnakeHeadEntity::SnakeHeadEntity()
     : _components()
 {
-    std::shared_ptr<SnakeHeadDisplayable> displayable =
-        std::make_shared<SnakeHeadDisplayable>(*this);
-    std::shared_ptr<SnakeHeadKeyboard> keyboard =
-        std::make_shared<SnakeHeadKeyboard>(*this);
-
+    std::shared_ptr<components::IComponent> displayable = std::make_shared<SnakeHeadDisplayable>(*this);
     _components.push_back(displayable);
-    _components.push_back(keyboard);
+    _components.push_back(std::make_shared<SnakeHeadKeyboard>(std::dynamic_pointer_cast<SnakeHeadDisplayable>(displayable)));
 }
 
 SnakeHeadEntity::~SnakeHeadEntity()

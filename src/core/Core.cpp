@@ -69,6 +69,30 @@ void Core::_displayEntities(shared::games::entity::EntitiesMap entities)
     }
 }
 
+void Core::_handleEntitiesKeyEvent(shared::games::entity::EntitiesMap entities,
+std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
+{
+    shared::games::components::ComponentsMap components;
+    shared::games::components::ComponentType type;
+    std::shared_ptr<shared::games::components::IKeyboardComponent> keyboard;
+    shared::graphics::events::IKeyEvent::KeyData keyData;
+
+    keyData = {
+        .code = keyEvent->getKeyCode(),
+        .type = keyEvent->getKeyType()
+    };
+    for (auto &entity : entities) {
+        components = entity->getComponents();
+        for (auto &component : components) {
+            type = component->getType();
+            if (type == shared::games::components::ComponentType::KEYBOARD) {
+                keyboard = std::dynamic_pointer_cast<shared::games::components::IKeyboardComponent>(component);
+                keyboard->onKeyPress(_currGame, keyData);
+            }
+        }
+    }
+}
+
 Core::GeneralEventType Core::_handleEvents(shared::games::entity::EntitiesMap entities)
 {
     std::vector<shared::graphics::events::EventPtr> events = _currWindow->getEvents();
@@ -78,17 +102,13 @@ Core::GeneralEventType Core::_handleEvents(shared::games::entity::EntitiesMap en
     }
     for (auto &event : events) {
         if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
-            std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent = std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
+            std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent =
+                std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
             if (keyEvent->getKeyCode().arrow == shared::graphics::events::IKeyEvent::UP) {
                 _currWindow->close();
                 return Core::GeneralEventType::EXIT;
             }
-            for (auto &entity: entities) {
-                for (auto &component : entity->getComponents()) {
-                    if (component->getType() == shared::games::components::ComponentType::KEYBOARD) {
-                    }
-                }
-            }
+            _handleEntitiesKeyEvent(entities, keyEvent);
         }
     }
     events.clear();

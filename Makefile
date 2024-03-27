@@ -20,6 +20,10 @@ fclean:	clean
 
 re:	fclean all
 
+debug: fclean
+	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+	cmake --build $(BUILD_PATH)
+
 tests_run: fclean
 	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON
 	cmake --build $(BUILD_PATH)

@@ -19,7 +19,6 @@ class SnakeHeadEntity : public entity::IEntity {
         ~SnakeHeadEntity();
 
         const components::ComponentsMap &getComponents(void) const noexcept override;
-
     private:
         components::ComponentsMap _components;
 };
