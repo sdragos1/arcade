@@ -71,7 +71,15 @@ void Core::_displayEntities(shared::games::entity::EntitiesMap entities)
     }
 }
 
-Core::GeneralEventType Core::_handleEvents(std::vector<shared::graphics::events::Event> events)
+void Core::_handleEntityEvent(std::shared_ptr<shared::games::components::IComponent> component,
+shared::graphics::events::KeyPressEvent keyEvent)
+{
+    std::shared_ptr<shared::games::components::IKeyboardComponent> keyboardComponent =
+        std::dynamic_pointer_cast<shared::games::components::IKeyboardComponent>(component);
+}
+
+Core::GeneralEventType Core::_handleEvents(std::vector<shared::graphics::events::Event> events,
+shared::games::entity::EntitiesMap entities)
 {
     for (auto &event : events) {
         if (event.type == shared::graphics::events::EventType::KEY_PRESS) {
@@ -81,8 +89,14 @@ Core::GeneralEventType Core::_handleEvents(std::vector<shared::graphics::events:
                 _currWindow->close();
                 return Core::GeneralEventType::EXIT;
             }
+            for (auto &entity: entities) {
+                for (auto &component : entity.second.get()->getComponents()) {
+                    if (component.second.get()->getType() == shared::games::components::ComponentType::KEYBOARD) {
+                        _handleEntityEvent(component.second, keyEvent);
+                    }
+                }
+            }
         }
-
     }
     events.clear();
     return Core::GeneralEventType::NONE;
@@ -95,11 +109,11 @@ void Core::runArcade()
     shared::games::entity::EntitiesMap gameEntities;
 
     while (true) {
+        gameEntities = _currGame->getEntities();
         events = _currWindow->getEvents();
-        if (_handleEvents(events) == Core::GeneralEventType::EXIT) {
+        if (_handleEvents(events, gameEntities) == Core::GeneralEventType::EXIT) {
             break;
         }
-        gameEntities = _currGame->getEntities();
         _currWindow->clear();
         _currWindow->display();
         _displayEntities(gameEntities);

@@ -18,9 +18,9 @@
 #include "library/loader/Directory.hpp"
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
-#include "graphics/events/key/KeyPressEvent.hpp"
 #include "games/components/IComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
+#include "games/components/IKeyboardComponent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 
@@ -54,7 +54,8 @@ class Core
     private:
         void _init();
 
-        GeneralEventType _handleEvents(std::vector<shared::graphics::events::Event> events);
+        GeneralEventType _handleEvents(std::vector<shared::graphics::events::Event> events,
+        shared::games::entity::EntitiesMap entities);
 
 
         void _displayEntities(shared::games::entity::EntitiesMap entities);
