@@ -14,13 +14,15 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "../SFMLTexture.hpp"
+#include "../SFMLFont.hpp"
 #include "../../../../common/types/Vector.hpp"
 #include "../../../../common/types/Libraries.hpp"
 #include "../../../../common/graphics/events/IEvent.hpp"
 #include "../../../../common/graphics/IWindow.hpp"
 #include "../../../../shared/events/WindowCloseEvent.hpp"
 #include "../../../../shared/events/WindowResizeEvent.hpp"
-#include "../../../../common/graphics/types/EntityProps.hpp"
+#include "../../../../common/graphics/types/TextProps.hpp"
+#include "../../../../common/graphics/types/TextureProps.hpp"
 #include "../../../../shared/events/key/KeyPressedEvent.hpp"
 #include "../../../../shared/events/key/KeyReleaseEvent.hpp"
 #include "../../../../shared/events/mouse/MouseMoveEvent.hpp"
@@ -51,7 +53,9 @@ class SFMLWindow : public shared::graphics::IWindow
 
         void setIcon(const std::string &icon) override;
 
-        void render(const shared::graphics::EntityProps &props) override;
+        void render(const shared::graphics::TextureProps &props) override;
+
+        void render(const shared::graphics::TextProps &props) override;
 
         void clear(void) override;
 

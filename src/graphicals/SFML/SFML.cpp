@@ -39,6 +39,11 @@ std::shared_ptr<shared::graphics::ITexture> SFML::createTexture
     return std::make_shared<SFMLTexture>(bin);
 }
 
+std::shared_ptr<shared::graphics::IFont> SFML::createFont(const std::string &path)
+{
+    return std::make_shared<SFMLFont>(path);
+}
+
 extern "C" shared::types::LibraryType SHARED_LIBRARY_TYPE_GETTER_NAME()
 {
     return shared::types::LibraryType::GRAPHIC;
