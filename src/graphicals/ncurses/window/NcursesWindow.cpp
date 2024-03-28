@@ -41,6 +41,11 @@ void NcursesWindow::render(const TextureProps &props)
 
 void NcursesWindow::render(const TextProps &props)
 {
+    std::string text = props.content;
+    Vector2i position = props.position;
+    wattron(_window, A_BOLD | COLOR_PAIR(1));
+    mvwprintw(_window, position.y + NCURSES_ORIGIN_OFFSET, position.x, "%s", text.c_str());
+    wattroff(_window, A_BOLD | COLOR_PAIR(1));
 }
 
 void NcursesWindow::clear()
@@ -79,33 +84,23 @@ void NcursesWindow::renderTitle() const
 {
         int titleLength = _title.length();
         int windowWidth = getmaxx(_window);
-
-        // Ensure title doesn't exceed window width
         if (titleLength >= windowWidth) {
             mvwprintw(_window, 0, 0, "Error: Title too long");
             return;
         }
-
-        // Calculate position for centering the title
         int titleX = (windowWidth - titleLength) / 2;
-
-        // Apply bold and color attributes to the title
-        wattron(_window, A_BOLD | COLOR_PAIR(1)); // Adjust color pair as needed
+        wattron(_window, A_BOLD | COLOR_PAIR(1));
         mvwprintw(_window, 0, titleX, "%s", _title.c_str());
         wattroff(_window, A_BOLD | COLOR_PAIR(1));
-
-        // Add padding around the title
         int padding = 2;
         for (int i = 0; i < padding; ++i) {
-            mvwprintw(_window, 0, titleX - i - 1, " "); // Left padding
-            mvwprintw(_window, 0, titleX + titleLength + i, " "); // Right padding
+            mvwprintw(_window, 0, titleX - i - 1, " ");
+            mvwprintw(_window, 0, titleX + titleLength + i, " ");
         }
-
-        // Draw a bar below the title spanning the width of the window
         int barWidth = windowWidth;
         int barX = 0;
-        int barY = 1; // Adjust the position of the bar as needed
-        wattron(_window, A_ALTCHARSET); // Enable drawing special characters
+        int barY = 1;
+        wattron(_window, A_ALTCHARSET);
         mvwhline(_window, barY, barX, ACS_HLINE, barWidth);
-        wattroff(_window, A_ALTCHARSET); // Disable drawing special characters
+        wattroff(_window, A_ALTCHARSET);
 }

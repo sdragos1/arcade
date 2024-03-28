@@ -10,6 +10,7 @@
 #include <iostream>
 #include "games/IGame.hpp"
 #include "../entities/snake_head/SnakeHeadEntity.hpp"
+#include "../entities/score/ScoreEntity.hpp"
 
 using namespace shared::games;
 

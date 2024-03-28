@@ -66,7 +66,9 @@ class Core
 
         GeneralEventType _handleEvents(shared::games::entity::EntitiesMap entities);
 
-        void _displayEntity(std::shared_ptr<shared::games::components::ITextureComponent> displayable);
+        // Display Functions
+        void _displayEntityTexture(std::shared_ptr<shared::games::components::ITextureComponent> displayable);
+        void _displayEntityText(std::shared_ptr<shared::games::components::ITextComponent> displayable);
         void _displayEntities(shared::games::entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;

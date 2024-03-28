@@ -40,7 +40,7 @@ const std::string &ascii)
 
 std::shared_ptr<IFont> NcursesProvider::createFont(const std::string &path)
 {
-    return nullptr;
+    return std::make_shared<NcursesFont>();
 }
 
 extern "C" {

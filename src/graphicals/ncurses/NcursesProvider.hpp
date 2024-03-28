@@ -10,6 +10,7 @@
 #include "window/NcursesWindow.hpp"
 #include "ressources/texture/NcursesTexture.hpp"
 #include "graphics/IGraphicsProvider.hpp"
+#include "ressources/font/NcursesFont.hpp"
 
 using namespace shared::graphics;
 
