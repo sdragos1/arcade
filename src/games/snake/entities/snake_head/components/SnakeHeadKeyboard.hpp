@@ -15,7 +15,7 @@ using namespace shared::games;
 
 class SnakeHeadKeyboard : public components::IKeyboardComponent {
     public:
-        explicit SnakeHeadKeyboard(std::shared_ptr<SnakeHeadDisplayable> displayable);
+        explicit SnakeHeadKeyboard(const entity::IEntity &entity);
         ~SnakeHeadKeyboard();
 
         // IComponent
@@ -23,8 +23,8 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
         const entity::IEntity &getEntity() noexcept override;
 
         // Keyboard
-        void onKeyPress(std::shared_ptr<IGame> &ctx, shared::graphics::events::IKeyEvent::KeyData key) override;
-        void onKeyRelease(std::shared_ptr<IGame> &ctx, shared::graphics::events::IKeyEvent::KeyData key) override;
+        void onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
+        void onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
     private:
-        std::shared_ptr<SnakeHeadDisplayable> _displayable;
+        const entity::IEntity &_entity;
 };

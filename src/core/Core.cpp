@@ -65,6 +65,10 @@ void Core::_displayEntities(shared::games::entity::EntitiesMap entities)
             if (type == shared::games::components::ComponentType::TEXTURE) {
                 _displayEntity(std::dynamic_pointer_cast<shared::games::components::ITextureComponent>(component));
             }
+            if (type == shared::games::components::ComponentType::TEXT) {
+                std::shared_ptr <shared::games::components::ITextComponent> textComponent =
+                    std::dynamic_pointer_cast<shared::games::components::ITextComponent>(component);
+            }
         }
     }
 }
@@ -74,12 +78,12 @@ std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
 {
     shared::games::components::ComponentsMap components;
     shared::games::components::ComponentType type;
-    std::shared_ptr<shared::games::components::IKeyboardComponent> keyboard;
-    shared::graphics::events::IKeyEvent::KeyData keyData;
+    std::shared_ptr<shared::games::components::IKeyboardComponent> keyboard = nullptr;
+    shared::games::components::IKeyboardComponent::KeyData keyData;
 
     keyData = {
-        .code = keyEvent->getKeyCode(),
-        .type = keyEvent->getKeyType()
+        .code = shared::games::components::IKeyboardComponent::ControlCode::ALT,
+        .type = shared::games::components::IKeyboardComponent::KeyType::CONTROL
     };
     for (auto &entity : entities) {
         components = entity->getComponents();
@@ -90,6 +94,33 @@ std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
                 keyboard->onKeyPress(_currGame, keyData);
             }
         }
+    }
+}
+
+Core::GeneralEventType Core::_coreEvents(std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
+{
+    switch (keyEvent->getKeyCode().character)
+    {
+        case 'a':
+            return Core::GeneralEventType::EXIT;
+            break;
+        case 'z':
+            return Core::GeneralEventType::NEXT_GAME;
+            break;
+        case 's':
+            return Core::GeneralEventType::PREV_GAME;
+            break;
+        case 'd':
+            return Core::GeneralEventType::NEXT_GRAPHICS;
+            break;
+        case 'q':
+            return Core::GeneralEventType::PREV_GRAPHICS;
+            break;
+        case 'r':
+            return Core::GeneralEventType::RESTART_GAME;
+            break;
+        default:
+            return Core::GeneralEventType::NONE;
     }
 }
 
@@ -104,8 +135,7 @@ Core::GeneralEventType Core::_handleEvents(shared::games::entity::EntitiesMap en
         if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
             std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent =
                 std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
-            if (keyEvent->getKeyCode().arrow == shared::graphics::events::IKeyEvent::UP) {
-                _currWindow->close();
+            if (_coreEvents(keyEvent) == Core::GeneralEventType::EXIT) {
                 return Core::GeneralEventType::EXIT;
             }
             _handleEntitiesKeyEvent(entities, keyEvent);

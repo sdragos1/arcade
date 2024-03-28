@@ -23,6 +23,7 @@
 #include "games/components/IComponent.hpp"
 #include "games/components/ITextureComponent.hpp"
 #include "games/components/IKeyboardComponent.hpp"
+#include "games/components/ITextComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
@@ -59,6 +60,8 @@ class Core
 
         void _handleEntitiesKeyEvent(shared::games::entity::EntitiesMap entities,
             std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent);
+
+        GeneralEventType _coreEvents(std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent);
 
         GeneralEventType _handleEvents(shared::games::entity::EntitiesMap entities);
 

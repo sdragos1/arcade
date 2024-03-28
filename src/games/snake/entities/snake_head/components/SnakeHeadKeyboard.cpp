@@ -7,8 +7,8 @@
 
 #include "SnakeHeadKeyboard.hpp"
 
-SnakeHeadKeyboard::SnakeHeadKeyboard(std::shared_ptr<SnakeHeadDisplayable> entityAdress)
-    : _displayable(entityAdress)
+SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
+    : _entity(entity)
 {
 }
 
@@ -23,29 +23,37 @@ const components::ComponentType SnakeHeadKeyboard::getType() const noexcept
 
 const entity::IEntity &SnakeHeadKeyboard::getEntity() noexcept
 {
+    return _entity;
 }
 
-void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, shared::graphics::events::IKeyEvent::KeyData key)
+void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx,
+    shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
-    std::shared_ptr<entity::IEntity> entity;
+    std::shared_ptr<SnakeHeadDisplayable> displayable = nullptr;
 
-    if (_displayable == nullptr)
+    for (auto &component : _entity.getComponents()) {
+        if (component->getType() == components::TEXTURE) {
+            displayable = std::dynamic_pointer_cast<SnakeHeadDisplayable>(component);
+            break;
+        }
+    }
+    if (displayable == nullptr)
         return;
-    if (key.type != shared::graphics::events::IKeyEvent::KeyType::ARROW)
+    if (key.type != shared::games::components::IKeyboardComponent::KeyType::ARROW)
         return;
-    if (key.code.arrow == shared::graphics::events::IKeyEvent::ArrowCode::UP) {
-        _displayable->_position.y -= 1;
-    } else if (key.code.arrow == shared::graphics::events::IKeyEvent::ArrowCode::DOWN) {
-        _displayable->_position.y += 1;
-    } else if (key.code.arrow == shared::graphics::events::IKeyEvent::ArrowCode::LEFT) {
-        _displayable->_position.x -= 1;
-    } else if (key.code.arrow == shared::graphics::events::IKeyEvent::ArrowCode::RIGHT) {
-        _displayable->_position.x += 1;
+    if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::UP) {
+        displayable->_position.y -= 1;
+    } else if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::DOWN) {
+        displayable->_position.y += 1;
+    } else if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::LEFT) {
+        displayable->_position.x -= 1;
+    } else if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::RIGHT) {
+        displayable->_position.x += 1;
     }
 }
 
-void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, shared::graphics::events::IKeyEvent::KeyData key)
+void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     (void)key;
