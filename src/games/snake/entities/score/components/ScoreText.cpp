@@ -12,13 +12,13 @@ ScoreText::ScoreText(const std::string &content, const shared::games::entity::IE
     _props(
         {
             content,
-            shared::games::components::ITextComponent::LEFT,
-            shared::games::components::ITextComponent::MIDDLE,
+            shared::games::components::ITextComponent::CENTER,
+            shared::games::components::ITextComponent::TOP,
             {
                 "assets/fonts/arcade.ttf",
                 30
             },
-            shared::types::Color(255, 255, 255, 255)
+            shared::types::Color(0, 0, 255, 255)
         }),
     _size(0, 0),
     _zIndex(2),

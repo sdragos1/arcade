@@ -43,9 +43,32 @@ void NcursesWindow::render(const TextProps &props)
 {
     std::string text = props.content;
     Vector2i position = props.position;
-    wattron(_window, A_BOLD | COLOR_PAIR(1));
-    mvwprintw(_window, position.y + NCURSES_ORIGIN_OFFSET, position.x, "%s", text.c_str());
-    wattroff(_window, A_BOLD | COLOR_PAIR(1));
+    int start_y = 0;
+    int start_x = 0;
+    switch (props.verticalAlign) {
+        case shared::graphics::TextVerticalAlign::TOP:
+            start_y = NCURSES_ORIGIN_OFFSET;
+            break;
+        case shared::graphics::TextVerticalAlign::MIDDLE:
+            start_y = getmaxy(_window) / 2;
+            break;
+        case shared::graphics::TextVerticalAlign::BOTTOM:
+            start_y = getmaxy(_window) - 1;
+            break;
+    }
+    switch (props.align) {
+        case shared::graphics::TextAlign::LEFT:
+            break;
+        case shared::graphics::TextAlign::CENTER:
+            start_x = (getmaxx(_window) - text.length()) / 2;
+            break;
+        case shared::graphics::TextAlign::RIGHT:
+            start_x = getmaxx(_window) - text.length();
+            break;
+    }
+    wattron(_window, getNcursesColor(props.color));
+    mvwprintw(_window, start_y + position.y, start_x + position.x, "%s", text.c_str());
+    wattroff(_window, getNcursesColor(props.color));
 }
 
 void NcursesWindow::clear()
@@ -103,4 +126,14 @@ void NcursesWindow::renderTitle() const
         wattron(_window, A_ALTCHARSET);
         mvwhline(_window, barY, barX, ACS_HLINE, barWidth);
         wattroff(_window, A_ALTCHARSET);
+}
+
+short NcursesWindow::getNcursesColor(const shared::types::Color &color) const
+{
+    int r = static_cast<int>(color.r);
+    int g = static_cast<int>(color.g);
+    int b = static_cast<int>(color.b);
+
+    int colorIndex = (r * 6 / 256) * 36 + (g * 6 / 256) * 6 + (b * 6 / 256) + 16;
+    return COLOR_PAIR(colorIndex);
 }

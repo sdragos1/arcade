@@ -32,6 +32,7 @@ class NcursesWindow : public AWindow {
         std::vector<events::EventPtr> getEvents(void) override;
 
     private:
+        short getNcursesColor(const Color &color) const;
         void renderTitle() const;
 
         WINDOW *_window;
