@@ -10,8 +10,8 @@
 SnakeGame::SnakeGame()
     :   _entities()
 {
-    SnakeHeadEntity head;
-    _entities.push_back(std::make_shared<SnakeHeadEntity>(head));
+    std::shared_ptr<entity::IEntity> head = std::make_shared<SnakeHeadEntity>();
+    _entities.push_back(head);
 }
 
 SnakeGame::~SnakeGame()

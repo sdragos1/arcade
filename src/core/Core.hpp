@@ -25,6 +25,7 @@
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ITextComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
+#include "utils/CoreUtils.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 

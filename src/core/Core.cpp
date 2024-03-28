@@ -81,10 +81,7 @@ std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
     std::shared_ptr<shared::games::components::IKeyboardComponent> keyboard = nullptr;
     shared::games::components::IKeyboardComponent::KeyData keyData;
 
-    keyData = {
-        .code = shared::games::components::IKeyboardComponent::ControlCode::ALT,
-        .type = shared::games::components::IKeyboardComponent::KeyType::CONTROL
-    };
+    keyData = CoreUtils::convert(keyEvent->getKeyCode(), keyEvent->getKeyType());
     for (auto &entity : entities) {
         components = entity->getComponents();
         for (auto &component : components) {

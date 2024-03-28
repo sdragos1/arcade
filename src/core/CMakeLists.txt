@@ -5,7 +5,8 @@ set(SRCS_CORE
     Core.cpp
     library/GraphicList.cpp
     library/GameList.cpp
-    library/loader/Directory.cpp)
+    library/loader/Directory.cpp
+    utils/CoreUtils.cpp)
 
 add_executable(arcade ${SRCS_CORE})
 

@@ -36,7 +36,7 @@ void NcursesWindow::render(const TextureProps &props)
     std::string ascii = texture->getAscii();
     Vector2u size = props.size;
     Vector2i position = props.position;
-    mvwprintw(_window, position.y, position.x, "%s", ascii.c_str());
+    mvwprintw(_window, position.y + NCURSES_ORIGIN_OFFSET, position.x, "%s", ascii.c_str());
 }
 
 void NcursesWindow::render(const TextProps &props)
@@ -45,13 +45,13 @@ void NcursesWindow::render(const TextProps &props)
 
 void NcursesWindow::clear()
 {
+    wrefresh(_window);
     werase(_window);
 }
 
 void NcursesWindow::display()
 {
     renderTitle();
-    wrefresh(_window);
 }
 
 void NcursesWindow::close()
@@ -77,8 +77,35 @@ std::vector<shared::graphics::events::EventPtr> NcursesWindow::getEvents()
 
 void NcursesWindow::renderTitle() const
 {
-    int titleLength = _title.length();
-    int windowWidth = getmaxx(_window);
-    int titleX = (windowWidth - titleLength) / 2;
-    mvwprintw(_window, 0, titleX, "%s", _title.c_str());
+        int titleLength = _title.length();
+        int windowWidth = getmaxx(_window);
+
+        // Ensure title doesn't exceed window width
+        if (titleLength >= windowWidth) {
+            mvwprintw(_window, 0, 0, "Error: Title too long");
+            return;
+        }
+
+        // Calculate position for centering the title
+        int titleX = (windowWidth - titleLength) / 2;
+
+        // Apply bold and color attributes to the title
+        wattron(_window, A_BOLD | COLOR_PAIR(1)); // Adjust color pair as needed
+        mvwprintw(_window, 0, titleX, "%s", _title.c_str());
+        wattroff(_window, A_BOLD | COLOR_PAIR(1));
+
+        // Add padding around the title
+        int padding = 2;
+        for (int i = 0; i < padding; ++i) {
+            mvwprintw(_window, 0, titleX - i - 1, " "); // Left padding
+            mvwprintw(_window, 0, titleX + titleLength + i, " "); // Right padding
+        }
+
+        // Draw a bar below the title spanning the width of the window
+        int barWidth = windowWidth;
+        int barX = 0;
+        int barY = 1; // Adjust the position of the bar as needed
+        wattron(_window, A_ALTCHARSET); // Enable drawing special characters
+        mvwhline(_window, barY, barX, ACS_HLINE, barWidth);
+        wattroff(_window, A_ALTCHARSET); // Disable drawing special characters
 }

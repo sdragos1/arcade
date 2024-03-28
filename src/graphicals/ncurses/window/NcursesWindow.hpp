@@ -15,6 +15,8 @@
 #include "../../abstracts/window/AWindow.hpp"
 #include "../ressources/texture/NcursesTexture.hpp"
 
+#define NCURSES_ORIGIN_OFFSET 2
+
 using namespace shared::graphics;
 
 class NcursesWindow : public AWindow {
