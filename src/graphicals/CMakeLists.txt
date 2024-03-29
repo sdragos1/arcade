@@ -1,18 +1,19 @@
-function(create_graphic_library TARGET_NAME)
-    file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp")
+function(create_graphic_library TARGET_NAME DEPENDENCY)
+    file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp" "abstracts/*.cpp")
 
     set(LIB_NAME arcade_${TARGET_NAME})
 
     add_library(${LIB_NAME} SHARED ${LIB_SOURCES})
 
-    target_include_directories(${LIB_NAME} PUBLIC ${TARGET_NAME} ${PROJECT_SOURCE_DIR}/common)
+    target_include_directories(${LIB_NAME} PUBLIC ${TARGET_NAME} ${PROJECT_SOURCE_DIR}/common ${PROJECT_SOURCE_DIR}/shared)
 
     set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 
-    target_link_libraries(${LIB_NAME} ${TARGET_NAME})
+    target_link_libraries(${LIB_NAME} ${DEPENDENCY})
 
     set_target_properties(${LIB_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
-# create_graphic_library(ncurses)
+create_graphic_library(ncurses ncurses)
+create_graphic_library(sfml sfml-graphics sfml-window sfml-system)
