@@ -7,7 +7,8 @@
 
 #include "SFMLWindow.hpp"
 
-SFMLWindow::SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowProps)
+SFMLWindow::SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowProps) :
+_sfmlbasicTiles(10, 10), _sfmlbasicwindow(windowProps.size.x, windowProps.size.y)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
@@ -108,12 +109,12 @@ void SFMLWindow::render(const shared::graphics::TextureProps &props)
         sprite.setTextureRect(rect);
 
         sprite.setOrigin(
-        props.origin.x * props.binTileSize.x,
-        props.origin.y * props.binTileSize.y);
+        props.origin.x * _sfmlbasicTiles.x,
+        props.origin.y * _sfmlbasicTiles.y);
 
         sprite.setPosition(
-        props.position.x * props.binTileSize.x,
-        props.position.y * props.binTileSize.y);
+        props.position.x * _sfmlbasicTiles.x,
+        props.position.y * _sfmlbasicTiles.y);
 
         _window.draw(sprite);
     }
@@ -140,23 +141,23 @@ void SFMLWindow::render(const shared::graphics::TextProps &props)
         if (props.align == shared::graphics::TextAlign::LEFT) {
             horizontal = 0;
         } else if (props.align == shared::graphics::TextAlign::CENTER) {
-            horizontal = (_window.getSize().x / 2) - (text.getLocalBounds().width / 2);
+            horizontal = (_sfmlbasicwindow.x / 2) - (text.getLocalBounds().width / 2);
         } else {
-            horizontal = (_window.getSize().x) - (text.getLocalBounds().width);
+            horizontal = (_sfmlbasicwindow.x) - (text.getLocalBounds().width);
         }
         if (props.verticalAlign == shared::graphics::TextVerticalAlign::TOP) {
             vertical = 0;
         } else if (props.verticalAlign == shared::graphics::TextVerticalAlign::MIDDLE) {
-            vertical = (_window.getSize().y / 2) - (text.getLocalBounds().height / 2);
+            vertical = (_sfmlbasicwindow.y / 2) - (text.getLocalBounds().height / 2);
         } else {
-            vertical = (_window.getSize().y) - (text.getLocalBounds().height);
+            vertical = (_sfmlbasicwindow.y) - (text.getLocalBounds().height);
         }
 
         float posX = static_cast<float>(props.position.x);
         float posY = static_cast<float>(props.position.y);
 
-        text.setPosition((sf::Vector2f) {horizontal + (props.position.x),
-        vertical + (props.position.y)});
+        text.setPosition((sf::Vector2f) {horizontal + (props.position.x * _sfmlbasicTiles.x),
+        vertical + (props.position.y * _sfmlbasicTiles.y)});
         _window.draw(text);
     }
 }
@@ -252,6 +253,13 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
 
     sf::Event event;
     while (_window.pollEvent(event)) {
+        float coefX = static_cast<float>(_window.getSize().x) /
+        static_cast<float>(_sfmlbasicwindow.x);
+        float coefY = static_cast<float>(_window.getSize().y) /
+        static_cast<float>(_sfmlbasicwindow.y);
+
+        Vector2f sizeTiles(_sfmlbasicTiles.x * coefX, _sfmlbasicTiles.y * coefY);
+
         shared::graphics::events::IKeyEvent::KeyType KeyFindType;
 
         switch (event.type) {
@@ -269,12 +277,14 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {event.mouseButton.x, event.mouseButton.y}));
+                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {event.mouseButton.x, event.mouseButton.y}));
+                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseButtonReleased:
@@ -282,17 +292,20 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2i) {event.mouseButton.x, event.mouseButton.y}));
+                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {event.mouseButton.x, event.mouseButton.y}));
+                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseMoved:
                 eventsList.push_back(std::make_shared<shared::graphics::events::MouseMoveEvent>
-                    ((Vector2i) {event.mouseButton.x, event.mouseButton.y}));
+                    ((Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
                 break;
             case sf::Event::KeyPressed:
                 KeyFindType = mapSFMLKeyToKeyType(event.key.code);

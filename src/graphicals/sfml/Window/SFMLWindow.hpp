@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <string>
+#include <iomanip>
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -78,5 +79,7 @@ class SFMLWindow : public shared::graphics::IWindow
         std::string      _title;
         std::string      _icon;
         unsigned int     _fps;
+        Vector2u         _sfmlbasicTiles;
+        Vector2u         _sfmlbasicwindow;
         shared::graphics::IWindow::WindowMode _mode;
 };
