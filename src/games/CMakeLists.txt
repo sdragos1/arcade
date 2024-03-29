@@ -15,4 +15,4 @@ function(create_game TARGET_NAME)
 endfunction()
 
 ## Create the games here "create_game(<game_name>)"
-create_game(test)
+create_game(test_game)
