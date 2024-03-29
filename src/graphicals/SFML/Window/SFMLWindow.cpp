@@ -32,6 +32,7 @@ SFMLWindow::SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowP
 
 SFMLWindow::~SFMLWindow()
 {
+    _window.close();
     std::cout << "Destructor in SFMLWindow" << std::endl;
 }
 
@@ -237,7 +238,7 @@ shared::graphics::events::IKeyEvent::KeyCode SFMLWindow::mapSFMLKeyToKeyCode
         }
     }
     if (type == shared::graphics::events::IKeyEvent::CHAR) {
-        return {.character = static_cast<char>(sfmlKey - sf::Keyboard::Key::A + 'A')};
+            return {.character = static_cast<char>(sfmlKey - sf::Keyboard::Key::A + 'a')};
     }
     if (type == shared::graphics::events::IKeyEvent::FUNC) {
         return {.func = static_cast<unsigned char>((sfmlKey - sf::Keyboard::Key::F1) + 1)};
