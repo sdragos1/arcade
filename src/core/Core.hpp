@@ -17,7 +17,10 @@
 #include "../common/games/IGame.hpp"
 #include "library/loader/Directory.hpp"
 #include "../common/types/Libraries.hpp"
+#include "../common/graphics/ITexture.hpp"
+#include "../common/graphics/IWindow.hpp"
 #include "../common/graphics/IGraphicsProvider.hpp"
+#include "../common/graphics/events/IKeyEvent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 
@@ -35,12 +38,6 @@ class Core
          *
          */
         ~Core();
-
-        /**
-         * @brief Display how to use the arcade binary
-         *
-         */
-        void helpMessage();
 
     private:
         std::vector<std::string>        _librariesPath;
