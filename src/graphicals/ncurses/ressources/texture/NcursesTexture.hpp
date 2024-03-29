@@ -12,7 +12,7 @@
 
 class NcursesTexture : public shared::graphics::ITexture {
     public:
-        NcursesTexture(const std::string &ascii);
+        explicit NcursesTexture(const std::string &ascii);
         ~NcursesTexture();
 
         const std::string &getAscii() const { return _ascii; }

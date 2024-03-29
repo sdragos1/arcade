@@ -16,7 +16,7 @@ NcursesEvents::~NcursesEvents()
 }
 
 
-shared::graphics::events::IKeyEvent::KeyType NcursesEvents::mapNcursesKeyToKeyType(int key)
+events::IKeyEvent::KeyType NcursesEvents::mapNcursesKeyToKeyType(int key)
 {
     switch (key)
     {
@@ -24,12 +24,12 @@ shared::graphics::events::IKeyEvent::KeyType NcursesEvents::mapNcursesKeyToKeyTy
         case KEY_DOWN:
         case KEY_LEFT:
         case KEY_RIGHT:
-            return shared::graphics::events::IKeyEvent::ARROW;
+            return events::IKeyEvent::ARROW;
 
         case KEY_F(1):
         case KEY_F(2):
         case KEY_F(3):
-            return shared::graphics::events::IKeyEvent::FUNC;
+            return events::IKeyEvent::FUNC;
 
         case KEY_BACKSPACE:
         case KEY_DC:
@@ -41,44 +41,45 @@ shared::graphics::events::IKeyEvent::KeyType NcursesEvents::mapNcursesKeyToKeyTy
         case KEY_PPAGE:
         case KEY_RESIZE:
         case KEY_LL:
-            return shared::graphics::events::IKeyEvent::CONTROL;
+            return events::IKeyEvent::CONTROL;
 
         default:
             if (std::isalpha(key))
-                return shared::graphics::events::IKeyEvent::CHAR;
+                return events::IKeyEvent::CHAR;
             else
-                return shared::graphics::events::IKeyEvent::UNKNOWN;
+                return events::IKeyEvent::UNKNOWN;
     }
 }
 
-shared::graphics::events::IKeyEvent::KeyCode NcursesEvents::mapNcursesKeyToKeyCode(int key, shared::graphics::events::IKeyEvent::KeyType type)
+events::IKeyEvent::KeyCode NcursesEvents::mapNcursesKeyToKeyCode(int key,
+    events::IKeyEvent::KeyType type)
 {
-    if (type == shared::graphics::events::IKeyEvent::CONTROL) {
+    if (type == events::IKeyEvent::CONTROL) {
         switch (key) {
             case KEY_BACKSPACE:
-                return {.control = shared::graphics::events::IKeyEvent::ControlCode::CTRL};
+                return {.control = events::IKeyEvent::ControlCode::CTRL};
             case KEY_DC:
-                return {.control = shared::graphics::events::IKeyEvent::ControlCode::ALT};
+                return {.control = events::IKeyEvent::ControlCode::ALT};
             case KEY_ENTER:
-                return {.control = shared::graphics::events::IKeyEvent::ControlCode::SHIFT};
+                return {.control = events::IKeyEvent::ControlCode::SHIFT};
         }
     }
-    if (type == shared::graphics::events::IKeyEvent::ARROW) {
+    if (type == events::IKeyEvent::ARROW) {
         switch (key) {
             case KEY_UP:
-                return {.arrow = shared::graphics::events::IKeyEvent::ArrowCode::UP};
+                return {.arrow = events::IKeyEvent::ArrowCode::UP};
             case KEY_DOWN:
-                return {.arrow = shared::graphics::events::IKeyEvent::ArrowCode::DOWN};
+                return {.arrow = events::IKeyEvent::ArrowCode::DOWN};
             case KEY_RIGHT:
-                return {.arrow = shared::graphics::events::IKeyEvent::ArrowCode::RIGHT};
+                return {.arrow = events::IKeyEvent::ArrowCode::RIGHT};
             case KEY_LEFT:
-                return {.arrow = shared::graphics::events::IKeyEvent::ArrowCode::LEFT};
+                return {.arrow = events::IKeyEvent::ArrowCode::LEFT};
         }
     }
-    if (type == shared::graphics::events::IKeyEvent::CHAR) {
+    if (type == events::IKeyEvent::CHAR) {
         return {.character = static_cast<char>(key)};
     }
-    if (type == shared::graphics::events::IKeyEvent::FUNC) {
+    if (type == events::IKeyEvent::FUNC) {
         return {.func = static_cast<unsigned char>(key - KEY_F(1) + 1)};
     }
     return {.character = static_cast<char>(0)};

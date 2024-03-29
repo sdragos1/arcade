@@ -22,19 +22,19 @@ using namespace shared::graphics;
 class NcursesWindow : public AWindow {
     public:
         explicit NcursesWindow(const WindowInitProps &props);
-        ~NcursesWindow();
+            ~NcursesWindow();
 
-        void render(const TextureProps &props) override;
-        void render(const TextProps &props) override;
-        void clear() override;
-        void display() override;
-        void close() override;
-        std::vector<events::EventPtr> getEvents(void) override;
+            void render(const TextureProps &props) override;
+            void render(const TextProps &props) override;
+            void clear() override;
+            void display() override;
+            void close() override;
+            std::vector<events::EventPtr> getEvents(void) override;
 
-    private:
-        short getNcursesColor(const Color &color) const;
-        void renderTitle() const;
+        private:
+            int16_t getNcursesColor(const Color &color) const;
+            void renderTitle() const;
 
-        WINDOW *_window;
-        std::vector<events::EventPtr> _events;
+            WINDOW *_window;
+            std::vector<events::EventPtr> _events;
 };

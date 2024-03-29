@@ -53,7 +53,8 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx,
     }
 }
 
-void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key)
+void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx,
+    shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     (void)key;

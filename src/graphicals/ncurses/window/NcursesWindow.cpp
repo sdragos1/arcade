@@ -32,10 +32,12 @@ NcursesWindow::~NcursesWindow()
 
 void NcursesWindow::render(const TextureProps &props)
 {
-    std::shared_ptr<NcursesTexture> texture = std::dynamic_pointer_cast<NcursesTexture>(props.texture);
+    std::shared_ptr<NcursesTexture> texture =
+        std::dynamic_pointer_cast<NcursesTexture>(props.texture);
     std::string ascii = texture->getAscii();
     Vector2u size = props.size;
     Vector2i position = props.position;
+
     mvwprintw(_window, position.y + NCURSES_ORIGIN_OFFSET, position.x, "%s", ascii.c_str());
 }
 
@@ -45,24 +47,25 @@ void NcursesWindow::render(const TextProps &props)
     Vector2i position = props.position;
     int start_y = 0;
     int start_x = 0;
+
     switch (props.verticalAlign) {
-        case shared::graphics::TextVerticalAlign::TOP:
+        case TextVerticalAlign::TOP:
             start_y = NCURSES_ORIGIN_OFFSET;
             break;
-        case shared::graphics::TextVerticalAlign::MIDDLE:
+        case TextVerticalAlign::MIDDLE:
             start_y = getmaxy(_window) / 2;
             break;
-        case shared::graphics::TextVerticalAlign::BOTTOM:
+        case TextVerticalAlign::BOTTOM:
             start_y = getmaxy(_window) - 1;
             break;
     }
     switch (props.align) {
-        case shared::graphics::TextAlign::LEFT:
+        case TextAlign::LEFT:
             break;
-        case shared::graphics::TextAlign::CENTER:
+        case TextAlign::CENTER:
             start_x = (getmaxx(_window) - text.length()) / 2;
             break;
-        case shared::graphics::TextAlign::RIGHT:
+        case TextAlign::RIGHT:
             start_x = getmaxx(_window) - text.length();
             break;
     }
@@ -87,15 +90,16 @@ void NcursesWindow::close()
     endwin();
 }
 
-std::vector<shared::graphics::events::EventPtr> NcursesWindow::getEvents()
+std::vector<events::EventPtr> NcursesWindow::getEvents()
 {
-    std::vector<shared::graphics::events::EventPtr> eventsList;
-
+    std::vector<events::EventPtr> eventsList;
+    events::IKeyEvent::KeyType keyType;
     int ch;
+
     while ((ch = getch()) != ERR) {
-        shared::graphics::events::IKeyEvent::KeyType keyType = NcursesEvents::mapNcursesKeyToKeyType(ch);
-        if (keyType != shared::graphics::events::IKeyEvent::UNKNOWN) {
-            eventsList.push_back(std::make_shared<shared::graphics::events::KeyPressedEvent>(
+        keyType = NcursesEvents::mapNcursesKeyToKeyType(ch);
+        if (keyType != events::IKeyEvent::UNKNOWN) {
+            eventsList.push_back(std::make_shared<events::KeyPressedEvent>(
                 keyType, NcursesEvents::mapNcursesKeyToKeyCode(ch, keyType)));
         }
     }
@@ -120,15 +124,12 @@ void NcursesWindow::renderTitle() const
             mvwprintw(_window, 0, titleX - i - 1, " ");
             mvwprintw(_window, 0, titleX + titleLength + i, " ");
         }
-        int barWidth = windowWidth;
-        int barX = 0;
-        int barY = 1;
         wattron(_window, A_ALTCHARSET);
-        mvwhline(_window, barY, barX, ACS_HLINE, barWidth);
+        mvwhline(_window, 0, 1, ACS_HLINE, windowWidth);
         wattroff(_window, A_ALTCHARSET);
 }
 
-short NcursesWindow::getNcursesColor(const shared::types::Color &color) const
+int16_t NcursesWindow::getNcursesColor(const shared::types::Color &color) const
 {
     int r = static_cast<int>(color.r);
     int g = static_cast<int>(color.g);

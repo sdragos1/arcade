@@ -16,7 +16,8 @@ CoreUtils::~CoreUtils()
 {
 }
 
-components::IKeyboardComponent::KeyData CoreUtils::convertKey(const events::IKeyEvent::KeyCode &keyCode,
+components::IKeyboardComponent::KeyData CoreUtils::convertKey(
+    const events::IKeyEvent::KeyCode &keyCode,
     const events::IKeyEvent::KeyType &keyType)
 {
     components::IKeyboardComponent::KeyData data;
@@ -40,7 +41,8 @@ TextAlign CoreUtils::mapTextAlign(const components::ITextComponent::TextAlign &a
     }
 }
 
-TextVerticalAlign CoreUtils::mapTextVerticalAlign(const components::ITextComponent::TextVerticalAlign &align)
+TextVerticalAlign CoreUtils::mapTextVerticalAlign(
+    const components::ITextComponent::TextVerticalAlign &align)
 {
     switch (align) {
     case components::ITextComponent::TextVerticalAlign::BOTTOM:

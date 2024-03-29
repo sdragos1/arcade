@@ -30,6 +30,9 @@
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 #define ICON_PATH "assets/window_icon.png"
 
+using namespace shared::games;
+using namespace shared::graphics;
+
 class Core
 {
     public:
@@ -59,24 +62,24 @@ class Core
     private:
         void _init();
 
-        void _handleEntitiesKeyEvent(shared::games::entity::EntitiesMap entities,
-            std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent);
+        void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
+            std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _coreEvents(std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent);
+        GeneralEventType _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _handleEvents(shared::games::entity::EntitiesMap entities);
+        GeneralEventType _handleEvents(entity::EntitiesMap entities);
 
         // Display Functions
-        void _displayEntityTexture(std::shared_ptr<shared::games::components::ITextureComponent> displayable);
-        void _displayEntityText(std::shared_ptr<shared::games::components::ITextComponent> displayable);
-        void _displayEntities(shared::games::entity::EntitiesMap entities);
+        void _displayEntityTexture(std::shared_ptr<components::ITextureComponent> displayable);
+        void _displayEntityText(std::shared_ptr<components::ITextComponent> displayable);
+        void _displayEntities(entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
-        std::map<void *, std::shared_ptr<shared::graphics::ITexture>> _textures;
+        std::map<void *, std::shared_ptr<ITexture>> _textures;
         std::shared_ptr<shared::games::IGame> _currGame;
-        shared::graphics::IGraphicsProvider  *_currRenderer;
-        std::unique_ptr<shared::graphics::IWindow> _currWindow;
+        IGraphicsProvider *_currRenderer;
+        std::unique_ptr<IWindow> _currWindow;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

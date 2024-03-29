@@ -22,9 +22,12 @@ class CoreUtils {
         ~CoreUtils();
 
         static components::IKeyboardComponent::KeyData
-            convertKey(const events::IKeyEvent::KeyCode& keyCode, const events::IKeyEvent::KeyType& keyType);
+            convertKey(const events::IKeyEvent::KeyCode& keyCode,
+            const events::IKeyEvent::KeyType& keyType);
 
-        static TextAlign mapTextAlign(const components::ITextComponent::TextAlign& align);
+        static TextAlign mapTextAlign(
+            const components::ITextComponent::TextAlign& align);
 
-        static TextVerticalAlign mapTextVerticalAlign(const components::ITextComponent::TextVerticalAlign& align);
+        static TextVerticalAlign mapTextVerticalAlign(
+            const components::ITextComponent::TextVerticalAlign& align);
 };

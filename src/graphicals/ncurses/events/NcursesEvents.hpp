@@ -19,7 +19,8 @@ class NcursesEvents {
         NcursesEvents();
         ~NcursesEvents();
 
-        static shared::graphics::events::IKeyEvent::KeyType mapNcursesKeyToKeyType(int key);
-        static shared::graphics::events::IKeyEvent::KeyCode mapNcursesKeyToKeyCode(int key,
-            shared::graphics::events::IKeyEvent::KeyType type);
+        static events::IKeyEvent::KeyType mapNcursesKeyToKeyType(int key);
+
+        static events::IKeyEvent::KeyCode mapNcursesKeyToKeyCode(int key,
+            events::IKeyEvent::KeyType type);
 };
