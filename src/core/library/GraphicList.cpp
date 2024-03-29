@@ -9,6 +9,7 @@
 
 GraphicList::GraphicList(std::vector<std::string> allLibrariesPath, std::string defaultLib)
 {
+    int nbLibGraphic = 0;
     _index = -1;
 
     for (int index = 0; index <  allLibrariesPath.size(); index++) {
@@ -18,11 +19,12 @@ GraphicList::GraphicList(std::vector<std::string> allLibrariesPath, std::string 
         if (loaders->getType(SHARED_STRINGIFY(SHARED_LIBRARY_TYPE_GETTER_NAME)) ==
         shared::types::LibraryType::GRAPHIC) {
             if (allLibrariesPath[index] == defaultLib)
-                _index = index;
+                _index = nbLibGraphic;
             shared::graphics::IGraphicsProvider *instance =
             loaders->getInstance(SHARED_STRINGIFY(SHARED_GRAPHICS_PROVIDER_GETTER_NAME));
             _libraryList.push_back(instance);
             _libraryLoader.push_back(loaders);
+            nbLibGraphic++;
         }
     }
     if (_index == -1) {
@@ -62,5 +64,5 @@ void GraphicList::decrementIndex()
 
 shared::graphics::IGraphicsProvider* GraphicList::getCurrentLibrary()
 {
-    return _libraryList[0];
+    return _libraryList[_index];
 }

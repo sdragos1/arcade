@@ -124,8 +124,11 @@ void NcursesWindow::renderTitle() const
             mvwprintw(_window, 0, titleX - i - 1, " ");
             mvwprintw(_window, 0, titleX + titleLength + i, " ");
         }
+        int barWidth = windowWidth;
+        int barX = 0;
+        int barY = 1;
         wattron(_window, A_ALTCHARSET);
-        mvwhline(_window, 0, 1, ACS_HLINE, windowWidth);
+        mvwhline(_window, 0, barX, ACS_HLINE, barWidth);
         wattroff(_window, A_ALTCHARSET);
 }
 
