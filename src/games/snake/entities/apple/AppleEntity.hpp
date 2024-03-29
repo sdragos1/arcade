@@ -11,15 +11,15 @@
 #include "components/AppleDisplayable.hpp"
 #include "games/IEntity.hpp"
 
-class AppleEntity : public entity::IEntity {
+class AppleEntity : public shared::games::entity::IEntity {
     public:
         AppleEntity();
         ~AppleEntity();
 
-        const components::ComponentsMap &getComponents(void) const noexcept override;
+        const shared::games::components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:
-        components::ComponentsMap _components;
+        shared::games::components::ComponentsMap _components;
 };
 
 #endif /* !APPLEENTITY_HPP_ */

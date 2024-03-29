@@ -18,11 +18,12 @@ class SnakeTailKeyboard : public components::IKeyboardComponent {
         explicit SnakeTailKeyboard(const entity::IEntity &entity);
         ~SnakeTailKeyboard();
 
-        const components::ComponentType getType() const noexcept override;
-        const entity::IEntity &getEntity() noexcept override;
+        const shared::games::components::ComponentType getType() const noexcept override;
+        const shared::games::entity::IEntity &getEntity() noexcept override;
 
-        void onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyData key) override;
-        void onKeyRelease(std::shared_ptr<IGame> &ctx, components::KeyData key) override;
+        void onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
+        void onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
+
     private:
         const entity::IEntity &_entity;
 };

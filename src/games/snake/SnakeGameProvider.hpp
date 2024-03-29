@@ -12,15 +12,13 @@
 #include "types/Libraries.hpp"
 #include "game/SnakeGame.hpp"
 
-using namespace shared::games;
-
-class SnakeGameProvider : public IGameProvider {
+class SnakeGameProvider : public shared::games::IGameProvider {
     public:
         SnakeGameProvider();
         ~SnakeGameProvider();
 
-        const GameManifest &getManifest() const noexcept override;
-        std::shared_ptr<IGame> createInstance() override;
+        const shared::games::GameManifest &getManifest() const noexcept override;
+        std::shared_ptr<shared::games::IGame> createInstance() override;
 };
 
 #endif /* !SNAKEGAMEPROVIDER_HPP_ */

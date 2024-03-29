@@ -10,8 +10,14 @@
 SnakeGame::SnakeGame()
     :   _entities()
 {
-    SnakeHeadEntity head;
-    _entities.push_back(std::make_shared<SnakeHeadEntity>(head));
+    std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>();
+    std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
+    std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
+    _entities.push_back(head);
+    _entities.push_back(body);
+    _entities.push_back(tail);
+    _entities.push_back(apple);
 }
 
 SnakeGame::~SnakeGame()

@@ -27,7 +27,7 @@ const entity::IEntity &SnakeTailKeyboard::getEntity() noexcept
     return _entity;
 }
 
-void SnakeTailKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyData key)
+void SnakeTailKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx,  shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     std::shared_ptr<SnakeTailDisplayable> displayable = nullptr;
@@ -39,20 +39,20 @@ void SnakeTailKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyD
     }
     if (displayable == nullptr)
         return;
-    if (key.type != components::KeyType::ARROW)
+    if (key.type != shared::games::components::IKeyboardComponent::KeyType::ARROW)
         return;
-    if (key.code.arrow == components::ArrowCode::UP) {
+    if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::UP) {
         displayable->_position.y -= 1;
-    } else if (key.code.arrow == components::ArrowCode::DOWN) {
+    } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::DOWN) {
         displayable->_position.y += 1;
-    } else if (key.code.arrow == components::ArrowCode::LEFT) {
+    } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::LEFT) {
         displayable->_position.x -= 1;
-    } else if (key.code.arrow == components::ArrowCode::RIGHT) {
+    } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::RIGHT) {
         displayable->_position.x += 1;
     }
 }
 
-void SnakeTailKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, components::KeyData key)
+void SnakeTailKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     (void)key;

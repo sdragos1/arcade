@@ -11,6 +11,9 @@
 #include <iostream>
 #include "games/IGame.hpp"
 #include "../entities/snake_head/SnakeHeadEntity.hpp"
+#include "../entities/snake_body/SnakeBodyEntity.hpp"
+#include "../entities/snake_tail/SnakeTailEntity.hpp"
+#include "../entities/apple/AppleEntity.hpp"
 
 using namespace shared::games;
 
@@ -19,7 +22,7 @@ class SnakeGame : public IGame {
         SnakeGame();
         ~SnakeGame();
 
-        void compute(Deltatime dt) override;
+        void compute(DeltaTime dt) override;
         const GameManifest &getManifest() const noexcept override;
         const Vector2u getSize(void) const noexcept override;
         const entity::EntitiesMap &getEntities(void) const override;
@@ -41,6 +44,6 @@ static GameManifest snakeGameManifest = {
             "github"
         }
     }
-}
+};
 
 #endif /* !SNAKEGAME_HPP_ */

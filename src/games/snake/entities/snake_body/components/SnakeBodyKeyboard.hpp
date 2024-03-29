@@ -9,20 +9,20 @@
 
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
-#include "SnakeHeadDisplayable.hpp"
+#include "SnakeBodyDisplayable.hpp"
 
 using namespace shared::games;
 
-class SnakeBodyKeyboard : public components::IKeyboardComponent {
+class SnakeBodyKeyboard : public shared::games::components::IKeyboardComponent {
     public:
         explicit SnakeBodyKeyboard(const entity::IEntity &entity);
         ~SnakeBodyKeyboard();
 
-        const components::ComponentType getType() const noexcept override;
-        const entity::IEntity &getEntity() noexcept override;
+        const shared::games::components::ComponentType getType() const noexcept override;
+        const shared::games::entity::IEntity &getEntity() noexcept override;
 
-        void onKeyPress(std::shared_ptr<IGame> &ctx, components::KeyData key) override;
-        void onKeyRelease(std::shared_ptr<IGame> &ctx, components::KeyData key) override;
+        void onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
+        void onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key) override;
 
     private:
         const entity::IEntity &_entity;

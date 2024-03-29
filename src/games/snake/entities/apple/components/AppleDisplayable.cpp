@@ -7,17 +7,17 @@
 
 #include "AppleDisplayable.hpp"
 
-AppleDisplayable::AppleDisplayable()
+AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
     :
     _entity(entity),
-    _position({0, 0}),
+    _position({20, 20}),
     _size({1, 1}),
     _zIndex(0),
     _textureProps(
         {
             .sources = {
-                .ascii = "$",
-                .bin = "$",
+                .ascii = "@",
+                .bin = "@",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}
@@ -30,12 +30,12 @@ AppleDisplayable::~AppleDisplayable()
 {
 }
 
-const components::ComponentType AppleDisplayable::getType() const noexcept
+const shared::games::components::ComponentType AppleDisplayable::getType() const noexcept
 {
-    return components::ComponentType::TEXTURE;
+    return shared::games::components::ComponentType::TEXTURE;
 }
 
-const entity::IEntity &AppleDisplayable::getEntity() noexcept
+const shared::games::entity::IEntity &AppleDisplayable::getEntity() noexcept
 {
     return _entity;
 }
@@ -50,22 +50,22 @@ unsigned int &AppleDisplayable::getZIndex(void) noexcept
     return _zIndex;
 }
 
-components::TextureProps &AppleDisplayable::getTextureProps(void) noexcept
+shared::games::components::TextureProps &AppleDisplayable::getTextureProps(void) noexcept
 {
     return _textureProps;
 }
 
-void AppleDisplayable::onMousePress(std::shared_ptr<IGame> &ctx)
+void AppleDisplayable::onMousePress(std::shared_ptr<shared::games::IGame> &ctx)
 {
     (void)ctx;
 }
 
-void AppleDisplayable::onMouseHover(std::shared_ptr<IGame> &ctx)
+void AppleDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame> &ctx)
 {
     (void)ctx;
 }
 
-void AppleDisplayable::onMouseRelease(std::shared_ptr<IGame> &ctx)
+void AppleDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> &ctx)
 {
     (void)ctx;
 }

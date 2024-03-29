@@ -16,4 +16,3 @@ endfunction()
 
 ## Create the games here "create_game(<game_name>)"
 create_game(snake)
-create_game(test_game)

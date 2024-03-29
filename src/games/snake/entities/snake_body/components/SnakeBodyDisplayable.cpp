@@ -10,7 +10,7 @@
 SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
-    _position({0, 0}),
+    _position({1, 0}),
     _size({1, 1}),
     _zIndex(1),
     _textureProps(

@@ -20,7 +20,7 @@ AppleEntity::~AppleEntity()
 }
 
 
-const components::ComponentsMap &AppleEntity::getComponents(void) const noexcept
+const shared::games::components::ComponentsMap &AppleEntity::getComponents(void) const noexcept
 {
     return _components;
 }
