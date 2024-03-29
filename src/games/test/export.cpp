@@ -13,9 +13,9 @@ extern "C" {
         return shared::types::LibraryType::GAME;
     }
 
-    std::shared_ptr<shared::games::IGameProvider> SHARED_GAME_PROVIDER_GETTER_NAME(void)
+    shared::games::IGameProvider *SHARED_GAME_PROVIDER_GETTER_NAME(void)
     {
-        return std::make_shared<SnakeProvider>();
+        return new SnakeProvider();
     }
 }
 

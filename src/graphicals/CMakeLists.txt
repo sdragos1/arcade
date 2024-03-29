@@ -16,3 +16,4 @@ endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
 create_graphic_library(ncurses ncurses)
+create_graphic_library(sfml sfml-graphics sfml-window sfml-system)

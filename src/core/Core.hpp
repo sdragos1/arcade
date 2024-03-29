@@ -28,6 +28,7 @@
 #include "utils/CoreUtils.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
+#define ICON_PATH "assets/window_icon.png"
 
 class Core
 {

@@ -10,15 +10,15 @@
 SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
-    _position({0, 0}),
-    _size({1, 1}),
+    _position({50 , 50}),
+    _size({4, 4}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
-                .ascii = "$",
-                .bin = "$",
-                .binTileSize = {0, 0}
+                .ascii = "assets/window_icon.png",
+                .bin = "assets/window_icon.png",
+                .binTileSize = {10, 10}
             },
             .origin = {0, 0}
         }

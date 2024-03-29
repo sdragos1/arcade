@@ -42,15 +42,3 @@ std::shared_ptr<IFont> NcursesProvider::createFont(const std::string &path)
 {
     return std::make_shared<NcursesFont>();
 }
-
-extern "C" {
-    shared::types::LibraryType SHARED_LIBRARY_TYPE_GETTER_NAME(void)
-    {
-        return shared::types::LibraryType::GRAPHIC;
-    }
-
-    std::shared_ptr<shared::graphics::IGraphicsProvider> SHARED_GRAPHICS_PROVIDER_GETTER_NAME(void)
-    {
-        return std::make_shared<NcursesProvider>();
-    }
-}

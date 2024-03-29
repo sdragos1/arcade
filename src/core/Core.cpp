@@ -34,7 +34,7 @@ void Core::_init()
     _currGame = _librariesGame->getCurrentGame();
     _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({{800, 600},
-        shared::graphics::IWindow::WindowMode::FULLSCREEN, 60, "Ncurses Lib", "Arcade"});
+        shared::graphics::IWindow::WindowMode::WINDOWED, 60, "Ncurses Lib", ICON_PATH});
 }
 
 void Core::_displayEntityText(std::shared_ptr<shared::games::components::ITextComponent> displayable)
@@ -146,10 +146,15 @@ Core::GeneralEventType Core::_handleEvents(shared::games::entity::EntitiesMap en
         return Core::GeneralEventType::NONE;
     }
     for (auto &event : events) {
+        if (event->getType() == shared::graphics::events::EventType::WINDOW_CLOSE) {
+            _currWindow->close();
+            return Core::GeneralEventType::EXIT;
+        }
         if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
             std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent =
                 std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
             if (_coreEvents(keyEvent) == Core::GeneralEventType::EXIT) {
+                _currWindow->close();
                 return Core::GeneralEventType::EXIT;
             }
             _handleEntitiesKeyEvent(entities, keyEvent);
@@ -171,7 +176,7 @@ void Core::runArcade()
             break;
         }
         _currWindow->clear();
-        _currWindow->display();
         _displayEntities(gameEntities);
+        _currWindow->display();
     }
 }
