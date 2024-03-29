@@ -35,7 +35,7 @@ std::shared_ptr<shared::graphics::ISound> NcursesProvider::createSound(const std
 std::shared_ptr<shared::graphics::ITexture> NcursesProvider::createTexture(const std::string &path,
 const std::string &ascii)
 {
-    return std::make_shared<NcursesTexture>(ascii, path);
+    return std::make_shared<NcursesTexture>(ascii);
 }
 
 std::shared_ptr<IFont> NcursesProvider::createFont(const std::string &path)

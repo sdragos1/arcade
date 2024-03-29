@@ -7,8 +7,8 @@
 
 #include "NcursesTexture.hpp"
 
-NcursesTexture::NcursesTexture(const std::string &ascii, const std::string &path)
-    : _ascii(ascii), _path(path)
+NcursesTexture::NcursesTexture(const std::string &ascii)
+    : _ascii(ascii)
 {
 }
 

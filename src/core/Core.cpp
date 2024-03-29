@@ -57,8 +57,8 @@ void Core::_displayEntityText(std::shared_ptr<shared::games::components::ITextCo
 void Core::_displayEntityTexture(std::shared_ptr<shared::games::components::ITextureComponent> displayable)
 {
     shared::graphics::TextureProps entityProps{
-        .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.ascii,
-            displayable->getTextureProps().sources.bin),
+        .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
+            displayable->getTextureProps().sources.ascii),
         .binTileSize = displayable->getTextureProps().sources.binTileSize,
         .origin = displayable->getTextureProps().origin,
         .size = displayable->getSize(),
