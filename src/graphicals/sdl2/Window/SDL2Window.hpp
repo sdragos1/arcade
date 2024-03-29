@@ -81,5 +81,7 @@ class SDL2Window : public shared::graphics::IWindow
         std::string      _title;
         std::string      _icon;
         unsigned int     _fps;
+        Vector2u         _sdl2basicTiles;
+        Vector2u         _sdl2basicwindow;
         shared::graphics::IWindow::WindowMode _mode;
 };
