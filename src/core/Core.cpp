@@ -5,8 +5,8 @@
 ** Core
 */
 
-#include "Core.hpp"
 #include <iostream>
+#include "Core.hpp"
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),

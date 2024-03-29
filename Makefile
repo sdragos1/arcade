@@ -17,6 +17,7 @@ clean:
 
 fclean:	clean
 	rm -f $(NAME)
+	rm -rf ./lib
 
 re:	fclean all
 

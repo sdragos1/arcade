@@ -49,7 +49,7 @@ extern "C" {
         return shared::types::LibraryType::GRAPHIC;
     }
 
-    std::shared_ptr<shared::graphics::IGraphicsProvider> SHARED_GRAPHICS_PROVIDER_LOADER_NAME(void)
+    std::shared_ptr<shared::graphics::IGraphicsProvider> SHARED_GRAPHICS_PROVIDER_GETTER_NAME(void)
     {
         return std::make_shared<NcursesProvider>();
     }

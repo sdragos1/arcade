@@ -53,7 +53,6 @@ class Core
          *
          */
         ~Core();
-
         void runArcade();
 
     private:
@@ -75,7 +74,7 @@ class Core
         std::unique_ptr<GraphicList>    _librariesRenderer;
         std::map<void *, std::shared_ptr<shared::graphics::ITexture>> _textures;
         std::shared_ptr<shared::games::IGame> _currGame;
-        std::shared_ptr<shared::graphics::IGraphicsProvider> _currRenderer;
+        shared::graphics::IGraphicsProvider  *_currRenderer;
         std::unique_ptr<shared::graphics::IWindow> _currWindow;
 };
 
