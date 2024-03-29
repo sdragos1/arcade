@@ -12,7 +12,7 @@ SFMLTexture::SFMLTexture(std::string pathTexture)
     if (!_entitieTexture.loadFromFile(pathTexture)) {
         std::cerr << "Erreur : Impossible de charger la texture depuis le fichier: ";
         std::cerr << pathTexture << std::endl;
-        throw std::runtime_error("Can't create SFMLTexture class");
+        throw SFMLTextureException("SFML Texture", "Can't create SFML Texture Class");
     }
     std::cout << "Constructor in SFMLTexture" << std::endl;
 }

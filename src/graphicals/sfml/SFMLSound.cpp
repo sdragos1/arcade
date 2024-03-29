@@ -9,13 +9,12 @@
 
 SFMLSound::SFMLSound(const std::string &path)
 {
-    sf::SoundBuffer bufferSound;
-    if (!bufferSound.loadFromFile(path)) {
+    if (!_bufferSound.loadFromFile(path)) {
         std::cerr << "Erreur : Impossible de charger le son depuis le fichier: ";
         std::cerr << path << std::endl;
-        throw std::runtime_error("Can't create SFMLSound class");
+        throw SFMLSoundException("SFML Sound", "Can't create SFML Sound Class");
     }
-    _sound.setBuffer(bufferSound);
+    _sound.setBuffer(_bufferSound);
     std::cout << "Constructor in SFMLSound" << std::endl;
 }
 
@@ -34,7 +33,7 @@ void SFMLSound::setState(shared::graphics::ISound::SoundState state)
         _sound.pause();
     } else if (state == shared::graphics::ISound::SoundState::STOP) {
         _state = shared::graphics::ISound::SoundState::STOP;
-        _sound.pause();
+        _sound.stop();
     }
 }
 

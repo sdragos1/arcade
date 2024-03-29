@@ -10,7 +10,6 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include <SFML/Graphics.hpp>
 #include "SFMLSound.hpp"
 #include "SFMLTexture.hpp"
 #include "SFMLFont.hpp"

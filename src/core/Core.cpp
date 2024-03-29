@@ -27,6 +27,7 @@ Core::Core(std::string defaultLib)
 
 Core::~Core()
 {
+    std::cout << "Destructor in Core" << std::endl;
 }
 
 void Core::_init()

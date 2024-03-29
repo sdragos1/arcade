@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp>
 #include "../SFMLTexture.hpp"
 #include "../SFMLFont.hpp"
+#include "../exceptions/SFMLWindowException.hpp"
 #include "../../../../common/types/Vector.hpp"
 #include "../../../../common/types/Libraries.hpp"
 #include "../../../../common/graphics/events/IEvent.hpp"
