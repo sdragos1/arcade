@@ -12,11 +12,8 @@ SnakeTailEntity::SnakeTailEntity()
 {
     std::shared_ptr<SnakeTailDisplayable> displayable =
         std::make_shared<SnakeTailDisplayable>(*this);
-    std::shared_ptr<SnakeTailKeyboard> keyboard =
-        std::make_shared<SnakeTailKeyboard>(*this);
 
     _components.push_back(displayable);
-    _components.push_back(keyboard);
 }
 
 SnakeTailEntity::~SnakeTailEntity()

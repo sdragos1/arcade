@@ -12,11 +12,8 @@ SnakeBodyEntity::SnakeBodyEntity()
 {
     std::shared_ptr<SnakeBodyDisplayable> displayable =
         std::make_shared<SnakeBodyDisplayable>(*this);
-    std::shared_ptr<SnakeBodyKeyboard> keyboard =
-        std::make_shared<SnakeBodyKeyboard>(*this);
 
     _components.push_back(displayable);
-    _components.push_back(keyboard);
 }
 
 SnakeBodyEntity::~SnakeBodyEntity()

@@ -11,13 +11,14 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
     _position({1, 0}),
+    _oldPosition({1, 0}),
     _size({1, 1}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
                 .ascii = "O",
-                .bin = "O",
+                .bin = "/assets/games/snake/body_horizontal.png",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}

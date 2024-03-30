@@ -11,13 +11,14 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
     _position({0, 0}),
+    _oldPosition({0, 0}),
     _size({1, 1}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
                 .ascii = "<",
-                .bin = "<",
+                .bin = "/assets/games/snake/tail_left.png",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}

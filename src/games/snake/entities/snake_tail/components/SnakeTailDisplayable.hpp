@@ -28,6 +28,7 @@ class SnakeTailDisplayable : public components::ITextureComponent {
 
         Vector2i &getPosition(void) noexcept override;
         Vector2i _position;
+        Vector2i _oldPosition;
 
     private:
         const entity::IEntity &_entity;

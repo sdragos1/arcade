@@ -8,7 +8,6 @@
 #pragma once
 
 #include "components/SnakeBodyDisplayable.hpp"
-#include "components/SnakeBodyKeyboard.hpp"
 #include "games/IEntity.hpp"
 
 using namespace shared::games;
