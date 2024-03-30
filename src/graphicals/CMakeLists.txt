@@ -1,4 +1,4 @@
-function(create_graphic_library TARGET_NAME DEPENDENCY)
+function(create_graphic_library TARGET_NAME DEPENDENCIES)
     file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp" "abstracts/*.cpp")
 
     set(LIB_NAME arcade_${TARGET_NAME})
@@ -9,14 +9,15 @@ function(create_graphic_library TARGET_NAME DEPENDENCY)
 
     set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 
-    target_link_libraries(${LIB_NAME} ${DEPENDENCY})
+    target_link_libraries(${LIB_NAME} ${DEPENDENCIES})
 
     set_target_properties(${LIB_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
 
-set(SFML_DEPENDENCIES sfml-graphics sfml-window sfml-system)
+
+set(SFML_DEPENDENCIES sfml-graphics sfml-window sfml-system sfml-audio)
 
 create_graphic_library(ncurses ncurses)
 create_graphic_library(sfml "${SFML_DEPENDENCIES}")
