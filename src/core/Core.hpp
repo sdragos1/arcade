@@ -45,6 +45,7 @@ class Core
             PREV_GAME,
             NEXT_GRAPHICS,
             PREV_GRAPHICS,
+            GO_MENU
         } GeneralEventType;
 
         /**
@@ -61,14 +62,14 @@ class Core
         void runArcade();
 
     private:
-        void _init();
+        void _initGraphicLib();
 
         void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
         GeneralEventType _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _handleEvents(entity::EntitiesMap entities);
+        void _handleEvents(entity::EntitiesMap entities);
 
         // Display Functions
         void _displayEntityTexture(std::shared_ptr<components::ITextureComponent> displayable);

@@ -30,9 +30,8 @@ Core::~Core()
     std::cout << "Destructor in Core" << std::endl;
 }
 
-void Core::_init()
+void Core::_initGraphicLib()
 {
-    _currGame = _librariesGame->getCurrentGame();
     _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({{800, 600},
         shared::graphics::IWindow::WindowMode::WINDOWED, 60, "Ncurses Lib", ICON_PATH});
@@ -139,43 +138,58 @@ Core::GeneralEventType Core::_coreEvents(std::shared_ptr<events::KeyPressedEvent
     }
 }
 
-Core::GeneralEventType Core::_handleEvents(entity::EntitiesMap entities)
+void Core::_handleEvents(entity::EntitiesMap entities)
 {
     std::vector<shared::graphics::events::EventPtr> events = _currWindow->getEvents();
 
     if (events.size() == 0) {
-        return Core::GeneralEventType::NONE;
+        return;
     }
     for (auto &event : events) {
         if (event->getType() == shared::graphics::events::EventType::WINDOW_CLOSE) {
             _currWindow->close();
-            return Core::GeneralEventType::EXIT;
+            return;
         }
         if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
             std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent =
                 std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
-            if (_coreEvents(keyEvent) == Core::GeneralEventType::EXIT) {
+            auto coreEvent = _coreEvents(keyEvent);
+            if (coreEvent == Core::GeneralEventType::EXIT) {
                 _currWindow->close();
-                return Core::GeneralEventType::EXIT;
+                return;
+            }
+            if (coreEvent == Core::GeneralEventType::NEXT_GRAPHICS) {
+                _librariesRenderer->incrementIndex();
+                _initGraphicLib();
+                return;
+            }
+            if (coreEvent == Core::GeneralEventType::PREV_GRAPHICS) {
+                _librariesRenderer->decrementIndex();
+                _initGraphicLib();
+                return;
             }
             _handleEntitiesKeyEvent(entities, keyEvent);
         }
     }
     events.clear();
-    return Core::GeneralEventType::NONE;
 }
 
 void Core::runArcade()
 {
-    _init();
+    _currGame = _librariesGame->getCurrentGame();
+    _initGraphicLib();
     std::vector<shared::graphics::events::IEvent> events;
     shared::games::entity::EntitiesMap gameEntities;
+    auto prevTime = std::chrono::high_resolution_clock::now();
 
-    while (true) {
+    while (_currWindow->isOpen()) {
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(prevTime -
+            currentTime);
+        _currGame->compute(deltaTime);
+        prevTime = currentTime;
         gameEntities = _currGame->getEntities();
-        if (_handleEvents(gameEntities) == Core::GeneralEventType::EXIT) {
-            break;
-        }
+        _handleEvents(gameEntities);
         _currWindow->clear();
         _displayEntities(gameEntities);
         _currWindow->display();

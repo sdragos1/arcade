@@ -23,7 +23,6 @@ SnakeGame::~SnakeGame()
 void SnakeGame::compute(DeltaTime dt)
 {
     (void)dt;
-    std::cout << "bozo" << std::endl;
 }
 
 const GameManifest &SnakeGame::getManifest(void) const noexcept

@@ -11,6 +11,7 @@ NcursesWindow::NcursesWindow(const WindowInitProps &props)
     : AWindow(props),
         _events()
 {
+    std::cout << "Ncurses window created" << std::endl;
     _window = initscr();
     raw();
     keypad(stdscr, TRUE);
@@ -26,8 +27,10 @@ NcursesWindow::NcursesWindow(const WindowInitProps &props)
 
 NcursesWindow::~NcursesWindow()
 {
+    std::cout << "Ncurses window destroyed" << std::endl;
     delwin(_window);
     endwin();
+    refresh();
 }
 
 void NcursesWindow::render(const TextureProps &props)
@@ -88,6 +91,7 @@ void NcursesWindow::display()
 void NcursesWindow::close()
 {
     endwin();
+    _isOpen = false;
 }
 
 std::vector<events::EventPtr> NcursesWindow::getEvents()

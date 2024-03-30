@@ -15,6 +15,7 @@
 #include "graphics/ISound.hpp"
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
+#include "exceptions/SFMLSoundException.hpp"
 
 class SFMLSound : public shared::graphics::ISound
 {

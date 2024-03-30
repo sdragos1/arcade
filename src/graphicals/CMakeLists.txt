@@ -15,25 +15,10 @@ function(create_graphic_library TARGET_NAME DEPENDENCIES)
 endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
-<<<<<<< HEAD
 
-
-set(SFML_DEPENDENCIES sfml-graphics sfml-window sfml-system sfml-audio)
-
-create_graphic_library(ncurses ncurses)
-create_graphic_library(sfml "${SFML_DEPENDENCIES}")
-=======
 set(SFML_DEPENDENCY sfml-graphics sfml-system sfml-window sfml-audio)
 set(SDL2_DEPENDENCY SDL2 SDL2_image SDL2_ttf SDL2_mixer)
 
 create_graphic_library(ncurses ncurses)
 create_graphic_library(sfml "${SFML_DEPENDENCY}")
-<<<<<<< HEAD
 create_graphic_library(sdl2 "${SDL2_DEPENDENCY}")
-<<<<<<< HEAD
->>>>>>> fe15213 (feat: SDL2 & SFML with responsive)
-=======
->>>>>>> d241c16 (fix: graphic library dependencies build)
-=======
-create_graphic_library(sdl2 "${SDL2_DEPENDENCY}")
->>>>>>> b7f04e0 (fix: build dependencies for graphic libraries)
