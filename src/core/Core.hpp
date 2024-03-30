@@ -27,6 +27,9 @@
 #include "games/components/ITextComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
 #include "events/key/KeyReleaseEvent.hpp"
+#include "events/mouse/MouseButtonPressEvent.hpp"
+#include "events/mouse/MouseButtonReleaseEvent.hpp"
+#include "events/mouse/MouseMoveEvent.hpp"
 #include "utils/CoreUtils.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
@@ -53,17 +56,28 @@ class Core
 
     private:
         void _initGraphicLib();
-
         void _handleGraphicSwitch();
 
-
-
         // Event Functions
-        int _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
-        void _handleKeyReleaseEvent(entity::EntitiesMap entities,
+        void _handleMouseMoveEvent(entity::EntitiesMap entities,
+            std::shared_ptr<events::MouseMoveEvent> mouseEvent);
+
+        void _handleMouseButtonReleasedEvent(entity::EntitiesMap entities,
+            std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent);
+
+        void _handleMouseButtonPressedEvent(entity::EntityPtr &entity,
+            std::shared_ptr<events::MouseButtonPressEvent> mouseEvent);
+
+        void _handleKeyReleaseEvent(entity::EntityPtr &entity,
             std::shared_ptr<events::KeyReleaseEvent> keyEvent);
-        void _handleKeyPressEvent(entity::EntitiesMap entities,
+
+        void _handleKeyPressEvent(entity::EntityPtr &entity,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
+
+        int _handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
+
+        void _handleEntityEvents(entity::EntitiesMap entities, events::EventPtr event);
+
         void _handleEvents(entity::EntitiesMap entities);
 
         // Display Functions
