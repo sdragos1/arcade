@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr)
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0)
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -19,6 +19,8 @@ Core::Core(std::string defaultLib)
         librariesPath = libDirectory->getListLibraries();
         _librariesGame =  std::make_unique<GameList>(librariesPath);
         _librariesRenderer = std::make_unique<GraphicList>(librariesPath, defaultLib);
+        _currLibIndex = _librariesRenderer->getIndex();
+
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
@@ -111,6 +113,13 @@ std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
     }
 }
 
+void Core::_handleGraphicSwitch()
+{
+    if (_currLibIndex != _librariesRenderer->getIndex()) {
+        _currLibIndex = _librariesRenderer->getIndex();
+    }
+}
+
 Core::GeneralEventType Core::_coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
     switch (keyEvent->getKeyCode().character)
@@ -160,12 +169,10 @@ void Core::_handleEvents(entity::EntitiesMap entities)
             }
             if (coreEvent == Core::GeneralEventType::NEXT_GRAPHICS) {
                 _librariesRenderer->incrementIndex();
-                _initGraphicLib();
                 return;
             }
             if (coreEvent == Core::GeneralEventType::PREV_GRAPHICS) {
                 _librariesRenderer->decrementIndex();
-                _initGraphicLib();
                 return;
             }
             _handleEntitiesKeyEvent(entities, keyEvent);
@@ -183,6 +190,7 @@ void Core::runArcade()
     auto prevTime = std::chrono::high_resolution_clock::now();
 
     while (_currWindow->isOpen()) {
+        _handleGraphicSwitch();
         auto currentTime = std::chrono::high_resolution_clock::now();
         auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(prevTime -
             currentTime);

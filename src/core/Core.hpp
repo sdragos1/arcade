@@ -64,6 +64,8 @@ class Core
     private:
         void _initGraphicLib();
 
+        void _handleGraphicSwitch();
+
         void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
@@ -82,6 +84,7 @@ class Core
         std::shared_ptr<shared::games::IGame> _currGame;
         IGraphicsProvider *_currRenderer;
         std::unique_ptr<IWindow> _currWindow;
+        std::size_t _currLibIndex;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
