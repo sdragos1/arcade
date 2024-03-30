@@ -12,9 +12,9 @@
 #include <iostream>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
-#include "../../../common/graphics/ISound.hpp"
-#include "../../../common/types/Libraries.hpp"
-#include "../../../common/graphics/IGraphicsProvider.hpp"
+#include "common/graphics/ISound.hpp"
+#include "common/types/Libraries.hpp"
+#include "common/graphics/IGraphicsProvider.hpp"
 
 class SFMLSound : public shared::graphics::ISound
 {

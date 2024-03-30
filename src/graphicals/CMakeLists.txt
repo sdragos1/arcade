@@ -15,5 +15,8 @@ function(create_graphic_library TARGET_NAME DEPENDENCY)
 endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
+
+set(SFML_DEPENDENCIES sfml-graphics sfml-window sfml-system)
+
 create_graphic_library(ncurses ncurses)
-create_graphic_library(sfml sfml-graphics sfml-window sfml-system)
+create_graphic_library(sfml "${SFML_DEPENDENCIES}")
