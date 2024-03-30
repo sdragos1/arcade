@@ -29,4 +29,7 @@ set(SDL2_DEPENDENCY SDL2 SDL2_image SDL2_ttf SDL2_mixer)
 create_graphic_library(ncurses ncurses)
 create_graphic_library(sfml "${SFML_DEPENDENCY}")
 create_graphic_library(sdl2 "${SDL2_DEPENDENCY}")
+<<<<<<< HEAD
 >>>>>>> fe15213 (feat: SDL2 & SFML with responsive)
+=======
+>>>>>>> d241c16 (fix: graphic library dependencies build)
