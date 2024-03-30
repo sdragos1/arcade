@@ -102,140 +102,89 @@ void Core::_display(entity::EntitiesMap entities)
     }
 }
 
-void Core::_handleMouseMoveEvent(entity::EntitiesMap entities,
-std::shared_ptr<events::MouseMoveEvent> mouseEvent)
+void Core::_handleMouseMoveEvent(
+    std::shared_ptr<components::IDisplayableComponent> displayable,
+    std::shared_ptr<events::MouseMoveEvent> mouseEvent)
 {
-    components::ComponentsMap components;
-    components::ComponentType type;
-    std::shared_ptr<components::IDisplayableComponent> displayable = nullptr;
-
-    for (auto &entity : entities) {
-        components = entity->getComponents();
-        for (auto &component : components) {
-            type = component->getType();
-            if (type == components::ComponentType::TEXTURE) {
-                displayable = std::dynamic_pointer_cast<components::IDisplayableComponent>(component);
-                if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
-                    displayable->onMouseHover(_currGame);
-                }
-            }
-        }
+    if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
+        displayable->onMouseHover(_currGame);
     }
 }
 
-void Core::_handleMouseButtonReleasedEvent(entity::EntitiesMap entities,
-std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent)
+void Core::_handleMouseButtonReleasedEvent(
+    std::shared_ptr<components::IDisplayableComponent> displayable,
+    std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent)
 {
-    components::ComponentsMap components;
-    components::ComponentType type;
-    std::shared_ptr<components::IDisplayableComponent> displayable = nullptr;
-
-    for (auto &entity : entities) {
-        components = entity->getComponents();
-        for (auto &component : components) {
-            type = component->getType();
-            if (type == components::ComponentType::TEXTURE) {
-                displayable = std::dynamic_pointer_cast<components::IDisplayableComponent>(component);
-                if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
-                    displayable->onMouseRelease(_currGame);
-                }
-            }
-        }
+    if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
+        displayable->onMouseRelease(_currGame);
     }
 }
 
-void Core::_handleMouseButtonPressedEvent(entity::EntityPtr &entity,
-std::shared_ptr<events::MouseButtonPressEvent> mouseEvent)
+void Core::_handleMouseButtonPressedEvent(
+    std::shared_ptr<components::IDisplayableComponent> displayable,
+    std::shared_ptr<events::MouseButtonPressEvent> mouseEvent)
 {
-    components::ComponentsMap components;
-    components::ComponentType type;
-    std::shared_ptr<components::IDisplayableComponent> displayable = nullptr;
-
-    components = entity->getComponents();
-    for (auto &component : components) {
-        type = component->getType();
-        if (type == components::ComponentType::TEXTURE) {
-            displayable = std::dynamic_pointer_cast<components::IDisplayableComponent>(component);
-            if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
-                std::cout << "Displayable pressed" << std::endl;
-                displayable->onMousePress(_currGame);
-            }
-        }
+    if (CoreUtils::isDisplayablePressed(displayable, mouseEvent)) {
+        displayable->onMousePress(_currGame);
     }
 }
 
-void Core::_handleKeyPressEvent(entity::EntityPtr &entity,
+void Core::_handleKeyPressEvent(std::shared_ptr<components::IKeyboardComponent> &keyboard,
 std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
-    components::ComponentsMap components;
-    components::ComponentType type;
-    std::shared_ptr<components::IKeyboardComponent> keyboard = nullptr;
     components::IKeyboardComponent::KeyData keyData;
 
     keyData = CoreUtils::convertKey(keyEvent->getKeyCode(), keyEvent->getKeyType());
-    components = entity->getComponents();
-    for (auto &component : components) {
-        type = component->getType();
-        if (type == components::ComponentType::KEYBOARD) {
-            keyboard = std::dynamic_pointer_cast<components::IKeyboardComponent>(component);
-            keyboard->onKeyPress(_currGame, keyData);
-        }
-    }
+    keyboard->onKeyPress(_currGame, keyData);
 }
 
-void Core::_handleKeyReleaseEvent(entity::EntityPtr &entity,
+void Core::_handleKeyReleaseEvent(std::shared_ptr<components::IKeyboardComponent> &keyboard,
 std::shared_ptr<events::KeyReleaseEvent> keyEvent)
 {
-    components::ComponentsMap components;
-    components::ComponentType type;
-    std::shared_ptr<components::IKeyboardComponent> keyboard = nullptr;
     components::IKeyboardComponent::KeyData keyData;
 
     keyData = CoreUtils::convertKey(keyEvent->getKeyCode(), keyEvent->getKeyType());
-    components = entity->getComponents();
+    keyboard->onKeyRelease(_currGame, keyData);
+}
+
+void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event)
+{
+    components::ComponentType type;
+    components::ComponentsMap components = entity->getComponents();
+
     for (auto &component : components) {
         type = component->getType();
         if (type == components::ComponentType::KEYBOARD) {
-            keyboard = std::dynamic_pointer_cast<components::IKeyboardComponent>(component);
-            keyboard->onKeyRelease(_currGame, keyData);
+            auto keyboard = std::dynamic_pointer_cast<components::IKeyboardComponent>(component);
+            if (event->getType() == events::EventType::KEY_PRESS) {
+                _handleKeyPressEvent(
+                    keyboard,
+                    std::dynamic_pointer_cast<events::KeyPressedEvent>(event));
+            }
+            if (event->getType() == events::EventType::KEY_RELEASE) {
+                _handleKeyReleaseEvent(
+                    keyboard,
+                    std::dynamic_pointer_cast<events::KeyReleaseEvent>(event));
+            }
         }
-    }
-}
-
-int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
-{
-    switch (keyEvent->getKeyCode().character)
-    {
-        case 'a':
-            _currWindow->close();
-            return 0;
-        case 'd':
-            _librariesRenderer->incrementIndex();
-            return 0;
-        case 'q':
-            _librariesRenderer->decrementIndex();
-            return 0;
-        default:
-            return 1;
-    }
-}
-
-void Core::_handleEntityEvents(entity::EntitiesMap entities, events::EventPtr event)
-{
-    events::EventType type = event->getType();
-
-    for (auto &entity : entities) {
-        if (type == events::EventType::KEY_PRESS) {
-            _handleKeyPressEvent(entity,
-                std::dynamic_pointer_cast<events::KeyPressedEvent>(event));
-        }
-        if (type == events::EventType::KEY_RELEASE) {
-            _handleKeyReleaseEvent(entity,
-                std::dynamic_pointer_cast<events::KeyReleaseEvent>(event));
-        }
-        if (type == events::EventType::MOUSE_BTN_PRESS) {
-            _handleMouseButtonPressedEvent(entity,
-                std::dynamic_pointer_cast<events::MouseButtonPressEvent>(event));
+        if (type == components::ComponentType::TEXTURE) {
+            auto displayable =
+                std::dynamic_pointer_cast<components::IDisplayableComponent>(component);
+            if (event->getType() == events::EventType::MOUSE_BTN_PRESS) {
+                _handleMouseButtonPressedEvent(
+                    displayable,
+                    std::dynamic_pointer_cast<events::MouseButtonPressEvent>(event));
+            }
+            if (event->getType() == events::EventType::MOUSE_BTN_RELEASE) {
+                _handleMouseButtonReleasedEvent(
+                    displayable,
+                    std::dynamic_pointer_cast<events::MouseButtonReleaseEvent>(event));
+            }
+            if (event->getType() == events::EventType::MOUSE_MOVE) {
+                _handleMouseMoveEvent(
+                    displayable,
+                    std::dynamic_pointer_cast<events::MouseMoveEvent>(event));
+            }
         }
     }
 }
@@ -258,9 +207,30 @@ void Core::_handleEvents(entity::EntitiesMap entities)
                 return;
             }
         }
-        _handleEntityEvents(entities, event);
+        for (auto &entity : entities) {
+            _handleEntityEvents(entity, event);
+        }
     }
     events.clear();
+}
+
+
+int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
+{
+    switch (keyEvent->getKeyCode().character)
+    {
+        case 'a':
+            _currWindow->close();
+            return 0;
+        case 'd':
+            _librariesRenderer->incrementIndex();
+            return 0;
+        case 'q':
+            _librariesRenderer->decrementIndex();
+            return 0;
+        default:
+            return 1;
+    }
 }
 
 void Core::runArcade()

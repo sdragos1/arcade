@@ -59,24 +59,24 @@ class Core
         void _handleGraphicSwitch();
 
         // Event Functions
-        void _handleMouseMoveEvent(entity::EntitiesMap entities,
+        void _handleMouseMoveEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseMoveEvent> mouseEvent);
 
-        void _handleMouseButtonReleasedEvent(entity::EntitiesMap entities,
+        void _handleMouseButtonReleasedEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent);
 
-        void _handleMouseButtonPressedEvent(entity::EntityPtr &entity,
+        void _handleMouseButtonPressedEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseButtonPressEvent> mouseEvent);
 
-        void _handleKeyReleaseEvent(entity::EntityPtr &entity,
+        void _handleKeyReleaseEvent(std::shared_ptr<components::IKeyboardComponent> &component,
             std::shared_ptr<events::KeyReleaseEvent> keyEvent);
 
-        void _handleKeyPressEvent(entity::EntityPtr &entity,
+        void _handleKeyPressEvent(std::shared_ptr<components::IKeyboardComponent> &component,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
         int _handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        void _handleEntityEvents(entity::EntitiesMap entities, events::EventPtr event);
+        void _handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event);
 
         void _handleEvents(entity::EntitiesMap entities);
 
