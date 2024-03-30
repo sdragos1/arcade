@@ -36,14 +36,14 @@ void Core::_initGraphicLib()
 {
     _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({{800, 600},
-        shared::graphics::IWindow::WindowMode::WINDOWED, 60, "Ncurses Lib", ICON_PATH});
+        IWindow::WindowMode::WINDOWED, 60, "Ncurses Lib", ICON_PATH});
 }
 
 void Core::_displayEntityText(std::shared_ptr<components::ITextComponent> displayable)
 {
     components::ITextComponent::TextProps textProps = displayable->getTextProps();
     std::shared_ptr<IFont> font = _currRenderer->createFont(textProps.font.path);
-    shared::graphics::TextProps text{
+    TextProps text{
         .font = font,
         .fontSize = textProps.font.size,
         .content = textProps.content,
@@ -58,7 +58,7 @@ void Core::_displayEntityText(std::shared_ptr<components::ITextComponent> displa
 
 void Core::_displayEntityTexture(std::shared_ptr<components::ITextureComponent> displayable)
 {
-    shared::graphics::TextureProps entityProps{
+    TextureProps entityProps{
         .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
             displayable->getTextureProps().sources.ascii),
         .binTileSize = displayable->getTextureProps().sources.binTileSize,
@@ -71,8 +71,8 @@ void Core::_displayEntityTexture(std::shared_ptr<components::ITextureComponent> 
 
 void Core::_displayEntities(entity::EntitiesMap entities)
 {
-    std::vector<shared::graphics::TextureProps> entitiesProps;
-    std::shared_ptr<shared::graphics::ITexture> texture;
+    std::vector<TextureProps> entitiesProps;
+    std::shared_ptr<ITexture> texture;
     components::ComponentsMap components;
     components::ComponentType type;
 
@@ -93,7 +93,7 @@ void Core::_displayEntities(entity::EntitiesMap entities)
 }
 
 void Core::_handleEntitiesKeyEvent(entity::EntitiesMap entities,
-std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent)
+std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
     components::ComponentsMap components;
     components::ComponentType type;
@@ -117,62 +117,44 @@ void Core::_handleGraphicSwitch()
 {
     if (_currLibIndex != _librariesRenderer->getIndex()) {
         _currLibIndex = _librariesRenderer->getIndex();
+        _currRenderer = _librariesRenderer->getCurrentLibrary();
+        _initGraphicLib();
     }
 }
 
-Core::GeneralEventType Core::_coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
+int Core::_coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
     switch (keyEvent->getKeyCode().character)
     {
         case 'a':
-            return Core::GeneralEventType::EXIT;
-            break;
-        case 'z':
-            return Core::GeneralEventType::NEXT_GAME;
-            break;
-        case 's':
-            return Core::GeneralEventType::PREV_GAME;
-            break;
+            _currWindow->close();
+            return 0;
         case 'd':
-            return Core::GeneralEventType::NEXT_GRAPHICS;
-            break;
+            _librariesRenderer->incrementIndex();
+            return 0;
         case 'q':
-            return Core::GeneralEventType::PREV_GRAPHICS;
-            break;
-        case 'r':
-            return Core::GeneralEventType::RESTART_GAME;
-            break;
+            _librariesRenderer->decrementIndex();
+            return 0;
         default:
-            return Core::GeneralEventType::NONE;
+            return 1;
     }
 }
 
 void Core::_handleEvents(entity::EntitiesMap entities)
 {
-    std::vector<shared::graphics::events::EventPtr> events = _currWindow->getEvents();
+    std::vector<events::EventPtr> events = _currWindow->getEvents();
 
     if (events.size() == 0) {
         return;
     }
     for (auto &event : events) {
-        if (event->getType() == shared::graphics::events::EventType::WINDOW_CLOSE) {
+        if (event->getType() == events::EventType::WINDOW_CLOSE) {
             _currWindow->close();
             return;
         }
-        if (event->getType() == shared::graphics::events::EventType::KEY_PRESS) {
-            std::shared_ptr<shared::graphics::events::KeyPressedEvent> keyEvent =
-                std::dynamic_pointer_cast<shared::graphics::events::KeyPressedEvent>(event);
-            auto coreEvent = _coreEvents(keyEvent);
-            if (coreEvent == Core::GeneralEventType::EXIT) {
-                _currWindow->close();
-                return;
-            }
-            if (coreEvent == Core::GeneralEventType::NEXT_GRAPHICS) {
-                _librariesRenderer->incrementIndex();
-                return;
-            }
-            if (coreEvent == Core::GeneralEventType::PREV_GRAPHICS) {
-                _librariesRenderer->decrementIndex();
+        if (event->getType() == events::EventType::KEY_PRESS) {
+            auto keyEvent = std::dynamic_pointer_cast<events::KeyPressedEvent>(event);
+            if (_coreEvents(keyEvent) == 0) {
                 return;
             }
             _handleEntitiesKeyEvent(entities, keyEvent);
@@ -185,7 +167,6 @@ void Core::runArcade()
 {
     _currGame = _librariesGame->getCurrentGame();
     _initGraphicLib();
-    std::vector<shared::graphics::events::IEvent> events;
     shared::games::entity::EntitiesMap gameEntities;
     auto prevTime = std::chrono::high_resolution_clock::now();
 

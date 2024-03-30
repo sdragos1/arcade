@@ -37,17 +37,6 @@ using namespace shared::graphics;
 class Core
 {
     public:
-        typedef enum {
-            NONE,
-            EXIT,
-            RESTART_GAME,
-            NEXT_GAME,
-            PREV_GAME,
-            NEXT_GRAPHICS,
-            PREV_GRAPHICS,
-            GO_MENU
-        } GeneralEventType;
-
         /**
          * @brief Constructor of Core Class
          *
@@ -69,7 +58,7 @@ class Core
         void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
+        int _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
         void _handleEvents(entity::EntitiesMap entities);
 
@@ -81,7 +70,7 @@ class Core
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
         std::map<void *, std::shared_ptr<ITexture>> _textures;
-        std::shared_ptr<shared::games::IGame> _currGame;
+        std::shared_ptr<IGame> _currGame;
         IGraphicsProvider *_currRenderer;
         std::unique_ptr<IWindow> _currWindow;
         std::size_t _currLibIndex;
