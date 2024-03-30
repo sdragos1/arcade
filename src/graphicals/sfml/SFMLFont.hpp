@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "exceptions/SFMLFontException.hpp"
 #include "../../../common/graphics/IFont.hpp"
 
 class SFMLFont : public shared::graphics::IFont

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** SFML
+** SDL2
 ** File description:
 ** Arcade
 */
@@ -10,19 +10,19 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include "SFMLSound.hpp"
-#include "SFMLTexture.hpp"
-#include "SFMLFont.hpp"
-#include "Window/SFMLWindow.hpp"
+#include "SDL2Sound.hpp"
+#include "SDL2Texture.hpp"
+#include "SDL2Font.hpp"
+#include "Window/SDL2Window.hpp"
 #include "../../../common/types/Libraries.hpp"
 #include "../../../common/graphics/IGraphicsProvider.hpp"
 
-class SFML : public shared::graphics::IGraphicsProvider
+class SDL2 : public shared::graphics::IGraphicsProvider
 {
     public:
-        SFML();
+        SDL2();
 
-        ~SFML();
+        ~SDL2();
 
         const shared::graphics::GraphicsManifest &getManifest(void) const noexcept override;
 
@@ -38,6 +38,6 @@ class SFML : public shared::graphics::IGraphicsProvider
         (const std::string &path) override;
 
     private:
-        shared::graphics::GraphicsManifest _sfmlManifest;
+        shared::graphics::GraphicsManifest _sdl2Manifest;
 };
 

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** SFMLSound
+** SDL2Sound
 ** File description:
 ** Arcade
 */
@@ -10,19 +10,19 @@
 #include <memory>
 #include <string>
 #include <iostream>
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include "exceptions/SFMLSoundException.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
+#include "exceptions/SDL2SoundException.hpp"
 #include "../../../common/graphics/ISound.hpp"
 #include "../../../common/types/Libraries.hpp"
 #include "../../../common/graphics/IGraphicsProvider.hpp"
 
-class SFMLSound : public shared::graphics::ISound
+class SDL2Sound : public shared::graphics::ISound
 {
     public:
-        explicit SFMLSound(const std::string &path);
+        explicit SDL2Sound(const std::string &path);
 
-        ~SFMLSound();
+        ~SDL2Sound();
 
         void setState(shared::graphics::ISound::SoundState) override;
         shared::graphics::ISound::SoundState getState() const override;
@@ -32,8 +32,8 @@ class SFMLSound : public shared::graphics::ISound
         bool getLoopState(void) const override;
 
     private:
-        sf::Sound                            _sound;
-        sf::SoundBuffer                      _bufferSound;
+        bool                                 _loop;
+        Mix_Music                           *_sound;
         shared::graphics::ISound::SoundState _state;
 };
 

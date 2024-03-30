@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "exceptions/SFMLTextureException.hpp"
 #include "../../../common/graphics/ITexture.hpp"
 
 class SFMLTexture : public shared::graphics::ITexture

@@ -20,6 +20,7 @@
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
 #include "graphics/IWindow.hpp"
+#include "graphics/events/IMouseButtonEvent.hpp"
 #include "games/components/IComponent.hpp"
 #include "games/components/ITextureComponent.hpp"
 #include "games/components/IKeyboardComponent.hpp"

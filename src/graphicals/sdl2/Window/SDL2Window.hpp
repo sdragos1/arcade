@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** SFMLWindow
+** SDL2Window
 ** File description:
 ** Arcade
 */
@@ -9,14 +9,13 @@
 
 #include <memory>
 #include <string>
-#include <iomanip>
 #include <iostream>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-#include "../SFMLTexture.hpp"
-#include "../SFMLFont.hpp"
-#include "../exceptions/SFMLWindowException.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
+#include "../SDL2Font.hpp"
+#include "../SDL2Texture.hpp"
+#include "../exceptions/SDL2WindowException.hpp"
 #include "../../../../common/types/Vector.hpp"
 #include "../../../../common/types/Libraries.hpp"
 #include "../../../../common/graphics/events/IEvent.hpp"
@@ -32,12 +31,12 @@
 #include "../../../../shared/events/mouse/MouseButtonPressEvent.hpp"
 #include "../../../../shared/events/mouse/MouseButtonReleaseEvent.hpp"
 
-class SFMLWindow : public shared::graphics::IWindow
+class SDL2Window : public shared::graphics::IWindow
 {
     public:
-        explicit SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowProps);
+        explicit SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps);
 
-        ~SFMLWindow();
+        ~SDL2Window();
 
         void setTitle(const std::string &title) override;
 
@@ -69,17 +68,20 @@ class SFMLWindow : public shared::graphics::IWindow
 
         std::vector<std::shared_ptr<shared::graphics::events::IEvent>> getEvents(void) override;
 
-        shared::graphics::events::IKeyEvent::KeyType mapSFMLKeyToKeyType(sf::Keyboard::Key sfmlKey);
+        shared::graphics::events::IKeyEvent::KeyType mapSDL2KeyToKeyType(SDL_Keycode sdl2Key);
 
-        shared::graphics::events::IKeyEvent::KeyCode mapSFMLKeyToKeyCode
-        (sf::Keyboard::Key sfmlKey, shared::graphics::events::IKeyEvent::KeyType type);
+        shared::graphics::events::IKeyEvent::KeyCode mapSDL2KeyToKeyCode
+        (SDL_Keycode sdl2Key, shared::graphics::events::IKeyEvent::KeyType type);
 
     private:
-        sf::RenderWindow _window;
+        Uint32           _frameStart;
+        bool             _running;
+        SDL_Window      *_window;
+        SDL_Renderer    *_renderer;
         std::string      _title;
         std::string      _icon;
         unsigned int     _fps;
-        Vector2u         _sfmlbasicTiles;
-        Vector2u         _sfmlbasicwindow;
+        Vector2u         _sdl2basicTiles;
+        Vector2u         _sdl2basicwindow;
         shared::graphics::IWindow::WindowMode _mode;
 };
