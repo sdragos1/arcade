@@ -26,6 +26,7 @@
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ITextComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
+#include "events/key/KeyReleaseEvent.hpp"
 #include "utils/CoreUtils.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
@@ -55,17 +56,20 @@ class Core
 
         void _handleGraphicSwitch();
 
-        void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
-            std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
+
+        // Event Functions
         int _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
-
+        void _handleKeyReleaseEvent(entity::EntitiesMap entities,
+            std::shared_ptr<events::KeyReleaseEvent> keyEvent);
+        void _handleKeyPressEvent(entity::EntitiesMap entities,
+            std::shared_ptr<events::KeyPressedEvent> keyEvent);
         void _handleEvents(entity::EntitiesMap entities);
 
         // Display Functions
-        void _displayEntityTexture(std::shared_ptr<components::ITextureComponent> displayable);
-        void _displayEntityText(std::shared_ptr<components::ITextComponent> displayable);
-        void _displayEntities(entity::EntitiesMap entities);
+        void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
+        void _displayText(std::shared_ptr<components::ITextComponent> displayable);
+        void _display(entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
