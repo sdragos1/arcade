@@ -25,6 +25,7 @@
 #include "games/components/ITextureComponent.hpp"
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ITextComponent.hpp"
+#include "games/components/ISoundComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
 #include "events/key/KeyReleaseEvent.hpp"
 #include "events/mouse/MouseButtonPressEvent.hpp"
@@ -59,13 +60,17 @@ class Core
         void _handleGraphicSwitch();
 
         // Event Functions
+        void _handleSoundState(std::shared_ptr<components::ISoundComponent> sound);
+
         void _handleMouseMoveEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseMoveEvent> mouseEvent);
 
-        void _handleMouseButtonReleasedEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
+        void _handleMouseButtonReleasedEvent(
+            std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent);
 
-        void _handleMouseButtonPressedEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
+        void _handleMouseButtonPressedEvent(
+            std::shared_ptr<components::IDisplayableComponent> displayable,
             std::shared_ptr<events::MouseButtonPressEvent> mouseEvent);
 
         void _handleKeyReleaseEvent(std::shared_ptr<components::IKeyboardComponent> &component,
@@ -83,7 +88,10 @@ class Core
         // Display Functions
         void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
-        void _display(entity::EntitiesMap entities);
+        void _displayManager(entity::EntitiesMap entities);
+
+        // Sound Functions
+        void _soundManager(entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
@@ -92,6 +100,7 @@ class Core
         IGraphicsProvider *_currRenderer;
         std::unique_ptr<IWindow> _currWindow;
         std::size_t _currLibIndex;
+        std::map<std::shared_ptr<components::ISoundComponent>, components::SoundState> _soundsMap;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
