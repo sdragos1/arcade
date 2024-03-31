@@ -66,3 +66,8 @@ shared::graphics::IGraphicsProvider* GraphicList::getCurrentLibrary()
 {
     return _libraryList[_index];
 }
+
+std::size_t GraphicList::getIndex() const noexcept
+{
+    return _index;
+}

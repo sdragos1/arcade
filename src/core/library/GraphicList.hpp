@@ -51,6 +51,12 @@ class GraphicList
          */
         shared::graphics::IGraphicsProvider *getCurrentLibrary();
 
+        /**
+         * @brief Gets the index of the current lib
+         * @return std::size_t Index of Library
+         */
+        std::size_t getIndex() const noexcept;
+
     protected:
         std::vector<shared::graphics::IGraphicsProvider *>   _libraryList;
         std::vector<std::shared_ptr<DLLoader<shared::graphics::IGraphicsProvider *>>>

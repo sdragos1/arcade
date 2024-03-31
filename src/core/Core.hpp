@@ -20,11 +20,17 @@
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
 #include "graphics/IWindow.hpp"
+#include "graphics/events/IMouseButtonEvent.hpp"
 #include "games/components/IComponent.hpp"
 #include "games/components/ITextureComponent.hpp"
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ITextComponent.hpp"
+#include "games/components/ISoundComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
+#include "events/key/KeyReleaseEvent.hpp"
+#include "events/mouse/MouseButtonPressEvent.hpp"
+#include "events/mouse/MouseButtonReleaseEvent.hpp"
+#include "events/mouse/MouseMoveEvent.hpp"
 #include "utils/CoreUtils.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
@@ -36,16 +42,6 @@ using namespace shared::graphics;
 class Core
 {
     public:
-        typedef enum {
-            NONE,
-            EXIT,
-            RESTART_GAME,
-            NEXT_GAME,
-            PREV_GAME,
-            NEXT_GRAPHICS,
-            PREV_GRAPHICS,
-        } GeneralEventType;
-
         /**
          * @brief Constructor of Core Class
          *
@@ -60,26 +56,51 @@ class Core
         void runArcade();
 
     private:
-        void _init();
+        void _initGraphicLib();
+        void _handleGraphicSwitch();
 
-        void _handleEntitiesKeyEvent(entity::EntitiesMap entities,
+        // Event Functions
+        void _handleSoundState(std::shared_ptr<components::ISoundComponent> sound);
+
+        void _handleMouseMoveEvent(std::shared_ptr<components::IDisplayableComponent> displayable,
+            std::shared_ptr<events::MouseMoveEvent> mouseEvent);
+
+        void _handleMouseButtonReleasedEvent(
+            std::shared_ptr<components::IDisplayableComponent> displayable,
+            std::shared_ptr<events::MouseButtonReleaseEvent> mouseEvent);
+
+        void _handleMouseButtonPressedEvent(
+            std::shared_ptr<components::IDisplayableComponent> displayable,
+            std::shared_ptr<events::MouseButtonPressEvent> mouseEvent);
+
+        void _handleKeyReleaseEvent(std::shared_ptr<components::IKeyboardComponent> &component,
+            std::shared_ptr<events::KeyReleaseEvent> keyEvent);
+
+        void _handleKeyPressEvent(std::shared_ptr<components::IKeyboardComponent> &component,
             std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _coreEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
+        int _handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent);
 
-        GeneralEventType _handleEvents(entity::EntitiesMap entities);
+        void _handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event);
+
+        void _handleEvents(entity::EntitiesMap entities);
 
         // Display Functions
-        void _displayEntityTexture(std::shared_ptr<components::ITextureComponent> displayable);
-        void _displayEntityText(std::shared_ptr<components::ITextComponent> displayable);
-        void _displayEntities(entity::EntitiesMap entities);
+        void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
+        void _displayText(std::shared_ptr<components::ITextComponent> displayable);
+        void _displayManager(entity::EntitiesMap entities);
+
+        // Sound Functions
+        void _soundManager(entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
         std::map<void *, std::shared_ptr<ITexture>> _textures;
-        std::shared_ptr<shared::games::IGame> _currGame;
+        std::shared_ptr<IGame> _currGame;
         IGraphicsProvider *_currRenderer;
         std::unique_ptr<IWindow> _currWindow;
+        std::size_t _currLibIndex;
+        std::map<std::shared_ptr<components::ISoundComponent>, components::SoundState> _soundsMap;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

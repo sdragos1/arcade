@@ -17,9 +17,15 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     _textureProps(
         {
             .sources = {
+<<<<<<< HEAD:src/games/snake/entities/snake_head/components/SnakeHeadDisplayable.cpp
                 .ascii = "$",
                 .bin = "/assets/games/snake/head_right.png",
                 .binTileSize = {0, 0}
+=======
+                .ascii = "=",
+                .bin = "assets/games/snake/head_up.png",
+                .binTileSize = {10, 10}
+>>>>>>> main:src/games/test_game/entities/snake_head/components/SnakeHeadDisplayable.cpp
             },
             .origin = {0, 0}
         }

@@ -11,13 +11,15 @@ NcursesWindow::NcursesWindow(const WindowInitProps &props)
     : AWindow(props),
         _events()
 {
+    std::cout << "Ncurses window created" << std::endl;
     _window = initscr();
-    raw();
-    keypad(stdscr, TRUE);
+    if (_window == NULL)
+        throw std::runtime_error("Error: initscr failed");
+    cbreak();
     noecho();
+    keypad(stdscr, TRUE);
+    nodelay(stdscr, TRUE);
     curs_set(0);
-    nodelay(_window, true);
-    mousemask(ALL_MOUSE_EVENTS, NULL);
     start_color();
     init_pair(1, COLOR_RED, COLOR_BLACK);
     init_pair(2, COLOR_YELLOW, COLOR_BLACK);
@@ -26,7 +28,7 @@ NcursesWindow::NcursesWindow(const WindowInitProps &props)
 
 NcursesWindow::~NcursesWindow()
 {
-    delwin(_window);
+    std::cout << "Ncurses window destroyed" << std::endl;
     endwin();
 }
 
@@ -88,6 +90,7 @@ void NcursesWindow::display()
 void NcursesWindow::close()
 {
     endwin();
+    _isOpen = false;
 }
 
 std::vector<events::EventPtr> NcursesWindow::getEvents()

@@ -13,7 +13,7 @@ AWindow::AWindow(const shared::graphics::IWindow::WindowInitProps &props)
     _mode(props.mode),
     _icon(props.icon),
     _fps(props.fps),
-    _isOpen(false)
+    _isOpen(true)
 {
 }
 
