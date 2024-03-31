@@ -27,7 +27,10 @@ class SnakeBodyDisplayable : public components::ITextureComponent {
         void onMouseHover(std::shared_ptr<IGame> &ctx) override;
         void onMouseRelease(std::shared_ptr<IGame> &ctx) override;
 
+        void setPosition(Vector2i pos) noexcept;
+
         Vector2i &getPosition(void) noexcept override;
+        Vector2i &getOldPosition(void) noexcept;
         Vector2i _position;
         Vector2i _oldPosition;
 

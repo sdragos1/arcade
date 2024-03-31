@@ -30,7 +30,7 @@ class SnakeGame : public IGame {
         const entity::EntitiesMap &getEntities(void) const override;
         const unsigned int getFps(void) const noexcept override;
 
-        void moveSnake(int x, int y);
+        void moveSnake();
 
     protected:
     private:

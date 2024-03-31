@@ -33,6 +33,7 @@ void SnakeGame::compute(DeltaTime dt)
 {
     (void)dt;
     std::cout << "SnakeGame::compute" << std::endl;
+    moveSnake();
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept
@@ -55,10 +56,25 @@ const unsigned int SnakeGame::getFps(void) const noexcept
     return 60;
 }
 
-void SnakeGame::moveSnake(int x, int y)
+void SnakeGame::moveSnake()
 {
     // move the snake elements from the list to make it follow the snake like in the snake game
     // look at the head position and move the body and tail following the head position
     // the second part of the body goes to the old position of the first part of the body etc etc
     // check in the list if the snake's head position was updated or not
+    // if the head has changed position, all the elements in the list are set to the position of the element above it in the list
+    Vector2i previousPosition(0, 0);
+
+    auto it = _snakeEntities.begin();
+    if (auto head = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
+        previousPosition = head->getPosition();
+    }
+    ++it;
+    for (; it != _snakeEntities.end(); ++it) {
+        if (auto bodyPart = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
+            Vector2i currentPosition = bodyPart->getPosition();
+            bodyPart->setPosition(previousPosition);
+            previousPosition = currentPosition;
+        }
+    }
 }

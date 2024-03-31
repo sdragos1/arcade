@@ -75,3 +75,14 @@ Vector2i &SnakeBodyDisplayable::getPosition(void) noexcept
 {
     return _position;
 }
+
+Vector2i &SnakeBodyDisplayable::getOldPosition(void) noexcept
+{
+    return _oldPosition;
+}
+
+void SnakeBodyDisplayable::setPosition(Vector2i pos) noexcept
+{
+    _oldPosition = _position;
+    _position = pos;
+}
