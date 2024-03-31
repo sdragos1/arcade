@@ -81,7 +81,7 @@ void Core::_displayTexture(std::shared_ptr<components::ITextureComponent> displa
     _currWindow->render(entityProps);
 }
 
-void Core::_display(entity::EntitiesMap entities)
+void Core::_displayManager(entity::EntitiesMap entities)
 {
     components::ComponentsMap components;
     components::ComponentType type;
@@ -250,7 +250,7 @@ void Core::runArcade()
         gameEntities = _currGame->getEntities();
         _handleEvents(gameEntities);
         _currWindow->clear();
-        _display(gameEntities);
+        _displayManager(gameEntities);
         _currWindow->display();
     }
 }
