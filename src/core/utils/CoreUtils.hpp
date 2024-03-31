@@ -12,6 +12,9 @@
 #include "games/components/IKeyboardComponent.hpp"
 #include "graphics/types/TextProps.hpp"
 #include "games/components/ITextComponent.hpp"
+#include "graphics/events/IMouseEvent.hpp"
+#include "games/components/ISoundComponent.hpp"
+#include "graphics/ISound.hpp"
 
 using namespace shared::graphics;
 using namespace shared::games;
@@ -30,4 +33,11 @@ class CoreUtils {
 
         static TextVerticalAlign mapTextVerticalAlign(
             const components::ITextComponent::TextVerticalAlign& align);
+
+        static bool isDisplayablePressed(
+            std::shared_ptr<components::IDisplayableComponent> displayable,
+            std::shared_ptr<events::IMouseEvent> mouseEvent);
+
+        static shared::graphics::ISound::SoundState mapSoundState(
+            const shared::games::components::SoundState state);
 };
