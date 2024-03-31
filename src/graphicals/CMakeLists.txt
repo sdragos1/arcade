@@ -15,7 +15,6 @@ function(create_graphic_library TARGET_NAME DEPENDENCIES)
 endfunction()
 
 ## Add the graphical libraries here "create_graphic_library(<library_name>)"
-
 set(SFML_DEPENDENCY sfml-graphics sfml-system sfml-window sfml-audio)
 set(SDL2_DEPENDENCY SDL2 SDL2_image SDL2_ttf SDL2_mixer)
 
