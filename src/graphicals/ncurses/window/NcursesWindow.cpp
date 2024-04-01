@@ -51,7 +51,7 @@ Vector2u NcursesWindow::getSize() const
     int width = 0;
     int height = 0;
     getmaxyx(stdscr, height, width);
-    return (Vector2u) ({static_cast<unsigned int>(width), static_cast<unsigned int>(height)});
+    return ((Vector2u) {static_cast<unsigned int>(width), static_cast<unsigned int>(height)});
 }
 
 void NcursesWindow::setFramerateLimit(unsigned int fps)
