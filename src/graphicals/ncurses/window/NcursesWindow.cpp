@@ -51,7 +51,7 @@ Vector2u NcursesWindow::getSize() const
     int width = 0;
     int height = 0;
     getmaxyx(stdscr, height, width);
-    return (Vector2u) {static_cast<unsigned int>(width), static_cast<unsigned int>(height)};
+    return (Vector2u) ({static_cast<unsigned int>(width), static_cast<unsigned int>(height)});
 }
 
 void NcursesWindow::setFramerateLimit(unsigned int fps)
@@ -88,7 +88,6 @@ void NcursesWindow::render(const TextureProps &props)
     int indexLineY = 0;
 
     for (int i = 0; i < ascii.length(); i++) {
-
         if (ascii[i] == '\n') {
             indexLineX = 0;
             indexLineY++;
@@ -140,7 +139,6 @@ void NcursesWindow::clear()
 void NcursesWindow::display()
 {
     renderTitle();
-
 }
 
 void NcursesWindow::close()
@@ -158,7 +156,6 @@ events::IKeyEvent::KeyType NcursesWindow::mapNcursesKeyToKeyType(int key)
 {
     switch (key)
     {
-
         case KEY_BACKSPACE:
         case KEY_DC:
         case KEY_ENTER:
