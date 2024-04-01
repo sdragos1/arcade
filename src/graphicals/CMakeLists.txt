@@ -9,7 +9,7 @@ function(create_graphic_library TARGET_NAME DEPENDENCY)
 
     set_target_properties(${LIB_NAME} PROPERTIES PREFIX "")
 
-    target_link_libraries(${LIB_NAME} ${DEPENDENCY})
+    target_link_libraries(${LIB_NAME} ${DEPENDENCIES})
 
     set_target_properties(${LIB_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 endfunction()

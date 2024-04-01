@@ -12,12 +12,13 @@ _ncursesbasicwindow(47, 25)
 {
     _running = true;
     _window = initscr();
-    raw();
-    keypad(stdscr, TRUE);
+    if (_window == NULL)
+        throw std::runtime_error("Error: initscr failed");
+    cbreak();
     noecho();
+    keypad(stdscr, TRUE);
+    nodelay(stdscr, TRUE);
     curs_set(0);
-    nodelay(_window, true);
-    mousemask(ALL_MOUSE_EVENTS, NULL);
     start_color();
     init_color(COLOR_WHITE, 1000, 1000, 1000);
     init_pair(1, COLOR_RED, COLOR_BLACK);
@@ -25,11 +26,13 @@ _ncursesbasicwindow(47, 25)
     init_pair(3, COLOR_GREEN, COLOR_BLACK);
     _title = windowProps.title;
     _mode = windowProps.mode;
+
+    std::cout << "Ncurses window created" << std::endl;
 }
 
 NcursesWindow::~NcursesWindow()
 {
-    delwin(_window);
+    std::cout << "Ncurses window destroyed" << std::endl;
     endwin();
 }
 
@@ -142,6 +145,7 @@ void NcursesWindow::display()
 void NcursesWindow::close()
 {
     endwin();
+    _isOpen = false;
 }
 
 bool NcursesWindow::isOpen(void) const

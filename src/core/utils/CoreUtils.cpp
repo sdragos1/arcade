@@ -55,3 +55,35 @@ TextVerticalAlign CoreUtils::mapTextVerticalAlign(
         return shared::graphics::TextVerticalAlign::MIDDLE;
     }
 }
+
+bool CoreUtils::isDisplayablePressed(std::shared_ptr<components::IDisplayableComponent> displayable,
+    std::shared_ptr<events::IMouseEvent> mouseEvent)
+{
+    Vector2i mousePos = mouseEvent->getPosition();
+    Vector2i displayablePos = displayable->getPosition();
+    Vector2u displayableSize = displayable->getSize();
+
+    if (mousePos.x >= displayablePos.x &&
+    mousePos.x <= displayablePos.x + displayableSize.x &&
+    mousePos.y >= displayablePos.y &&
+    mousePos.y <= displayablePos.y + displayableSize.y) {
+        return true;
+    }
+    return false;
+}
+
+shared::graphics::ISound::SoundState CoreUtils::mapSoundState(
+    const shared::games::components::SoundState state)
+{
+    switch (state) {
+    case shared::games::components::SoundState::PLAY:
+        return shared::graphics::ISound::SoundState::PLAY;
+    case shared::games::components::SoundState::PAUSE:
+        return shared::graphics::ISound::SoundState::PAUSE;
+    case shared::games::components::SoundState::STOP:
+        return shared::graphics::ISound::SoundState::STOP;
+    default:
+        return shared::graphics::ISound::SoundState::STOP;
+    }
+}
+

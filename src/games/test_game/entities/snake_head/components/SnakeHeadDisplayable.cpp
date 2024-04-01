@@ -17,7 +17,7 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
         {
             .sources = {
                 .ascii = "=",
-                .bin = "assets/window_icon.png",
+                .bin = "assets/games/snake/head_up.png",
                 .binTileSize = {10, 10}
             },
             .origin = {0, 0}
