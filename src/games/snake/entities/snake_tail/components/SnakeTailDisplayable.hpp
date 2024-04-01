@@ -27,6 +27,7 @@ class SnakeTailDisplayable : public components::ITextureComponent {
         void onMouseRelease(std::shared_ptr<IGame> &ctx) override;
 
         void setPosition(Vector2i pos) noexcept;
+        void setOldPosition(Vector2i pos) noexcept;
 
         Vector2i &getPosition(void) noexcept override;
         Vector2i &getOldPosition(void) noexcept;

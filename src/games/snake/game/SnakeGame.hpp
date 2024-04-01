@@ -31,6 +31,9 @@ class SnakeGame : public IGame {
         const unsigned int getFps(void) const noexcept override;
 
         void moveSnake();
+        bool hasHeadMoved(auto it);
+        Vector2i updateBodyPositions(auto it);
+        void updateTailPosition(Vector2i);
 
     protected:
     private:

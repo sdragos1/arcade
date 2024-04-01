@@ -18,7 +18,7 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity)
         {
             .sources = {
                 .ascii = "O",
-                .bin = "/assets/games/snake/body_horizontal.png",
+                .bin = "assets/games/snake/body_horizontal.png",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}
@@ -83,6 +83,10 @@ Vector2i &SnakeBodyDisplayable::getOldPosition(void) noexcept
 
 void SnakeBodyDisplayable::setPosition(Vector2i pos) noexcept
 {
-    _oldPosition = _position;
     _position = pos;
+}
+
+void SnakeBodyDisplayable::setOldPosition(Vector2i pos) noexcept
+{
+    _oldPosition = pos;
 }

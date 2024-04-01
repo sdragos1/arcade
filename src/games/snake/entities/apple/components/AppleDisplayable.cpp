@@ -17,7 +17,7 @@ AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
         {
             .sources = {
                 .ascii = "@",
-                .bin = "@",
+                .bin = "assets/games/snake/apple.png",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}

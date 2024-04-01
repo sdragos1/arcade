@@ -32,7 +32,6 @@ SnakeGame::~SnakeGame()
 void SnakeGame::compute(DeltaTime dt)
 {
     (void)dt;
-    std::cout << "SnakeGame::compute" << std::endl;
     moveSnake();
 }
 
@@ -43,7 +42,7 @@ const GameManifest &SnakeGame::getManifest() const noexcept
 
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
-    return {20, 20};
+    return {1920, 1080};
 }
 
 const entity::EntitiesMap &SnakeGame::getEntities(void) const
@@ -56,25 +55,67 @@ const unsigned int SnakeGame::getFps(void) const noexcept
     return 60;
 }
 
+bool SnakeGame::hasHeadMoved(auto it)
+{
+    if (auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it)) {
+        if (head.get()->getOldPosition().x != head.get()->getPosition().x ||
+            head.get()->getOldPosition().y != head.get()->getPosition().y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+Vector2i SnakeGame::updateBodyPositions(auto it)
+{
+    auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it);
+    Vector2i tailNewPosition = {0, 0};
+
+    for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
+        if (next(it) == _snakeEntities.end())
+            break;
+        auto components = it->get()->getComponents();
+        for (auto it = components.begin(); it != components.end(); ++it) {
+            if (it->get()->getType() == components::ComponentType::TEXTURE) {
+                if (auto body = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
+                    tailNewPosition = body.get()->getOldPosition();
+                    body.get()->setOldPosition(body.get()->getPosition());
+                    body.get()->setPosition(head.get()->getOldPosition());
+                }
+            }
+        }
+    }
+    return tailNewPosition;
+}
+
+void SnakeGame::updateTailPosition(Vector2i tailNewPosition)
+{
+    for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
+        auto components = it->get()->getComponents();
+        for (auto it = components.begin(); it != components.end(); ++it) {
+            if (it->get()->getType() == components::ComponentType::TEXTURE) {
+                if (auto tail = std::dynamic_pointer_cast<SnakeTailDisplayable>(*it)) {
+                    tail.get()->setPosition(tailNewPosition);
+                }
+            }
+        }
+    }
+}
+
 void SnakeGame::moveSnake()
 {
-    // move the snake elements from the list to make it follow the snake like in the snake game
-    // look at the head position and move the body and tail following the head position
-    // the second part of the body goes to the old position of the first part of the body etc etc
-    // check in the list if the snake's head position was updated or not
-    // if the head has changed position, all the elements in the list are set to the position of the element above it in the list
-    Vector2i previousPosition(0, 0);
-
     auto it = _snakeEntities.begin();
-    if (auto head = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
-        previousPosition = head->getPosition();
-    }
-    ++it;
-    for (; it != _snakeEntities.end(); ++it) {
-        if (auto bodyPart = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
-            Vector2i currentPosition = bodyPart->getPosition();
-            bodyPart->setPosition(previousPosition);
-            previousPosition = currentPosition;
+    auto components = it->get()->getComponents();
+
+    for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
+        auto components = it->get()->getComponents();
+        for (auto it = components.begin(); it != components.end(); ++it) {
+            if (it->get()->getType() == components::ComponentType::TEXTURE) {
+                if (hasHeadMoved(it) == true) {
+                    Vector2i tailNewPosition = updateBodyPositions(it);
+                    updateTailPosition(tailNewPosition);
+                }
+            }
         }
     }
 }

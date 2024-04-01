@@ -18,7 +18,7 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
         {
             .sources = {
                 .ascii = "<",
-                .bin = "/assets/games/snake/tail_left.png",
+                .bin = "assets/games/snake/tail_left.png",
                 .binTileSize = {0, 0}
             },
             .origin = {0, 0}
@@ -85,4 +85,9 @@ void SnakeTailDisplayable::setPosition(Vector2i pos) noexcept
 {
     _oldPosition = _position;
     _position = pos;
+}
+
+void SnakeTailDisplayable::setOldPosition(Vector2i pos) noexcept
+{
+    _oldPosition = pos;
 }
