@@ -16,6 +16,7 @@ _ncursesbasicwindow(47, 25)
         throw std::runtime_error("Error: initscr failed");
     cbreak();
     noecho();
+    raw();
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
     curs_set(0);
@@ -145,7 +146,7 @@ void NcursesWindow::display()
 void NcursesWindow::close()
 {
     endwin();
-    _isOpen = false;
+    _running = false;
 }
 
 bool NcursesWindow::isOpen(void) const

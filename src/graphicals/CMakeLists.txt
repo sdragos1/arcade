@@ -1,4 +1,4 @@
-function(create_graphic_library TARGET_NAME DEPENDENCY)
+function(create_graphic_library TARGET_NAME DEPENDENCIES)
     file(GLOB_RECURSE LIB_SOURCES "${TARGET_NAME}/*.cpp")
 
     set(LIB_NAME arcade_${TARGET_NAME})
