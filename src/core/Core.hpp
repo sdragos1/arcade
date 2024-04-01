@@ -26,6 +26,7 @@
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ITextComponent.hpp"
 #include "games/components/ISoundComponent.hpp"
+#include "games/components/ICollidableComponent.hpp"
 #include "events/key/KeyPressedEvent.hpp"
 #include "events/key/KeyReleaseEvent.hpp"
 #include "events/mouse/MouseButtonPressEvent.hpp"
@@ -59,6 +60,7 @@ class Core
         void _initGraphicLib();
         void _handleGraphicSwitch();
 
+        // Collision Functions
         // Event Functions
         void _handleSoundState(std::shared_ptr<components::ISoundComponent> sound);
 
@@ -83,15 +85,14 @@ class Core
 
         void _handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event);
 
-        void _handleEvents(entity::EntitiesMap entities);
+        void _handleEvents();
 
         // Display Functions
         void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
-        void _displayManager(entity::EntitiesMap entities);
+        void _displayManager();
 
         // Sound Functions
-        void _soundManager(entity::EntitiesMap entities);
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
@@ -100,7 +101,7 @@ class Core
         IGraphicsProvider *_currRenderer;
         std::unique_ptr<IWindow> _currWindow;
         std::size_t _currLibIndex;
-        std::map<std::shared_ptr<components::ISoundComponent>, components::SoundState> _soundsMap;
+        shared::games::entity::EntitiesMap _gameEntities;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
