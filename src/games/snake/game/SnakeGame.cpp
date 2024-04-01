@@ -42,7 +42,7 @@ const GameManifest &SnakeGame::getManifest() const noexcept
 
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
-    return {1920, 1080};
+    return {1280, 720};
 }
 
 const entity::EntitiesMap &SnakeGame::getEntities(void) const
