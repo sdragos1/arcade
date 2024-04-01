@@ -51,6 +51,25 @@ void Core::_handleGraphicSwitch()
     }
 }
 
+void Core::_handleCollisions(std::shared_ptr<components::ICollidableComponent> collidable,
+entity::EntityPtr collidableEntity)
+{
+    for (auto &entity : _gameEntities) {
+        if (collidableEntity == entity) {
+            continue;
+        }
+        for (auto &component : entity->getComponents()) {
+            if (component->getType() == components::COLLIDABLE) {
+                auto collidableComp =
+                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+                if (CoreUtils::checkCollision(collidable, collidableComp)) {
+                    collidable->onCollide(_currGame, collidableComp);
+                }
+            }
+        }
+    }
+}
+
 void Core::_displayText(std::shared_ptr<components::ITextComponent> displayable)
 {
     components::ITextComponent::TextProps textProps = displayable->getTextProps();
@@ -189,7 +208,7 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
         if (type == components::ComponentType::COLLIDABLE) {
             auto collidable =
                 std::dynamic_pointer_cast<components::ICollidableComponent>(component);
-
+            _handleCollisions(collidable, entity);
         }
     }
 }

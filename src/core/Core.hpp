@@ -61,6 +61,9 @@ class Core
         void _handleGraphicSwitch();
 
         // Collision Functions
+        void _handleCollisions(std::shared_ptr<components::ICollidableComponent> collidable,
+            entity::EntityPtr collidableEntity);
+
         // Event Functions
         void _handleSoundState(std::shared_ptr<components::ISoundComponent> sound);
 
