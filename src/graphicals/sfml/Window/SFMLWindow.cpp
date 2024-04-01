@@ -8,7 +8,7 @@
 #include "SFMLWindow.hpp"
 
 SFMLWindow::SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowProps) :
-_sfmlbasicTiles(10, 10), _sfmlbasicwindow(windowProps.size.x, windowProps.size.y)
+_sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x, windowProps.size.y)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;

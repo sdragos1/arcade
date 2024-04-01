@@ -8,7 +8,7 @@
 #include "SDL2Window.hpp"
 
 SDL2Window::SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps) :
-_sdl2basicTiles(10, 10), _sdl2basicwindow(windowProps.size.x, windowProps.size.y)
+_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
