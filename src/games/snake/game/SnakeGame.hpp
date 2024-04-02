@@ -15,6 +15,7 @@
 #include "../entities/snake_body/SnakeBodyEntity.hpp"
 #include "../entities/snake_tail/SnakeTailEntity.hpp"
 #include "../entities/apple/AppleEntity.hpp"
+#include "../entities/background/BackgroundEntity.hpp"
 #include "../entities/texts/score/ScoreTextEntity.hpp"
 
 using namespace shared::games;
