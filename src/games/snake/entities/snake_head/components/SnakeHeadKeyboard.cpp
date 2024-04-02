@@ -6,11 +6,13 @@
 */
 
 #include "SnakeHeadKeyboard.hpp"
+#include <iostream>
 
 SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
     :
     _entity(entity)
 {
+    _direction = RIGHT;
 }
 
 SnakeHeadKeyboard::~SnakeHeadKeyboard()
@@ -41,16 +43,16 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::c
         return;
     if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::UP) {
         displayable->_oldPosition = displayable->_position;
-        displayable->_position.y -= 1;
+        _direction = UP;
     } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::DOWN) {
         displayable->_oldPosition = displayable->_position;
-        displayable->_position.y += 1;
+        _direction = DOWN;
     } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::LEFT) {
         displayable->_oldPosition = displayable->_position;
-        displayable->_position.x -= 1;
+        _direction = LEFT;
     } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::RIGHT) {
         displayable->_oldPosition = displayable->_position;
-        displayable->_position.x += 1;
+        _direction = RIGHT;
     }
 }
 

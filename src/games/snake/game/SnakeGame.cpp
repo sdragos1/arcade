@@ -36,8 +36,14 @@ SnakeGame::~SnakeGame()
 
 void SnakeGame::compute(DeltaTime dt)
 {
-    (void)dt;
-    moveSnake();
+    _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
+
+
+    if (_moveCd.count() >= 30) {
+        moveSnake();
+        updatePosition();
+        _moveCd -= std::chrono::milliseconds(30);
+    }
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept
@@ -109,7 +115,7 @@ void SnakeGame::updateTailPosition(Vector2i tailNewPosition)
     }
 }
 
-void SnakeGame::moveSnake()
+void SnakeGame::updatePosition()
 {
     auto it = _snakeEntities.begin();
     auto components = it->get()->getComponents();
@@ -121,6 +127,49 @@ void SnakeGame::moveSnake()
                 if (hasHeadMoved(it) == true) {
                     Vector2i tailNewPosition = updateBodyPositions(it);
                     updateTailPosition(tailNewPosition);
+                }
+            }
+        }
+    }
+}
+
+void SnakeGame::moveSnake()
+{
+    for (auto entityIt = _snakeEntities.begin(); entityIt != _snakeEntities.end(); ++entityIt) {
+        SnakeHeadKeyboard::Direction direction;
+        bool directionFound = false;
+        for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
+            if (componentIt->get()->getType() == components::ComponentType::KEYBOARD) {
+                if (auto keyboard = std::dynamic_pointer_cast<SnakeHeadKeyboard>(*componentIt)) {
+                    direction = keyboard->_direction;
+                    directionFound = true;
+                    break;
+                }
+            }
+        }
+        if (directionFound) {
+            for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
+                if (componentIt->get()->getType() == components::ComponentType::TEXTURE) {
+                    if (auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*componentIt)) {
+                        Vector2i newPosition = head->getPosition();
+                        switch (direction) {
+                            case SnakeHeadKeyboard::UP:
+                                newPosition.y -= 1;
+                                break;
+                            case SnakeHeadKeyboard::DOWN:
+                                newPosition.y += 1;
+                                break;
+                            case SnakeHeadKeyboard::LEFT:
+                                newPosition.x -= 1;
+                                break;
+                            case SnakeHeadKeyboard::RIGHT:
+                                newPosition.x += 1;
+                                break;
+                        }
+                        head->setOldPosition(head->getPosition());
+                        head->setPosition(newPosition);
+                        break;
+                    }
                 }
             }
         }

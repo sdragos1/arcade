@@ -15,6 +15,12 @@ using namespace shared::games;
 
 class SnakeHeadKeyboard : public components::IKeyboardComponent {
     public:
+        enum Direction {
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT
+        };
         explicit SnakeHeadKeyboard(const entity::IEntity &entity);
         ~SnakeHeadKeyboard();
 
@@ -23,6 +29,8 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
 
         void onKeyPress(std::shared_ptr<IGame> &ctx, KeyData keyData) override;
         void onKeyRelease(std::shared_ptr<IGame> &ctx, KeyData key) override;
+
+        Direction _direction;
     private:
         const entity::IEntity &_entity;
 };

@@ -32,6 +32,7 @@ class SnakeGame : public IGame {
         const unsigned int getFps(void) const noexcept override;
 
         void moveSnake();
+        void updatePosition();
         bool hasHeadMoved(auto it);
         Vector2i updateBodyPositions(auto it);
         void updateTailPosition(Vector2i);
@@ -40,6 +41,8 @@ class SnakeGame : public IGame {
     private:
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
         entity::EntitiesMap _entities;
+
+        DeltaTime _moveCd;
 };
 
 static GameManifest snakeGameManifest = {
