@@ -8,12 +8,13 @@
 #pragma once
 
 #include <cstring>
-#include "graphics/events/IKeyEvent.hpp"
-#include "games/components/IKeyboardComponent.hpp"
 #include "graphics/types/TextProps.hpp"
 #include "games/components/ITextComponent.hpp"
-#include "graphics/events/IMouseEvent.hpp"
+#include "games/components/IKeyboardComponent.hpp"
 #include "games/components/ISoundComponent.hpp"
+#include "games/components/ICollidableComponent.hpp"
+#include "graphics/events/IKeyEvent.hpp"
+#include "graphics/events/IMouseEvent.hpp"
 #include "graphics/ISound.hpp"
 
 using namespace shared::graphics;
@@ -40,4 +41,8 @@ class CoreUtils {
 
         static shared::graphics::ISound::SoundState mapSoundState(
             const shared::games::components::SoundState state);
+
+        static bool checkCollision(
+            std::shared_ptr<components::ICollidableComponent> collidable1,
+            std::shared_ptr<components::ICollidableComponent> collidable2);
 };

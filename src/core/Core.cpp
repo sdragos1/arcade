@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0)
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -51,6 +51,25 @@ void Core::_handleGraphicSwitch()
     }
 }
 
+void Core::_handleCollisions(std::shared_ptr<components::ICollidableComponent> collidable,
+entity::EntityPtr collidableEntity)
+{
+    for (auto &entity : _gameEntities) {
+        if (collidableEntity == entity) {
+            continue;
+        }
+        for (auto &component : entity->getComponents()) {
+            if (component->getType() == components::COLLIDABLE) {
+                auto collidableComp =
+                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+                if (CoreUtils::checkCollision(collidable, collidableComp)) {
+                    collidable->onCollide(_currGame, collidableComp);
+                }
+            }
+        }
+    }
+}
+
 void Core::_displayText(std::shared_ptr<components::ITextComponent> displayable)
 {
     components::ITextComponent::TextProps textProps = displayable->getTextProps();
@@ -81,12 +100,12 @@ void Core::_displayTexture(std::shared_ptr<components::ITextureComponent> displa
     _currWindow->render(entityProps);
 }
 
-void Core::_displayManager(entity::EntitiesMap entities)
+void Core::_displayManager()
 {
     components::ComponentsMap components;
     components::ComponentType type;
 
-    for (auto &entity : entities) {
+    for (auto &entity : _gameEntities) {
         components = entity->getComponents();
         for (auto &component : components) {
             type = component->getType();
@@ -186,10 +205,15 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
                     std::dynamic_pointer_cast<events::MouseMoveEvent>(event));
             }
         }
+        if (type == components::ComponentType::COLLIDABLE) {
+            auto collidable =
+                std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+            _handleCollisions(collidable, entity);
+        }
     }
 }
 
-void Core::_handleEvents(entity::EntitiesMap entities)
+void Core::_handleEvents()
 {
     std::vector<events::EventPtr> events = _currWindow->getEvents();
 
@@ -207,7 +231,7 @@ void Core::_handleEvents(entity::EntitiesMap entities)
                 return;
             }
         }
-        for (auto &entity : entities) {
+        for (auto &entity : _gameEntities) {
             _handleEntityEvents(entity, event);
         }
     }
@@ -235,7 +259,6 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
 
 void Core::runArcade()
 {
-    shared::games::entity::EntitiesMap gameEntities;
     auto prevTime = std::chrono::high_resolution_clock::now();
 
     _currGame = _librariesGame->getCurrentGame();
@@ -247,10 +270,10 @@ void Core::runArcade()
             currentTime);
         _currGame->compute(deltaTime);
         prevTime = currentTime;
-        gameEntities = _currGame->getEntities();
-        _handleEvents(gameEntities);
+        _gameEntities = _currGame->getEntities();
+        _handleEvents();
         _currWindow->clear();
-        _displayManager(gameEntities);
+        _displayManager();
         _currWindow->display();
     }
 }

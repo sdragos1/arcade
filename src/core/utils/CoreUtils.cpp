@@ -87,3 +87,20 @@ shared::graphics::ISound::SoundState CoreUtils::mapSoundState(
     }
 }
 
+bool CoreUtils::checkCollision(
+    std::shared_ptr<components::ICollidableComponent> collidable1,
+    std::shared_ptr<components::ICollidableComponent> collidable2)
+{
+    Vector2i pos1 = collidable1->getPosition();
+    Vector2u size1 = collidable1->getSize();
+    Vector2i pos2 = collidable2->getPosition();
+    Vector2u size2 = collidable2->getSize();
+
+    if (pos1.x < pos2.x + size2.x &&
+    pos1.x + size1.x > pos2.x &&
+    pos1.y < pos2.y + size2.y &&
+    pos1.y + size1.y > pos2.y) {
+        return true;
+    }
+    return false;
+}
