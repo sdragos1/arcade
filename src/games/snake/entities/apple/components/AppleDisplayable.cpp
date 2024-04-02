@@ -11,7 +11,7 @@ AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
     :
     _entity(entity),
     _position({20, 20}),
-    _size({2, 2}),
+    _size({3, 3}),
     _zIndex(0),
     _textureProps(
         {

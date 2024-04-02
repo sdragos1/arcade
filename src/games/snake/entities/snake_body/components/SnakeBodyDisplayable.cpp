@@ -7,11 +7,11 @@
 
 #include "SnakeBodyDisplayable.hpp"
 
-SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity)
+SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector2i position)
     :
     _entity(entity),
-    _position({1, 0}),
-    _oldPosition({1, 0}),
+    _position(position),
+    _oldPosition(position),
     _size({2, 2}),
     _zIndex(1),
     _textureProps(

@@ -14,7 +14,7 @@ using namespace shared::games;
 
 class SnakeBodyEntity : public entity::IEntity {
     public:
-        SnakeBodyEntity();
+        SnakeBodyEntity(Vector2i position);
         ~SnakeBodyEntity();
 
         const components::ComponentsMap &getComponents(void) const noexcept override;

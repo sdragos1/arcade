@@ -14,7 +14,7 @@ using namespace shared::games;
 
 class SnakeBodyDisplayable : public components::ITextureComponent {
     public:
-        explicit SnakeBodyDisplayable(const entity::IEntity &entity);
+        explicit SnakeBodyDisplayable(const entity::IEntity &entity, Vector2i position);
         ~SnakeBodyDisplayable();
 
         const components::ComponentType getType() const noexcept override;

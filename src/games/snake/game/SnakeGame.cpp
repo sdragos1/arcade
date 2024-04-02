@@ -12,16 +12,19 @@ SnakeGame::SnakeGame()
 {
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
-    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>();
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(1, 0));
+    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(2, 0));
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
     std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
     _snakeEntities.push_back(head);
     _snakeEntities.push_back(body);
+    _snakeEntities.push_back(body2);
     _snakeEntities.push_back(tail);
     _entities.push_back(background);
     _entities.push_back(head);
     _entities.push_back(body);
+    _entities.push_back(body2);
     _entities.push_back(tail);
     _entities.push_back(apple);
     _entities.push_back(score);
@@ -72,20 +75,22 @@ Vector2i SnakeGame::updateBodyPositions(auto it)
 {
     auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it);
     Vector2i tailNewPosition = {0, 0};
+    Vector2i previousPosition = head->getOldPosition();
 
-    for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
-        if (next(it) == _snakeEntities.end())
-            break;
+    auto prevIt = _snakeEntities.begin();
+    for (auto it = std::next(_snakeEntities.begin()); it != _snakeEntities.end(); ++it) {
         auto components = it->get()->getComponents();
-        for (auto it = components.begin(); it != components.end(); ++it) {
-            if (it->get()->getType() == components::ComponentType::TEXTURE) {
-                if (auto body = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*it)) {
-                    tailNewPosition = body.get()->getOldPosition();
-                    body.get()->setOldPosition(body.get()->getPosition());
-                    body.get()->setPosition(head.get()->getOldPosition());
+        for (auto compIt = components.begin(); compIt != components.end(); ++compIt) {
+            if (compIt->get()->getType() == components::ComponentType::TEXTURE) {
+                if (auto body = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*compIt)) {
+                    tailNewPosition = body->getOldPosition();
+                    body->setOldPosition(body->getPosition());
+                    body->setPosition(previousPosition);
+                    previousPosition = tailNewPosition;
                 }
             }
         }
+        prevIt = it;
     }
     return tailNewPosition;
 }
