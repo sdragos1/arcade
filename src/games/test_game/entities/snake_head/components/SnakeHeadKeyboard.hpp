@@ -23,10 +23,10 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
         const entity::IEntity &getEntity() noexcept override;
 
         // Keyboard
-        void onKeyPress(std::shared_ptr<IGame> &ctx,
+        void onKeyPress(std::shared_ptr<IGame> ctx,
             shared::games::components::IKeyboardComponent::KeyData key) override;
 
-        void onKeyRelease(std::shared_ptr<IGame> &ctx,
+        void onKeyRelease(std::shared_ptr<IGame> ctx,
             shared::games::components::IKeyboardComponent::KeyData key) override;
     private:
         const entity::IEntity &_entity;

@@ -46,15 +46,15 @@ unsigned int &ScoreText::getZIndex() noexcept
     return _zIndex;
 }
 
-void ScoreText::onMousePress(std::shared_ptr<shared::games::IGame> &ctx)
+void ScoreText::onMousePress(std::shared_ptr<shared::games::IGame> ctx)
 {
 }
 
-void ScoreText::onMouseRelease(std::shared_ptr<shared::games::IGame> &ctx)
+void ScoreText::onMouseRelease(std::shared_ptr<shared::games::IGame> ctx)
 {
 }
 
-void ScoreText::onMouseHover(std::shared_ptr<shared::games::IGame> &ctx)
+void ScoreText::onMouseHover(std::shared_ptr<shared::games::IGame> ctx)
 {
 }
 
