@@ -12,8 +12,8 @@
 #include <vector>
 #include <iostream>
 #include "loader/DLLoader.hpp"
-#include "../../common/games/IGame.hpp"
-#include "../../common/types/Libraries.hpp"
+#include "../../../common/games/IGame.hpp"
+#include "../../../common/types/Libraries.hpp"
 
 class GameList
 {

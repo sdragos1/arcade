@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** arcade-shared
 ** File description:
-** SFMLWindowException.hpp
+** NcursesWindowException.hpp
 */
 
 #pragma once
@@ -10,16 +10,16 @@
 #include <string>
 #include "../../../../common/graphics/exceptions/IWindowException.hpp"
 
-class SFMLWindowException : public shared::graphics::exceptions::IWindowException
+class NcursesWindowException : public shared::graphics::exceptions::IWindowException
 {
     public:
-        SFMLWindowException(const char *where, const char *what)
+        NcursesWindowException(const char *where, const char *what)
         {
             _where = where;
             _what = what;
         }
 
-        ~SFMLWindowException() = default;
+        ~NcursesWindowException() = default;
 
         const char *where() const noexcept override
         {

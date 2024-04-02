@@ -10,9 +10,9 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include "SFMLFont.hpp"
 #include "SFMLSound.hpp"
 #include "SFMLTexture.hpp"
-#include "SFMLFont.hpp"
 #include "Window/SFMLWindow.hpp"
 #include "../../../common/types/Libraries.hpp"
 #include "../../../common/graphics/IGraphicsProvider.hpp"
