@@ -60,6 +60,7 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::c
         if (_direction == LEFT)
             return;
         displayable->_oldPosition = displayable->_position;
+        // displayable->_textureProps.sources.bin = "assets/games/snake/head_right.png";
         _direction = RIGHT;
     }
 }

@@ -12,8 +12,8 @@ SnakeGame::SnakeGame()
 {
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
-    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(1, 0));
-    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(2, 0));
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(64, 36));
+    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(62, 36));
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
     std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
@@ -147,7 +147,6 @@ void SnakeGame::moveSnake()
                 }
             }
         }
-        std::cout << "Direction: " << direction << std::endl;
         if (directionFound) {
             for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
                 if (componentIt->get()->getType() == components::ComponentType::TEXTURE) {

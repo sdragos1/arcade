@@ -104,10 +104,10 @@ class SnakeTailDisplayable : public components::ITextureComponent {
 
         Vector2i _position;
         Vector2i _oldPosition;
+        components::TextureProps _textureProps;
 
     private:
         const entity::IEntity &_entity;
         Vector2u _size;
         unsigned int _zIndex;
-        components::TextureProps _textureProps;
 };
