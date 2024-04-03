@@ -9,12 +9,12 @@
 
 SFML::SFML() : _sfmlManifest{"SFML", "SFML Library", "2.6.1", {{"Laurent Gomila", "none", "none"}}}
 {
-    std::cout << "Constructor in SFML" << std::endl;
+    // std::cout << "Constructor in SFML" << std::endl;
 }
 
 SFML::~SFML()
 {
-    std::cout << "Destructor in SFML" << std::endl;
+    // std::cout << "Destructor in SFML" << std::endl;
 }
 
 const shared::graphics::GraphicsManifest &SFML::getManifest(void) const noexcept

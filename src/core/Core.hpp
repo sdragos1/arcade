@@ -43,6 +43,12 @@ using namespace shared::graphics;
 class Core
 {
     public:
+        typedef struct {
+            std::shared_ptr<ISound> graphicSound;
+            components::SoundState gameState;
+            ISound::SoundState graphicState;
+        } SoundMapProps;
+
         /**
          * @brief Constructor of Core Class
          *
@@ -95,8 +101,6 @@ class Core
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
         void _displayManager();
 
-        // Sound Functions
-
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;
         std::map<void *, std::shared_ptr<ITexture>> _textures;
@@ -105,6 +109,8 @@ class Core
         std::unique_ptr<IWindow> _currWindow;
         std::size_t _currLibIndex;
         shared::games::entity::EntitiesMap _gameEntities;
+        std::map<std::shared_ptr<components::ISoundComponent>,
+            SoundMapProps> _soundsMap;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

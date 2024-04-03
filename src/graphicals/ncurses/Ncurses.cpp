@@ -11,10 +11,12 @@
 Ncurses::Ncurses() :
 _ncursesManifest{"NCURSES", "NCURSES Library", "6.4 ", {{"Thomas Dickey", "none", "none"}}}
 {
+    std::cout << "Ncurses constructor" << std::endl;
 }
 
 Ncurses::~Ncurses()
 {
+    std::cout << "Ncurses destructor" << std::endl;
 }
 
 const shared::graphics::GraphicsManifest &Ncurses::getManifest(void) const noexcept

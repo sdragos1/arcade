@@ -15,12 +15,12 @@ SFMLSound::SFMLSound(const std::string &path)
         throw SFMLSoundException("SFML Sound", "Can't create SFML Sound Class");
     }
     _sound.setBuffer(_bufferSound);
-    std::cout << "Constructor in SFMLSound" << std::endl;
+    // std::cout << "Constructor in SFMLSound" << std::endl;
 }
 
 SFMLSound::~SFMLSound()
 {
-    std::cout << "Destructor in SFMLSound" << std::endl;
+    // std::cout << "Destructor in SFMLSound" << std::endl;
 }
 
 void SFMLSound::setState(shared::graphics::ISound::SoundState state)

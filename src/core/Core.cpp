@@ -10,7 +10,8 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities(),
+    _soundsMap()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -40,14 +41,36 @@ void Core::_initGraphicLib()
         .fps = _currGame->getFps(),
         .title = _currGame->getManifest().name,
         .icon = _currGame->getManifest().iconPath});
+    std::cout << "Init Graphic Lib" << std::endl;
 }
 
 void Core::_handleGraphicSwitch()
 {
     if (_currLibIndex != _librariesRenderer->getIndex()) {
         _currLibIndex = _librariesRenderer->getIndex();
-        _currRenderer = _librariesRenderer->getCurrentLibrary();
         _initGraphicLib();
+    }
+}
+
+void Core::_handleSoundState(std::shared_ptr<components::ISoundComponent> sound)
+{
+    ISound::SoundState soundState = CoreUtils::mapSoundState(sound->getState());
+
+    if (_soundsMap.find(sound) == _soundsMap.end()) {
+        _soundsMap[sound].graphicSound = _currRenderer->createSound(sound->getPath());
+        _soundsMap[sound].graphicSound->setLoopState(sound->getLoop());
+        _soundsMap[sound].graphicSound->setVolume(sound->getVolume());
+        _soundsMap[sound].graphicSound->setState(ISound::SoundState::STOP);
+        _soundsMap[sound].gameState = sound->getState();
+        _soundsMap[sound].graphicState = ISound::SoundState::STOP;
+    }
+    if (_soundsMap[sound].gameState != sound->getState()) {
+        _soundsMap[sound].gameState = sound->getState();
+        _soundsMap[sound].graphicSound->setState(soundState);
+    }
+    if (_soundsMap[sound].graphicSound->getState() != _soundsMap[sound].graphicState) {
+        _soundsMap[sound].graphicState = soundState;
+        sound->onStateChange(_currGame, sound->getState());
     }
 }
 
@@ -173,6 +196,11 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
 
     for (auto &component : components) {
         type = component->getType();
+        if (type == components::ComponentType::SOUND) {
+            auto sound =
+                std::dynamic_pointer_cast<components::ISoundComponent>(component);
+            _handleSoundState(sound);
+        }
         if (type == components::ComponentType::KEYBOARD) {
             auto keyboard = std::dynamic_pointer_cast<components::IKeyboardComponent>(component);
             if (event->getType() == events::EventType::KEY_PRESS) {
@@ -262,6 +290,7 @@ void Core::runArcade()
     auto prevTime = std::chrono::high_resolution_clock::now();
 
     _currGame = _librariesGame->getCurrentGame();
+    std::cout << "Game: "  << std::endl;
     _initGraphicLib();
     while (_currWindow->isOpen()) {
         _handleGraphicSwitch();
