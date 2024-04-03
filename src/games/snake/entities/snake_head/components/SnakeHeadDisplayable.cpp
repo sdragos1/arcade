@@ -56,17 +56,17 @@ components::TextureProps &SnakeHeadDisplayable::getTextureProps(void) noexcept
     return _textureProps;
 }
 
-void SnakeHeadDisplayable::onMousePress(std::shared_ptr<IGame> &ctx)
+void SnakeHeadDisplayable::onMousePress(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeHeadDisplayable::onMouseHover(std::shared_ptr<IGame> &ctx)
+void SnakeHeadDisplayable::onMouseHover(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeHeadDisplayable::onMouseRelease(std::shared_ptr<IGame> &ctx)
+void SnakeHeadDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }

@@ -8,9 +8,9 @@
 #pragma once
 
 #include <string>
-#include "../../../../common/graphics/exceptions/ITextureException.hpp"
+#include "../../../../common/graphics/exceptions/IWindowException.hpp"
 
-class SDL2WindowException : public shared::graphics::exceptions::ITextureException
+class SDL2WindowException : public shared::graphics::exceptions::IWindowException
 {
     public:
         SDL2WindowException(const char *where, const char *what)

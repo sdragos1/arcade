@@ -2,24 +2,24 @@
 ** EPITECH PROJECT, 2024
 ** arcade-shared
 ** File description:
-** SFMLWindowException.hpp
+** NcursesTextureException.hpp
 */
 
 #pragma once
 
 #include <string>
-#include "../../../../common/graphics/exceptions/IWindowException.hpp"
+#include "../../../../common/graphics/exceptions/ITextureException.hpp"
 
-class SFMLWindowException : public shared::graphics::exceptions::IWindowException
+class NcursesTextureException : public shared::graphics::exceptions::ITextureException
 {
     public:
-        SFMLWindowException(const char *where, const char *what)
+        NcursesTextureException(const char *where, const char *what)
         {
             _where = where;
             _what = what;
         }
 
-        ~SFMLWindowException() = default;
+        ~NcursesTextureException() = default;
 
         const char *where() const noexcept override
         {
