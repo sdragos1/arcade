@@ -44,9 +44,9 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
     }
     if (displayable == nullptr)
         return;
-    if (key.type != shared::games::components::IKeyboardComponent::KeyType::ARROW)
+    if (key.type != shared::games::components::IKeyboardComponent::KeyType::ARROW) {
         return;
-    else {
+    } else {
         if (sound != nullptr) {
             sound->getState() = shared::games::components::SoundState::PLAY;
         }
