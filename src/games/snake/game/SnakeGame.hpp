@@ -22,19 +22,75 @@ using namespace shared::games;
 
 class SnakeGame : public IGame {
     public:
+
+        /**
+         * @brief Construct a new Snake Game object
+         */
         SnakeGame();
+
+        /**
+         * @brief Destroy a new Snake Game object
+         */
         ~SnakeGame();
 
+        /**
+         * @brief Compute the game based on the DeltaTime dt
+         * @param dt
+         */
         void compute(DeltaTime dt) override;
+
+        /**
+         * @brief Get the game manifest object
+         * @return const GameManifest&
+         */
         const GameManifest &getManifest() const noexcept override;
+
+        /**
+         * @brief Get the Size object
+         * @return const Vector2u
+         */
         const Vector2u getSize(void) const noexcept override;
+
+        /**
+         * @brief Get the Entities object
+         * @return const entity::EntitiesMap&
+         */
         const entity::EntitiesMap &getEntities(void) const override;
+
+        /**
+         * @brief Get the Fps object
+         * @return const unsigned int
+         */
         const unsigned int getFps(void) const noexcept override;
 
+        /**
+         * @brief Move the snake
+         */
         void moveSnake();
+
+        /**
+         * @brief Update the position of the snake
+         */
         void updatePosition();
+
+        /**
+         * @brief Check if the head has moved
+         * @param it
+         * @return bool
+         */
         bool hasHeadMoved(auto it);
+
+        /**
+         * @brief Update the body positions
+         * @param it
+         * @return The tail position after the update
+         */
         Vector2i updateBodyPositions(auto it);
+
+        /**
+         * @brief Update the tail position
+         * @param position
+         */
         void updateTailPosition(Vector2i);
 
     protected:
@@ -45,6 +101,9 @@ class SnakeGame : public IGame {
         DeltaTime _moveCd;
 };
 
+/**
+ * @brief Definition of the game manifest
+ */
 static GameManifest snakeGameManifest = {
     "Snake",
     "Snake game for Epitech's arcade project",

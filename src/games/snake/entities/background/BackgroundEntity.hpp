@@ -13,9 +13,20 @@
 
 class BackgroundEntity : public shared::games::entity::IEntity {
     public:
+        /**
+         * @brief Construct a new Background Entity object
+         */
         BackgroundEntity();
+
+        /**
+         * @brief Destroy a new Background Entity object
+         */
         ~BackgroundEntity();
 
+        /**
+         * @brief Get the Components object
+         * @return const components::ComponentsMap&
+         */
         const shared::games::components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:

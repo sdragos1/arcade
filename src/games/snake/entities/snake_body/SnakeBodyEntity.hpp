@@ -14,9 +14,22 @@ using namespace shared::games;
 
 class SnakeBodyEntity : public entity::IEntity {
     public:
+
+        /**
+         * @brief Construct a new Snake Body Entity object
+         * @param position
+         */
         SnakeBodyEntity(Vector2i position);
+
+        /**
+         * @brief Destroy a new Snake Body Entity object
+         */
         ~SnakeBodyEntity();
 
+        /**
+         * @brief Get the Components object
+         * @return const components::ComponentsMap&
+         */
         const components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:

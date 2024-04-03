@@ -13,9 +13,21 @@
 
 class AppleEntity : public shared::games::entity::IEntity {
     public:
+
+        /**
+         * @brief Construct a new Apple Entity object
+         */
         AppleEntity();
+
+        /**
+         * @brief Destroy the Apple Entity object
+         */
         ~AppleEntity();
 
+        /**
+         * @brief Get the Components object
+         * @return const shared::games::components::ComponentsMap&
+         */
         const shared::games::components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:

@@ -15,12 +15,23 @@ using namespace shared::games;
 
 class SnakeHeadEntity : public entity::IEntity {
     public:
+        /**
+         * @brief Construct a new Snake Head Entity object
+         */
         SnakeHeadEntity();
+
+        /**
+         * @brief Destroy a new Snake Head Entity object
+         */
         ~SnakeHeadEntity();
 
+        /**
+         * @brief Get the Components object
+         * @return const components::ComponentsMap&
+         */
         const components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:
         components::ComponentsMap _components;
-        
+
 };

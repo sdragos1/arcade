@@ -14,9 +14,20 @@ using namespace shared::games;
 
 class SnakeTailEntity : public entity::IEntity {
     public:
+        /**
+         * @brief Construct a new Snake Tail Entity object
+         */
         SnakeTailEntity();
+
+        /**
+         * @brief Destroy a new Snake Tail Entity object
+         */
         ~SnakeTailEntity();
 
+        /**
+         * @brief Get the Components object
+         * @return const components::ComponentsMap&
+         */
         const components::ComponentsMap &getComponents(void) const noexcept override;
 
     private:
