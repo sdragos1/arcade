@@ -8,8 +8,9 @@
 #include "PositionableComponent.hpp"
 
 PositionableComponent::PositionableComponent(shared::types::Vector2i position,
-    shared::types::Vector2u size, entity::IEntity &entity)
-    : AComponent(entity, components::ComponentType::POSITIONABLE),
+    shared::types::Vector2u size, entity::IEntity &entity,
+        components::ComponentType type = components::ComponentType::POSITIONABLE)
+    : AComponent(entity, type),
     _position(position), _size(size)
 {
 }

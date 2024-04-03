@@ -16,7 +16,8 @@ using namespace shared::games;
 class PositionableComponent : public components::IPositionableComponent, public AComponent {
     public:
         PositionableComponent(shared::types::Vector2i position,
-            shared::types::Vector2u size, entity::IEntity &entity);
+            shared::types::Vector2u size, entity::IEntity &entity,
+            components::ComponentType type);
         ~PositionableComponent();
 
         shared::types::Vector2i &getPosition() noexcept override;

@@ -9,8 +9,10 @@
 
 ADisplayableComponent::ADisplayableComponent(
     shared::types::Vector2i position,
-            shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex)
-    : PositionableComponent(position, size, entity), _zIndex(zIndex)
+            shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex,
+            components::ComponentType type = components::ComponentType::DISPLAYABLE)
+    : PositionableComponent(position, size, entity, type),
+        _zIndex(zIndex)
 {
 }
 

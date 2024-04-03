@@ -14,7 +14,8 @@ class ADisplayableComponent : public components::IDisplayableComponent,
                               public PositionableComponent {
     public:
         ADisplayableComponent(shared::types::Vector2i position,
-            shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex);
+            shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex,
+            components::ComponentType type);
         ~ADisplayableComponent();
 
         unsigned int &getZIndex() noexcept override;
