@@ -147,6 +147,7 @@ void SnakeGame::moveSnake()
                 }
             }
         }
+        std::cout << "Direction: " << direction << std::endl;
         if (directionFound) {
             for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
                 if (componentIt->get()->getType() == components::ComponentType::TEXTURE) {
