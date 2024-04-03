@@ -1,7 +1,7 @@
 function(create_game TARGET_NAME)
     include_directories(${PROJECT_SOURCE_DIR}/common)
 
-    file(GLOB_RECURSE GAME_SOURCES "*.cpp" "abstracts/*.cpp")
+    file(GLOB_RECURSE GAME_SOURCES "${TARGET_NAME}/*.cpp" "abstracts/*.cpp")
 
     add_library(${TARGET_NAME} SHARED ${GAME_SOURCES})
 
@@ -14,3 +14,4 @@ endfunction()
 
 ## Create the games here "create_game(<game_name>)"
 create_game(test_game)
+create_game(solarfox)

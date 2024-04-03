@@ -24,3 +24,14 @@ std::shared_ptr<IGame> SnakeProvider::createInstance(void)
 {
     return std::make_shared<SnakeGame>();
 }
+
+
+extern "C" shared::types::LibraryType SHARED_LIBRARY_TYPE_GETTER_NAME(void)
+{
+    return shared::types::LibraryType::GAME;
+}
+
+extern "C" shared::games::IGameProvider *SHARED_GAME_PROVIDER_GETTER_NAME(void)
+{
+    return new SnakeProvider();
+}
