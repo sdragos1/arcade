@@ -22,4 +22,9 @@ class SolarFoxPlayerKeyboard : public AKeyboardComponent {
 
         void onKeyRelease(std::shared_ptr<IGame> ctx,
             components::IKeyboardComponent::KeyData keyData) override;
+
+        components::IKeyboardComponent::ArrowCode getLastDirection() const;
+
+    private:
+        components::IKeyboardComponent::ArrowCode _lastDirection;
 };

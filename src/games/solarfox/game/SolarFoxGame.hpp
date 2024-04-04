@@ -7,8 +7,10 @@
 
 #pragma once
 
+#include <iostream>
 #include "../entities/player/SolarFoxPlayer.hpp"
 #include "games/IGame.hpp"
+
 
 using namespace shared::games;
 
@@ -24,7 +26,11 @@ class SolarFoxGame : public IGame {
         const unsigned int getFps() const noexcept override;
 
     private:
+        void _forwardPlayer();
+
         entity::EntitiesMap _entities;
+        DeltaTime _playerMoveTime;
+        std::shared_ptr<SolarFoxPlayer> _player;
 };
 
 static GameManifest solarFoxManifest = {

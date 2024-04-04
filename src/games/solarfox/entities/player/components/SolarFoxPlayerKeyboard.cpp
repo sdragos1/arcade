@@ -8,7 +8,7 @@
 #include "SolarFoxPlayerKeyboard.hpp"
 
 SolarFoxPlayerKeyboard::SolarFoxPlayerKeyboard(entity::IEntity &entity)
-    : AKeyboardComponent(entity)
+    : AKeyboardComponent(entity), _lastDirection(components::IKeyboardComponent::ArrowCode::UP)
 {
 }
 
@@ -16,7 +16,8 @@ SolarFoxPlayerKeyboard::~SolarFoxPlayerKeyboard()
 {
 }
 
-void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, components::IKeyboardComponent::KeyData keyData)
+void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
+    components::IKeyboardComponent::KeyData keyData)
 {
     (void)ctx;
     std::shared_ptr<TextureComponent> displayable = nullptr;
@@ -27,23 +28,26 @@ void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, components::
             break;
         }
     }
-
     if (displayable == nullptr)
         return;
     if (keyData.type != components::IKeyboardComponent::KeyType::ARROW)
         return;
-    if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::UP) {
-        displayable->getPosition().y -= 1;
+    if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::UP &&
+        _lastDirection != components::IKeyboardComponent::ArrowCode::DOWN) {
         displayable->getTextureProps().origin.x = 0;
-    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::DOWN) {
-        displayable->getPosition().y += 1;
+        _lastDirection = components::IKeyboardComponent::ArrowCode::UP;
+    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::DOWN &&
+        _lastDirection != components::IKeyboardComponent::ArrowCode::UP) {
         displayable->getTextureProps().origin.x = 2;
-    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::LEFT) {
-        displayable->getPosition().x -= 1;
+        _lastDirection = components::IKeyboardComponent::ArrowCode::DOWN;
+    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::LEFT &&
+        _lastDirection != components::IKeyboardComponent::ArrowCode::RIGHT) {
         displayable->getTextureProps().origin.x = 1;
-    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::RIGHT) {
-        displayable->getPosition().x += 1;
+        _lastDirection = components::IKeyboardComponent::ArrowCode::LEFT;
+    } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::RIGHT &&
+        _lastDirection != components::IKeyboardComponent::ArrowCode::LEFT) {
         displayable->getTextureProps().origin.x = 3;
+        _lastDirection = components::IKeyboardComponent::ArrowCode::RIGHT;
     }
 }
 
@@ -52,4 +56,9 @@ void SolarFoxPlayerKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
 {
     (void)ctx;
     (void)keyData;
+}
+
+components::IKeyboardComponent::ArrowCode SolarFoxPlayerKeyboard::getLastDirection() const
+{
+    return _lastDirection;
 }

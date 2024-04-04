@@ -117,8 +117,7 @@ void SFMLWindow::render(const shared::graphics::TextureProps &props)
 
         sprite.setScale(
             props.size.x * _sfmlbasicTiles.x / props.binTileSize.x,
-            props.size.y * _sfmlbasicTiles.y / props.binTileSize.y
-        );
+            props.size.y * _sfmlbasicTiles.y / props.binTileSize.y);
 
         _window.draw(sprite);
     }
