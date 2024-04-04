@@ -61,21 +61,21 @@ class SnakeHeadDisplayable : public components::ITextureComponent {
          * @param ctx
          * @return void
          */
-        void onMousePress(std::shared_ptr<IGame> &ctx) override;
+        void onMousePress(std::shared_ptr<IGame> ctx) override;
 
         /**
          * @brief handle the mouse hover event
          * @param ctx
          * @return void
          */
-        void onMouseHover(std::shared_ptr<IGame> &ctx) override;
+        void onMouseHover(std::shared_ptr<IGame> ctx) override;
 
         /**
          * @brief handle the mouse release event
          * @param ctx
          * @return void
          */
-        void onMouseRelease(std::shared_ptr<IGame> &ctx) override;
+        void onMouseRelease(std::shared_ptr<IGame> ctx) override;
 
         /**
          * @brief Set the Position object

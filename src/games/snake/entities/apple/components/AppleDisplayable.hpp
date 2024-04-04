@@ -58,19 +58,19 @@ class AppleDisplayable : public shared::games::components::ITextureComponent {
          * @brief Handle the mouse press event
          * @param ctx
          */
-        void onMousePress(std::shared_ptr<shared::games::IGame> &ctx) override;
+        void onMousePress(std::shared_ptr<shared::games::IGame> ctx) override;
 
         /**
          * @brief Handle the mouse hover event
          * @param ctx
          */
-        void onMouseHover(std::shared_ptr<shared::games::IGame> &ctx) override;
+        void onMouseHover(std::shared_ptr<shared::games::IGame> ctx) override;
 
         /**
          * @brief Handle the mouse release event
          * @param ctx
          */
-        void onMouseRelease(std::shared_ptr<shared::games::IGame> &ctx) override;
+        void onMouseRelease(std::shared_ptr<shared::games::IGame> ctx) override;
 
         /**
          * @brief Get the Position object

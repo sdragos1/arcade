@@ -10,16 +10,16 @@
 SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
-    _position({60, 36}),
-    _oldPosition({60, 36}),
-    _size({2, 2}),
+    _position({14, 9}),
+    _oldPosition({14, 9}),
+    _size({1, 1}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
                 .ascii = "<",
                 .bin = "assets/games/snake/snake.png",
-                .binTileSize = {0, 0}
+                .binTileSize = {1, 1}
             },
             .origin = {0, 0}
         }
@@ -56,17 +56,17 @@ components::TextureProps &SnakeTailDisplayable::getTextureProps(void) noexcept
     return _textureProps;
 }
 
-void SnakeTailDisplayable::onMousePress(std::shared_ptr<IGame> &ctx)
+void SnakeTailDisplayable::onMousePress(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeTailDisplayable::onMouseHover(std::shared_ptr<IGame> &ctx)
+void SnakeTailDisplayable::onMouseHover(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeTailDisplayable::onMouseRelease(std::shared_ptr<IGame> &ctx)
+void SnakeTailDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }

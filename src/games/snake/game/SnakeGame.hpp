@@ -9,6 +9,9 @@
 #define SNAKEGAME_HPP_
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <list>
 #include "games/IGame.hpp"
 #include "../entities/snake_head/SnakeHeadEntity.hpp"
@@ -17,6 +20,7 @@
 #include "../entities/apple/AppleEntity.hpp"
 #include "../entities/background/BackgroundEntity.hpp"
 #include "../entities/texts/score/ScoreTextEntity.hpp"
+#include "../entities/texts/highscore/HighScoreTextEntity.hpp"
 
 using namespace shared::games;
 

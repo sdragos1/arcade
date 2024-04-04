@@ -10,15 +10,15 @@
 AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
     :
     _entity(entity),
-    _position({20, 20}),
-    _size({3, 3}),
+    _position({4, 15}),
+    _size({1, 1}),
     _zIndex(0),
     _textureProps(
         {
             .sources = {
                 .ascii = "@",
                 .bin = "assets/games/snake/apple.png",
-                .binTileSize = {0, 0}
+                .binTileSize = {1, 1}
             },
             .origin = {0, 0}
         }
@@ -55,17 +55,17 @@ shared::games::components::TextureProps &AppleDisplayable::getTextureProps(void)
     return _textureProps;
 }
 
-void AppleDisplayable::onMousePress(std::shared_ptr<shared::games::IGame> &ctx)
+void AppleDisplayable::onMousePress(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }
 
-void AppleDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame> &ctx)
+void AppleDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }
 
-void AppleDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> &ctx)
+void AppleDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }

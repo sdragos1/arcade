@@ -10,10 +10,11 @@
 SnakeGame::SnakeGame()
     :   _entities()
 {
+    std::shared_ptr<HighScoreTextEntity> highScore = std::make_shared<HighScoreTextEntity>();
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
-    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(64, 36));
-    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(62, 36));
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(16, 9));
+    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(15, 9));
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
     std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
@@ -28,6 +29,7 @@ SnakeGame::SnakeGame()
     _entities.push_back(tail);
     _entities.push_back(apple);
     _entities.push_back(score);
+    _entities.push_back(highScore);
 }
 
 SnakeGame::~SnakeGame()
@@ -39,10 +41,10 @@ void SnakeGame::compute(DeltaTime dt)
     _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
 
 
-    if (_moveCd.count() >= 30) {
+    if (_moveCd.count() >= 100) {
         moveSnake();
         updatePosition();
-        _moveCd -= std::chrono::milliseconds(30);
+        _moveCd -= std::chrono::milliseconds(100);
     }
 }
 
@@ -53,7 +55,7 @@ const GameManifest &SnakeGame::getManifest() const noexcept
 
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
-    return {1280, 720};
+    return {30, 20};
 }
 
 const entity::EntitiesMap &SnakeGame::getEntities(void) const

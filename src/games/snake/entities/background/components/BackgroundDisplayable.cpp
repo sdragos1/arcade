@@ -11,14 +11,14 @@ BackgroundDisplayable::BackgroundDisplayable(const shared::games::entity::IEntit
     :
     _entity(entity),
     _position({0, 0}),
-    _size({129, 81}),
+    _size({30, 20}),
     _zIndex(10),
     _textureProps(
         {
             .sources = {
                 .ascii = "",
                 .bin = "assets/games/snake/background.png",
-                .binTileSize = {0, 0}
+                .binTileSize = {16, 16}
             },
             .origin = {0, 0}
         }
@@ -55,17 +55,17 @@ shared::games::components::TextureProps &BackgroundDisplayable::getTextureProps(
     return _textureProps;
 }
 
-void BackgroundDisplayable::onMousePress(std::shared_ptr<shared::games::IGame> &ctx)
+void BackgroundDisplayable::onMousePress(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }
 
-void BackgroundDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame> &ctx)
+void BackgroundDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }
 
-void BackgroundDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> &ctx)
+void BackgroundDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> ctx)
 {
     (void)ctx;
 }

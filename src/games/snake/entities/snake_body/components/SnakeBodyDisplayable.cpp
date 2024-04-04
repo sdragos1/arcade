@@ -12,14 +12,14 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector
     _entity(entity),
     _position(position),
     _oldPosition(position),
-    _size({2, 2}),
+    _size({1, 1}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
                 .ascii = "O",
                 .bin = "assets/games/snake/snake.png",
-                .binTileSize = {0, 0}
+                .binTileSize = {1, 1}
             },
             .origin = {0, 0}
         }
@@ -56,17 +56,17 @@ components::TextureProps &SnakeBodyDisplayable::getTextureProps(void) noexcept
     return _textureProps;
 }
 
-void SnakeBodyDisplayable::onMousePress(std::shared_ptr<IGame> &ctx)
+void SnakeBodyDisplayable::onMousePress(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeBodyDisplayable::onMouseHover(std::shared_ptr<IGame> &ctx)
+void SnakeBodyDisplayable::onMouseHover(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }
 
-void SnakeBodyDisplayable::onMouseRelease(std::shared_ptr<IGame> &ctx)
+void SnakeBodyDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
 {
     (void)ctx;
 }

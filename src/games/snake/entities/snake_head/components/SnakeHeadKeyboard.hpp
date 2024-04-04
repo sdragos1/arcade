@@ -55,7 +55,7 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
          * @param keyData
          * @return void
          */
-        void onKeyPress(std::shared_ptr<IGame> &ctx, KeyData keyData) override;
+        void onKeyPress(std::shared_ptr<IGame> ctx, KeyData keyData) override;
 
         /**
          * @brief handle the key release event
@@ -63,7 +63,7 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
          * @param key
          * @return void
          */
-        void onKeyRelease(std::shared_ptr<IGame> &ctx, KeyData key) override;
+        void onKeyRelease(std::shared_ptr<IGame> ctx, KeyData key) override;
 
         Direction _direction;
     private:

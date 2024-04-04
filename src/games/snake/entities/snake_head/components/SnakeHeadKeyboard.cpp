@@ -12,7 +12,7 @@ SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
     :
     _entity(entity)
 {
-    _direction = UP;
+    _direction = RIGHT;
 }
 
 SnakeHeadKeyboard::~SnakeHeadKeyboard()
@@ -29,7 +29,7 @@ const entity::IEntity &SnakeHeadKeyboard::getEntity() noexcept
     return _entity;
 }
 
-void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key)
+void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     std::shared_ptr<SnakeHeadDisplayable> displayable = nullptr;
@@ -65,7 +65,7 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx, shared::games::c
     }
 }
 
-void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx, shared::games::components::IKeyboardComponent::KeyData key)
+void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx, shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     (void)key;

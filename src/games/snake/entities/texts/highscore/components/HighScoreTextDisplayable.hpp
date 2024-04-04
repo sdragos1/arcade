@@ -2,27 +2,27 @@
 ** EPITECH PROJECT, 2024
 ** arcade [WSL: Ubuntu-22.04]
 ** File description:
-** ScoreTextDisplayable
+** HighScoreTextDisplayable
 */
 
 #pragma once
 
 #include "games/components/ITextComponent.hpp"
 
-class ScoreTextDisplayable : public shared::games::components::ITextComponent {
+class HighScoreTextDisplayable : public shared::games::components::ITextComponent {
     public:
         /**
          * @brief Construct a new Score Text Displayable object
          * @param content
          * @param entity
          */
-        explicit ScoreTextDisplayable(const std::string &content,
+        explicit HighScoreTextDisplayable(const std::string &content,
              const shared::games::entity::IEntity &entity);
 
         /**
          * @brief Destroy the Score Text Displayable object
          */
-        ~ScoreTextDisplayable();
+        ~HighScoreTextDisplayable();
 
         /**
          * @brief Get the Text Props object
