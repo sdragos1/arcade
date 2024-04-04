@@ -10,12 +10,10 @@
 SFMLFont::SFMLFont(std::string pathFont)
 {
     _path = pathFont;
-    std::cout << "Constructor in SFMLFont" << std::endl;
 }
 
 SFMLFont::~SFMLFont()
 {
-    std::cout << "Destructor in SFMLFont" << std::endl;
 }
 
 std::string SFMLFont::getPath() const

@@ -11,14 +11,14 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
     _position({10 , 10}),
-    _size({4, 4}),
+    _size({1, 1}),
     _zIndex(1),
     _textureProps(
         {
             .sources = {
-                .ascii = "assets/gamees/snake/snake.ascii",
+                .ascii = "assets/games/snake/head_up_ascii.txt",
                 .bin = "assets/games/snake/head_up.png",
-                .binTileSize = {10, 10}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }

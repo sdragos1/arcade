@@ -20,7 +20,10 @@ int main(int argc, char **argv)
         }
         std::string defaultLib(argv[1]);
         arcadeCore = std::make_unique<Core>(defaultLib);
-        arcadeCore->runArcade();
+        arcadeCore->runMenu();
+        if (arcadeCore->getLaunchArcade() == true) {
+            arcadeCore->runArcade();
+        }
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 84;

@@ -21,6 +21,7 @@ Core::Core(std::string defaultLib)
         _librariesGame =  std::make_unique<GameList>(librariesPath);
         _librariesRenderer = std::make_unique<GraphicList>(librariesPath, defaultLib);
         _currLibIndex = _librariesRenderer->getIndex();
+        _launchGame = false;
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
@@ -48,6 +49,9 @@ void Core::_handleGraphicSwitch()
 {
     if (_currLibIndex != _librariesRenderer->getIndex()) {
         _currLibIndex = _librariesRenderer->getIndex();
+        _currRenderer = _librariesRenderer->getCurrentLibrary();
+        _currWindow->close();
+        _currWindow.release();
         _initGraphicLib();
     }
 }
@@ -301,8 +305,15 @@ void Core::runArcade()
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
         _handleEvents();
+        if (_currWindow->isOpen() == false)
+            continue;
         _currWindow->clear();
         _displayManager();
         _currWindow->display();
     }
+}
+
+bool Core::getLaunchArcade() const
+{
+    return _launchGame;
 }

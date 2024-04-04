@@ -9,10 +9,8 @@
 
 NcursesFont::NcursesFont(std::string pathFont)
 {
-    std::cout << "Constructor in NcursesFont" << std::endl;
 }
 
 NcursesFont::~NcursesFont()
 {
-    std::cout << "Destructor in NcursesFont" << std::endl;
 }
