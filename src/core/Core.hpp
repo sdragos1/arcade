@@ -95,8 +95,10 @@ class Core
 
         void _handleEvents();
 
-        void _eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame, shared::graphics::TextProps &name, \
-        std::vector<shared::graphics::TextProps> &listNameGame, std::vector<shared::graphics::TextProps> &listNameGraphic);
+        void _eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame, \
+        shared::graphics::TextProps &name, \
+        std::vector<shared::graphics::TextProps> &listNameGame,
+        std::vector<shared::graphics::TextProps> &listNameGraphic); \
 
         std::vector<shared::graphics::TextProps> _TextPropsListGame(std::size_t indexGame);
         shared::graphics::TextProps _TextPropsTitleGame();
@@ -111,7 +113,9 @@ class Core
         void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
         void _displayManager();
-        void _displaylib(std::size_t indexlib, std::vector<shared::graphics::TextProps> listNamelib, shared::graphics::TextProps titlelib);
+        void _displaylib(std::size_t indexlib, \
+        std::vector<shared::graphics::TextProps> listNamelib, \
+        shared::graphics::TextProps titlelib);
 
         // Sound Functions
 
