@@ -13,8 +13,15 @@
 class SolarFoxEnemy : public AEntity {
     public:
         SolarFoxEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
-            shared::types::Vector2u origin);
+            shared::types::Vector2u origin, shared::types::Vector2i direction);
         ~SolarFoxEnemy();
+
+        void inverseDirection();
+        shared::types::Vector2i getDirection() const;
+        void move();
+
+    private:
+        shared::types::Vector2i _direction;
 };
 
 static components::TextureProps SolarEnemyTextureProps = {

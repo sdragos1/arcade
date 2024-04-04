@@ -52,11 +52,9 @@ void SolarFoxProjectile::moveProjectile()
         if (component->getType() == components::TEXTURE) {
             auto texture = std::dynamic_pointer_cast<TextureComponent>(component);
             if (_direction.x != 0) {
-                std::cout << _direction.x << std::endl;
                 texture->getPosition().x += _direction.x / 2;
             }
             if (_direction.y != 0) {
-                std::cout << _direction.y / 2 << std::endl;
                 texture->getPosition().y += _direction.y / 2;
             }
         }

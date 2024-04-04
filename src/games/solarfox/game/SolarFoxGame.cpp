@@ -10,6 +10,7 @@
 const unsigned int playerSpeed = 40;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
+const unsigned int enemySpeed = 30;
 
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
@@ -18,15 +19,18 @@ SolarFoxGame::SolarFoxGame()
     _projectiles(),
     _playerMoveTime(std::chrono::milliseconds(0)),
     _projectileMoveTime(std::chrono::milliseconds(0)),
-    _playerProjectileShootTime(std::chrono::milliseconds(0))
+    _playerProjectileShootTime(std::chrono::milliseconds(0)),
+    _enemyMoveTime(std::chrono::milliseconds(0))
 {
     std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
 
-    _addEnemy({0, 0}, {1, 1}, {0, 0});
+    _addEnemy({0, 0}, {1, 1}, {0, 0}, {-1, 0});
     _addEnemy({static_cast<float>(solarFoxGameSize.x - 1),
-        static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0});
-    _addEnemy({static_cast<float>(solarFoxGameSize.x - 1), 0}, {1, 1}, {0, 0});
-    _addEnemy({0, static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0});
+        static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0}, {1, 0});
+    _addEnemy({static_cast<float>(solarFoxGameSize.x - 1), 0}, {1, 1}, {0, 0},
+        {0, 1});
+    _addEnemy({0, static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0},
+        {0, -1});
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
     _playerShoot();
@@ -41,6 +45,7 @@ void SolarFoxGame::compute(DeltaTime dt)
     _playerMoveTime -= dt;
     _projectileMoveTime -= dt;
     _playerProjectileShootTime -= dt;
+    _enemyMoveTime -= dt;
 
     if (_playerMoveTime >= std::chrono::milliseconds(playerSpeed)) {
         _forwardPlayer();
@@ -49,6 +54,10 @@ void SolarFoxGame::compute(DeltaTime dt)
     if (_projectileMoveTime >= std::chrono::milliseconds(projectileSpeed)) {
         _forwardProjectiles();
         _projectileMoveTime = std::chrono::milliseconds(0);
+    }
+    if (_enemyMoveTime >= std::chrono::milliseconds(enemySpeed)) {
+        _moveEnemies();
+        _enemyMoveTime = std::chrono::milliseconds(0);
     }
 }
 
@@ -167,13 +176,46 @@ void SolarFoxGame::_playerShoot()
 }
 
 void SolarFoxGame::_addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
-    shared::types::Vector2u origin)
+    shared::types::Vector2u origin, shared::types::Vector2i direction)
 {
     std::shared_ptr<SolarFoxEnemy> enemy = std::make_shared<SolarFoxEnemy>(
-        position, size, origin);
+        position, size, origin, direction);
 
     _enemies.push_back(enemy);
     _entities.push_back(enemy);
+}
+
+void SolarFoxGame::_moveEnemies()
+{
+    for (int i = 0; i < _enemies.size(); i++) {
+        auto enemy = _enemies[i];
+        std::shared_ptr<TextureComponent> displayable = nullptr;
+
+        for (auto &component : enemy->getComponents()) {
+            if (component->getType() == components::TEXTURE) {
+                displayable = std::dynamic_pointer_cast<TextureComponent>(component);
+            }
+        }
+        if (displayable == nullptr)
+            continue;
+        auto pos = displayable->getPosition();
+        const int maxX = solarFoxGameSize.x - 1;
+        const int maxY = solarFoxGameSize.y - 1;
+
+        if (pos.x == 0 && pos.y == 0) {
+            enemy->inverseDirection();
+        }
+        if (pos.x == maxX && pos.y == 0) {
+            enemy->inverseDirection();
+        }
+        if (pos.x == maxX && pos.y == maxY) {
+            enemy->inverseDirection();
+        }
+        if (pos.x == 0 && pos.y == maxY) {
+            enemy->inverseDirection();
+        }
+        enemy->move();
+    }
 }
 
 const GameManifest &SolarFoxGame::getManifest(void) const noexcept
