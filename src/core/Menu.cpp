@@ -12,8 +12,10 @@ void Core::runMenu()
 {
     std::size_t indexGraphic = _librariesRenderer->getIndex();
     std::size_t indexGame = _librariesGame->getIndex();
+    _launchGame = false;
 
-    _currRenderer = _librariesRenderer->getCurrentLibrary();
+    if (_currRenderer == nullptr)
+        _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({
         .size = (Vector2u) {1920, 1080},
         .mode = IWindow::WindowMode::WINDOWED,
