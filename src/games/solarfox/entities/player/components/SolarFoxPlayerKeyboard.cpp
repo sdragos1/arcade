@@ -34,12 +34,16 @@ void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, components::
         return;
     if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::UP) {
         displayable->getPosition().y -= 1;
+        displayable->getTextureProps().origin.x = 0;
     } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::DOWN) {
         displayable->getPosition().y += 1;
+        displayable->getTextureProps().origin.x = 2;
     } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::LEFT) {
         displayable->getPosition().x -= 1;
+        displayable->getTextureProps().origin.x = 1;
     } else if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::RIGHT) {
         displayable->getPosition().x += 1;
+        displayable->getTextureProps().origin.x = 3;
     }
 }
 

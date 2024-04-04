@@ -20,7 +20,7 @@ class SolarFoxPlayer : public AEntity {
 static components::TextureProps SolarPlayerTextureProps = {
     .sources = {
         .ascii = "assets/solarfox/player.txt",
-        .bin = "assets/games/solarfox/player/player_ship.png",
+        .bin = "assets/games/solarfox/player/player_ship_sheet.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},
