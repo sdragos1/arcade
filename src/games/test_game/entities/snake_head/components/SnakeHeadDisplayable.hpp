@@ -24,9 +24,9 @@ class SnakeHeadDisplayable : public components::ITextureComponent {
         Vector2u &getSize(void) noexcept override;
         unsigned int &getZIndex(void) noexcept override;
         components::TextureProps &getTextureProps(void) noexcept override;
-        void onMousePress(std::shared_ptr<IGame> &ctx) override;
-        void onMouseHover(std::shared_ptr<IGame> &ctx) override;
-        void onMouseRelease(std::shared_ptr<IGame> &ctx) override;
+        void onMousePress(std::shared_ptr<IGame> ctx) override;
+        void onMouseHover(std::shared_ptr<IGame> ctx) override;
+        void onMouseRelease(std::shared_ptr<IGame> ctx) override;
 
         // Position
         Vector2i &getPosition(void) noexcept override;

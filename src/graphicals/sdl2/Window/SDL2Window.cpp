@@ -54,8 +54,6 @@ _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y
 
 SDL2Window::~SDL2Window()
 {
-    SDL_DestroyRenderer(_renderer);
-    SDL_DestroyWindow(_window);
     TTF_Quit();
     SDL_Quit();
     std::cout << "Destructor in SDL2Window" << std::endl;
@@ -183,8 +181,8 @@ void SDL2Window::render(const shared::graphics::TextProps &props)
         vertical = (windowHeight) - (textHeight);
     }
 
-    SDL_Rect dstRect = {horizontal + (props.position.x),
-    vertical + (props.position.y), textWidth, textHeight};
+    SDL_Rect dstRect = {horizontal + (props.position.x * static_cast<int>(_sdl2basicTiles.x)),
+    vertical + (props.position.y * static_cast<int>(_sdl2basicTiles.y)), textWidth, textHeight};
     if (SDL_RenderCopy(_renderer, sdl2Font->getTexture(), nullptr, &dstRect) < 0) {
         std::cout << SDL_GetError() << std::endl;
     }
@@ -209,6 +207,8 @@ void SDL2Window::display(void)
 void SDL2Window::close(void)
 {
     _running = false;
+    SDL_DestroyRenderer(_renderer);
+    SDL_DestroyWindow(_window);
 }
 
 bool SDL2Window::isOpen(void) const

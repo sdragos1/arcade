@@ -26,7 +26,7 @@ const entity::IEntity &SnakeHeadKeyboard::getEntity() noexcept
     return _entity;
 }
 
-void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx,
+void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
     shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
@@ -53,7 +53,7 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> &ctx,
     }
 }
 
-void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> &ctx,
+void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
     shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;

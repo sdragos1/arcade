@@ -36,6 +36,9 @@
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 #define ICON_PATH "assets/window_icon.png"
+#define F1 1
+#define F2 2
+#define F3 3
 
 using namespace shared::games;
 using namespace shared::graphics;
@@ -55,6 +58,8 @@ class Core
          */
         ~Core();
         void runArcade();
+        bool getLaunchArcade() const;
+        void runMenu();
 
     private:
         void _initGraphicLib();
@@ -90,10 +95,23 @@ class Core
 
         void _handleEvents();
 
+        void _eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame, shared::graphics::TextProps &name, \
+        std::vector<shared::graphics::TextProps> &listNameGame, std::vector<shared::graphics::TextProps> &listNameGraphic);
+
+        std::vector<shared::graphics::TextProps> _TextPropsListGame(std::size_t indexGame);
+        shared::graphics::TextProps _TextPropsTitleGame();
+
+        std::vector<shared::graphics::TextProps> _TextPropsListGraphic(std::size_t indexGraphic);
+        shared::graphics::TextProps _TextPropsTitleGraphic();
+
+        shared::graphics::TextProps _TextPropsTitleName();
+        shared::graphics::TextProps _TextPropsName();
+
         // Display Functions
         void _displayTexture(std::shared_ptr<components::ITextureComponent> displayable);
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
         void _displayManager();
+        void _displaylib(std::size_t indexlib, std::vector<shared::graphics::TextProps> listNamelib, shared::graphics::TextProps titlelib);
 
         // Sound Functions
 
@@ -105,6 +123,7 @@ class Core
         std::unique_ptr<IWindow> _currWindow;
         std::size_t _currLibIndex;
         shared::games::entity::EntitiesMap _gameEntities;
+        bool _launchGame;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
