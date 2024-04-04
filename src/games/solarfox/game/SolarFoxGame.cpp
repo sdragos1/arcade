@@ -14,6 +14,7 @@ const unsigned int projectileShootSpeed = 500;
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
     _player(nullptr),
+    _enemies(),
     _projectiles(),
     _playerMoveTime(std::chrono::milliseconds(0)),
     _projectileMoveTime(std::chrono::milliseconds(0)),
@@ -21,6 +22,10 @@ SolarFoxGame::SolarFoxGame()
 {
     std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
 
+    _addEnemy({0, 0}, {1, 1}, {0, 0});
+    _addEnemy({solarFoxGameSize.x - 1, solarFoxGameSize.y - 1}, {1, 1}, {0, 0});
+    _addEnemy({solarFoxGameSize.x - 1, 0}, {1, 1}, {0, 0});
+    _addEnemy({0, solarFoxGameSize.y - 1}, {1, 1}, {0, 0});
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
     _playerShoot();
@@ -158,6 +163,16 @@ void SolarFoxGame::_playerShoot()
             break;
     }
     addProjectile(SolarFoxProjectile::PLAYER, position, direction);
+}
+
+void SolarFoxGame::_addEnemy(shared::types::Vector2i position, shared::types::Vector2u size,
+    shared::types::Vector2u origin)
+{
+    std::shared_ptr<SolarFoxEnemy> enemy = std::make_shared<SolarFoxEnemy>(
+        position, size, origin);
+
+    _enemies.push_back(enemy);
+    _entities.push_back(enemy);
 }
 
 const GameManifest &SolarFoxGame::getManifest(void) const noexcept

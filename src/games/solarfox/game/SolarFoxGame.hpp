@@ -11,6 +11,7 @@
 #include <algorithm>
 #include "../entities/projectile/SolarFoxProjectile.hpp"
 #include "../entities/player/SolarFoxPlayer.hpp"
+#include "../entities/enemy/SolarFoxEnemy.hpp"
 #include "games/IGame.hpp"
 
 
@@ -33,6 +34,8 @@ class SolarFoxGame : public IGame {
             shared::types::Vector2i direction);
 
     private:
+        void _addEnemy(shared::types::Vector2i position, shared::types::Vector2u size,
+            shared::types::Vector2u origin);
         void _forwardPlayer();
         void _forwardProjectiles();
         void _playerShoot();
@@ -40,6 +43,7 @@ class SolarFoxGame : public IGame {
 
         entity::EntitiesMap _entities;
         std::shared_ptr<SolarFoxPlayer> _player;
+        std::vector<std::shared_ptr<SolarFoxEnemy>> _enemies;
         std::vector<std::shared_ptr<SolarFoxProjectile>> _projectiles;
         DeltaTime _playerMoveTime;
         DeltaTime _playerProjectileShootTime;
