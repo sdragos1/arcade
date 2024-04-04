@@ -8,7 +8,7 @@
 #include "SDL2Window.hpp"
 
 SDL2Window::SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps) :
-_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y)
+_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.size.y * 40)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
@@ -27,14 +27,14 @@ _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y
 
     if (windowProps.mode == shared::graphics::IWindow::FULLSCREEN) {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
-        0, windowProps.size.x, windowProps.size.y,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
             throw SDL2WindowException("SDL2 Window", SDL_GetError());
         }
     } else {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
-        0, windowProps.size.x, windowProps.size.y,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
             throw SDL2WindowException("SDL2 Window", SDL_GetError());

@@ -16,10 +16,10 @@ _sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x, windowProps.size.y
     _mode = windowProps.mode;
 
     if (windowProps.mode == shared::graphics::IWindow::FULLSCREEN) {
-        _window.create(sf::VideoMode(windowProps.size.x, windowProps.size.y),
+        _window.create(sf::VideoMode(windowProps.size.x * 40, windowProps.size.y * 40),
         windowProps.title, sf::Style::Fullscreen);
     } else {
-        _window.create(sf::VideoMode(windowProps.size.x, windowProps.size.y),
+        _window.create(sf::VideoMode(windowProps.size.x * 40, windowProps.size.y * 40),
         windowProps.title, sf::Style::Default);
     }
     _window.setFramerateLimit(windowProps.fps);
