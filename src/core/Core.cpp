@@ -10,8 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities(),
-    _soundsMap()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -42,7 +41,6 @@ void Core::_initGraphicLib()
         .fps = _currGame->getFps(),
         .title = _currGame->getManifest().name,
         .icon = _currGame->getManifest().iconPath});
-    std::cout << "Init Graphic Lib" << std::endl;
 }
 
 void Core::_handleGraphicSwitch()
@@ -53,28 +51,6 @@ void Core::_handleGraphicSwitch()
         _currWindow->close();
         _currWindow.release();
         _initGraphicLib();
-    }
-}
-
-void Core::_handleSoundState(std::shared_ptr<components::ISoundComponent> sound)
-{
-    ISound::SoundState soundState = CoreUtils::mapSoundState(sound->getState());
-
-    if (_soundsMap.find(sound) == _soundsMap.end()) {
-        _soundsMap[sound].graphicSound = _currRenderer->createSound(sound->getPath());
-        _soundsMap[sound].graphicSound->setLoopState(sound->getLoop());
-        _soundsMap[sound].graphicSound->setVolume(sound->getVolume());
-        _soundsMap[sound].graphicSound->setState(ISound::SoundState::STOP);
-        _soundsMap[sound].gameState = sound->getState();
-        _soundsMap[sound].graphicState = ISound::SoundState::STOP;
-    }
-    if (_soundsMap[sound].gameState != sound->getState()) {
-        _soundsMap[sound].gameState = sound->getState();
-        _soundsMap[sound].graphicSound->setState(soundState);
-    }
-    if (_soundsMap[sound].graphicSound->getState() != _soundsMap[sound].graphicState) {
-        _soundsMap[sound].graphicState = soundState;
-        sound->onStateChange(_currGame, sound->getState());
     }
 }
 
@@ -200,11 +176,6 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
 
     for (auto &component : components) {
         type = component->getType();
-        if (type == components::ComponentType::SOUND) {
-            auto sound =
-                std::dynamic_pointer_cast<components::ISoundComponent>(component);
-            _handleSoundState(sound);
-        }
         if (type == components::ComponentType::KEYBOARD) {
             auto keyboard = std::dynamic_pointer_cast<components::IKeyboardComponent>(component);
             if (event->getType() == events::EventType::KEY_PRESS) {
@@ -245,27 +216,22 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
     }
 }
 
-std::size_t Core::_handleEvents()
+void Core::_handleEvents()
 {
     std::vector<events::EventPtr> events = _currWindow->getEvents();
 
     if (events.size() == 0) {
-        return 0;
+        return;
     }
     for (auto &event : events) {
         if (event->getType() == events::EventType::WINDOW_CLOSE) {
             _currWindow->close();
-            return QUIT_ARCADE;
+            return;
         }
         if (event->getType() == events::EventType::KEY_PRESS) {
             auto keyEvent = std::dynamic_pointer_cast<events::KeyPressedEvent>(event);
-            std::size_t result = _handleGeneralEvents(keyEvent);
-            if (result == 0) {
-                return 0;
-            } else if (result == BACK_MENU) {
-                return BACK_MENU;
-            } else if (result == QUIT_ARCADE) {
-                return QUIT_ARCADE;
+            if (_handleGeneralEvents(keyEvent) == 0) {
+                return;
             }
         }
         for (auto &entity : _gameEntities) {
@@ -273,7 +239,6 @@ std::size_t Core::_handleEvents()
         }
     }
     events.clear();
-    return 0;
 }
 
 
@@ -283,29 +248,23 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
     {
         case 'a':
             _currWindow->close();
-            return QUIT_ARCADE;
+            return 0;
         case 'd':
             _librariesRenderer->incrementIndex();
             return 0;
         case 'q':
             _librariesRenderer->decrementIndex();
             return 0;
-        case 'e':
-            _currWindow->close();
-            _currWindow.release();
-            return BACK_MENU;
         default:
-            return 3;
+            return 1;
     }
 }
 
-std::size_t Core::runArcade()
+void Core::runArcade()
 {
     auto prevTime = std::chrono::high_resolution_clock::now();
-    std::size_t resultEvent = 0;
 
     _currGame = _librariesGame->getCurrentGame();
-    std::cout << "Game: "  << std::endl;
     _initGraphicLib();
     while (_currWindow->isOpen()) {
         _handleGraphicSwitch();
@@ -315,16 +274,13 @@ std::size_t Core::runArcade()
         _currGame->compute(deltaTime);
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
-        resultEvent = _handleEvents();
-        if (resultEvent == BACK_MENU)
-            return BACK_MENU;
-        if (resultEvent == QUIT_ARCADE)
-            return QUIT_ARCADE;
+        _handleEvents();
+        if (_currWindow->isOpen() == false)
+            continue;
         _currWindow->clear();
         _displayManager();
         _currWindow->display();
     }
-    return 0;
 }
 
 bool Core::getLaunchArcade() const

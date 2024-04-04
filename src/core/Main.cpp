@@ -21,15 +21,9 @@ int main(int argc, char **argv)
         }
         std::string defaultLib(argv[1]);
         arcadeCore = std::make_unique<Core>(defaultLib);
-        while (true) {
-            arcadeCore->runMenu();
-            if (arcadeCore->getLaunchArcade() == true) {
-                resultArcade = arcadeCore->runArcade();
-                if (resultArcade == QUIT_ARCADE)
-                    break;
-            } else {
-                break;
-            }
+        arcadeCore->runMenu();
+        if (arcadeCore->getLaunchArcade() == true) {
+            arcadeCore->runArcade();
         }
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;

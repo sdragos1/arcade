@@ -12,10 +12,8 @@ void Core::runMenu()
 {
     std::size_t indexGraphic = _librariesRenderer->getIndex();
     std::size_t indexGame = _librariesGame->getIndex();
-    _launchGame = false;
 
-    if (_currRenderer == nullptr)
-        _currRenderer = _librariesRenderer->getCurrentLibrary();
+    _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({
         .size = (Vector2u) {1920, 1080},
         .mode = IWindow::WindowMode::WINDOWED,
@@ -67,7 +65,7 @@ void Core::runMenu()
 
 shared::graphics::TextProps Core::_TextPropsTitleGame()
 {
-    float posBeginY = 7 + static_cast<float>(_librariesRenderer->getLibraryList().size());
+    int posBeginY = 7 + static_cast<int>(_librariesRenderer->getLibraryList().size());
     shared::graphics::TextProps choiceGame {
         .font = _currRenderer->createFont("assets/fonts/Crang.ttf"),
         .fontSize = 20,
@@ -76,7 +74,7 @@ shared::graphics::TextProps Core::_TextPropsTitleGame()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2f) {5, posBeginY}
+        .position = (shared::types::Vector2i) {5, posBeginY}
     };
     return choiceGame;
 }
@@ -85,14 +83,8 @@ shared::graphics::TextProps Core::_TextPropsTitleGame()
 std::vector<shared::graphics::TextProps> Core::_TextPropsListGame(std::size_t indexGame)
 {
     std::vector<shared::graphics::TextProps> list;
-<<<<<<< HEAD
     std::vector<std::shared_ptr<shared::games::IGame>> libraryList = _librariesGame->getLibraryList();
     int posBeginY = 7 + static_cast<int>(_librariesRenderer->getLibraryList().size());
-=======
-    std::vector<std::shared_ptr<shared::games::IGame>> libraryList =
-    _librariesGame->getLibraryList();
-    float posBeginY = 7 + static_cast<float>(_librariesRenderer->getLibraryList().size());
->>>>>>> 914b2d2 (#37 feat: also fixed the test game, the SDL2 and the SFML to make them use Vector2f instead of Vector2i for the positions)
     std::string star = "";
 
     for (std::size_t index = 0; index < libraryList.size(); index++) {
@@ -108,7 +100,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGame(std::size_t in
             .verticalAlign = shared::graphics::TOP,
             .color = shared::types::Color {255, 255, 255, 255},
             .size = (shared::types::Vector2u) {5, 5},
-            .position = (shared::types::Vector2f) {7, posBeginY + static_cast<float>(index) + 1}
+            .position = (shared::types::Vector2i) {7, posBeginY + static_cast<int>(index) + 1}
         };
         list.push_back(nameGame);
     }
@@ -125,7 +117,7 @@ shared::graphics::TextProps Core::_TextPropsTitleGraphic()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2f) {5, 5}
+        .position = (shared::types::Vector2i) {5, 5}
     };
     return choiceGraphic;
 }
@@ -150,7 +142,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGraphic(std::size_t
             .verticalAlign = shared::graphics::TOP,
             .color = shared::types::Color {255, 255, 255, 255},
             .size = (shared::types::Vector2u) {5, 5},
-            .position = (shared::types::Vector2f) {7, 6 + static_cast<float>(index)}
+            .position = (shared::types::Vector2i) {7, 6 + static_cast<int>(index)}
         };
         list.push_back(nameGraphic);
     }
@@ -159,12 +151,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGraphic(std::size_t
 
 shared::graphics::TextProps Core::_TextPropsTitleName()
 {
-<<<<<<< HEAD
     int posBeginY = 9 + static_cast<int>(_librariesRenderer->getLibraryList().size()) + static_cast<int>(_librariesGame->getLibraryList().size());
-=======
-    float posBeginY = 9 + static_cast<float>(_librariesRenderer->getLibraryList().size()) +
-    static_cast<float>(_librariesGame->getLibraryList().size());
->>>>>>> 914b2d2 (#37 feat: also fixed the test game, the SDL2 and the SFML to make them use Vector2f instead of Vector2i for the positions)
 
     shared::graphics::TextProps choiceName {
         .font = _currRenderer->createFont("assets/fonts/Crang.ttf"),
@@ -174,19 +161,14 @@ shared::graphics::TextProps Core::_TextPropsTitleName()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2f) {5, posBeginY}
+        .position = (shared::types::Vector2i) {5, posBeginY}
     };
     return choiceName;
 }
 
 shared::graphics::TextProps Core::_TextPropsName()
 {
-<<<<<<< HEAD
     int posBeginY = 9 + static_cast<int>(_librariesRenderer->getLibraryList().size()) + static_cast<int>(_librariesGame->getLibraryList().size());
-=======
-    float posBeginY = 9 + static_cast<float>(_librariesRenderer->getLibraryList().size()) +
-    static_cast<float>(_librariesGame->getLibraryList().size());
->>>>>>> 914b2d2 (#37 feat: also fixed the test game, the SDL2 and the SFML to make them use Vector2f instead of Vector2i for the positions)
 
     shared::graphics::TextProps name {
         .font = nullptr,
@@ -196,7 +178,7 @@ shared::graphics::TextProps Core::_TextPropsName()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2f) {7, posBeginY + 1}
+        .position = (shared::types::Vector2i) {7, posBeginY + 1}
     };
     return name;
 }

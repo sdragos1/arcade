@@ -18,7 +18,6 @@ class ScoreText : public shared::games::components::ITextComponent {
         shared::games::components::ITextComponent::TextProps getTextProps() noexcept override;
         Vector2u &getSize() noexcept override;
         unsigned int &getZIndex() noexcept override;
-<<<<<<< HEAD
         void onMousePress(std::shared_ptr <shared::games::IGame> ctx) override;
         void onMouseRelease(std::shared_ptr <shared::games::IGame> ctx) override;
         void onMouseHover(std::shared_ptr <shared::games::IGame> ctx) override;
