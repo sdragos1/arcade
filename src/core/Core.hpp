@@ -39,6 +39,8 @@
 #define F1 1
 #define F2 2
 #define F3 3
+#define BACK_MENU 1
+#define QUIT_ARCADE 2
 
 using namespace shared::games;
 using namespace shared::graphics;
@@ -63,7 +65,7 @@ class Core
          *
          */
         ~Core();
-        void runArcade();
+        std::size_t runArcade();
         bool getLaunchArcade() const;
         void runMenu();
 
@@ -99,7 +101,7 @@ class Core
 
         void _handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event);
 
-        void _handleEvents();
+        std::size_t _handleEvents();
 
         void _eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame, shared::graphics::TextProps &name, \
         std::vector<shared::graphics::TextProps> &listNameGame, std::vector<shared::graphics::TextProps> &listNameGraphic);

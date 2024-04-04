@@ -12,6 +12,7 @@ int main(int argc, char **argv)
 {
     (void) argv;
     UniqueCore arcadeCore = nullptr;
+    std::size_t resultArcade = 0;
 
     try {
         if (argc != 2) {
@@ -20,9 +21,15 @@ int main(int argc, char **argv)
         }
         std::string defaultLib(argv[1]);
         arcadeCore = std::make_unique<Core>(defaultLib);
-        arcadeCore->runMenu();
-        if (arcadeCore->getLaunchArcade() == true) {
-            arcadeCore->runArcade();
+        while (true) {
+            arcadeCore->runMenu();
+            if (arcadeCore->getLaunchArcade() == true) {
+                resultArcade = arcadeCore->runArcade();
+                if (resultArcade == QUIT_ARCADE)
+                    break;
+            } else {
+                break;
+            }
         }
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
