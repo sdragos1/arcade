@@ -23,11 +23,6 @@ SolarFoxPlayer::SolarFoxPlayer()
     _components.push_back(keyboard);
 }
 
-std::vector<solarfox::CollisionLayer> SolarFoxPlayer::getCollisionLayers() const
-{
-    return SolarPlayerCollisionLayers;
-}
-
 SolarFoxPlayer::~SolarFoxPlayer()
 {
 }

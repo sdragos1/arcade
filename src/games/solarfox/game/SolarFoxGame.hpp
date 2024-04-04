@@ -11,7 +11,6 @@
 #include <algorithm>
 #include "../entities/projectile/SolarFoxProjectile.hpp"
 #include "../entities/player/SolarFoxPlayer.hpp"
-#include "../entities/wall/SolarFoxWall.hpp"
 #include "games/IGame.hpp"
 
 
@@ -38,8 +37,6 @@ class SolarFoxGame : public IGame {
         void _forwardProjectiles();
         void _playerShoot();
         void _removeProjectile(std::shared_ptr<SolarFoxProjectile> projectile);
-        void _addWall(shared::types::Vector2i position, shared::types::Vector2u size,
-            std::vector<solarfox::CollisionLayer> collisionLayers);
 
         entity::EntitiesMap _entities;
         std::shared_ptr<SolarFoxPlayer> _player;

@@ -24,12 +24,6 @@ SolarFoxGame::SolarFoxGame()
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
     _playerShoot();
-    _addWall({2, 2}, {solarFoxGameSize.x - 4, 1}, {solarfox::CollisionLayer::CENTER_WALL});
-    _addWall({2, solarFoxGameSize.y - 3}, {solarFoxGameSize.x - 4, 1},
-        {solarfox::CollisionLayer::CENTER_WALL});
-    _addWall({2, 2}, {1, solarFoxGameSize.y - 4}, {solarfox::CollisionLayer::CENTER_WALL});
-    _addWall({solarFoxGameSize.x - 3, 2}, {1, solarFoxGameSize.y - 4},
-        {solarfox::CollisionLayer::CENTER_WALL});
 }
 
 SolarFoxGame::~SolarFoxGame()
@@ -68,19 +62,29 @@ void SolarFoxGame::_forwardPlayer()
     if (displayable == nullptr)
         return;
     auto lastDirection = keyboard->getLastDirection();
+    auto pos = displayable->getPosition();
+
     switch (lastDirection)
     {
         case components::IKeyboardComponent::ArrowCode::UP:
-            displayable->getPosition().y -= 1;
+            if (pos.y > 2) {
+                displayable->getPosition().y -= 1;
+            }
             break;
         case components::IKeyboardComponent::ArrowCode::DOWN:
-            displayable->getPosition().y += 1;
+            if (pos.y < solarFoxGameSize.y - 3) {
+                displayable->getPosition().y += 1;
+            }
             break;
         case components::IKeyboardComponent::ArrowCode::LEFT:
-            displayable->getPosition().x -= 1;
+            if (pos.x > 2) {
+                displayable->getPosition().x -= 1;
+            }
             break;
         case components::IKeyboardComponent::ArrowCode::RIGHT:
-            displayable->getPosition().x += 1;
+            if (pos.x < solarFoxGameSize.x - 3) {
+                displayable->getPosition().x += 1;
+            }
             break;
     }
 }
@@ -154,14 +158,6 @@ void SolarFoxGame::_playerShoot()
             break;
     }
     addProjectile(SolarFoxProjectile::PLAYER, position, direction);
-}
-
-void SolarFoxGame::_addWall(shared::types::Vector2i position, shared::types::Vector2u size,
-    std::vector<solarfox::CollisionLayer> collisionLayers)
-{
-    std::shared_ptr<SolarFoxWall> wall = std::make_shared<SolarFoxWall>(position, size, collisionLayers);
-
-    _entities.push_back(wall);
 }
 
 const GameManifest &SolarFoxGame::getManifest(void) const noexcept

@@ -10,20 +10,11 @@
 #include "abstracts/components/TextureComponent.hpp"
 #include "abstracts/entity/AEntity.hpp"
 #include "components/SolarFoxPlayerKeyboard.hpp"
-#include "../../CollisionLayers.hpp"
 
 class SolarFoxPlayer : public AEntity {
     public:
         SolarFoxPlayer();
         ~SolarFoxPlayer();
-
-        std::vector<solarfox::CollisionLayer> getCollisionLayers() const;
-};
-
-static std::vector<solarfox::CollisionLayer> SolarPlayerCollisionLayers = {
-    solarfox::CollisionLayer::PLAYER,
-    solarfox::CollisionLayer::ENEMY,
-    solarfox::CollisionLayer::CENTER_WALL,
 };
 
 static components::TextureProps SolarPlayerTextureProps = {
