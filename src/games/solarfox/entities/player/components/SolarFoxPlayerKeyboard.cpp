@@ -30,8 +30,6 @@ void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
     }
     if (displayable == nullptr)
         return;
-    if (keyData.type != components::IKeyboardComponent::KeyType::ARROW)
-        return;
     if (keyData.code.arrow == components::IKeyboardComponent::ArrowCode::UP &&
         _lastDirection != components::IKeyboardComponent::ArrowCode::DOWN) {
         displayable->getTextureProps().origin.x = 0;

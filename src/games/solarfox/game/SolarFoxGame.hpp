@@ -8,6 +8,8 @@
 #pragma once
 
 #include <iostream>
+#include <algorithm>
+#include "../entities/projectile/SolarFoxProjectile.hpp"
 #include "../entities/player/SolarFoxPlayer.hpp"
 #include "games/IGame.hpp"
 
@@ -25,12 +27,22 @@ class SolarFoxGame : public IGame {
         const entity::EntitiesMap &getEntities(void) const override;
         const unsigned int getFps() const noexcept override;
 
+
+        void addProjectile(SolarFoxProjectile::ProjectileType type,
+            shared::types::Vector2i position,
+            shared::types::Vector2i direction);
     private:
         void _forwardPlayer();
+        void _forwardProjectiles();
+        void _playerShoot();
+        void _removeProjectile(std::shared_ptr<SolarFoxProjectile> projectile);
 
         entity::EntitiesMap _entities;
-        DeltaTime _playerMoveTime;
         std::shared_ptr<SolarFoxPlayer> _player;
+        std::vector<std::shared_ptr<SolarFoxProjectile>> _projectiles;
+        DeltaTime _playerMoveTime;
+        DeltaTime _playerProjectileShootTime;
+        DeltaTime _projectileMoveTime;
 };
 
 static GameManifest solarFoxManifest = {

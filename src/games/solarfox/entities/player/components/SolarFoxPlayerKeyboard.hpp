@@ -26,5 +26,7 @@ class SolarFoxPlayerKeyboard : public AKeyboardComponent {
         components::IKeyboardComponent::ArrowCode getLastDirection() const;
 
     private:
+        shared::types::Vector2i getDirectionVector();
+
         components::IKeyboardComponent::ArrowCode _lastDirection;
 };
