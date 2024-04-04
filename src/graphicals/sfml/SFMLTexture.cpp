@@ -14,12 +14,10 @@ SFMLTexture::SFMLTexture(std::string pathTexture)
         std::cerr << pathTexture << std::endl;
         throw SFMLTextureException("SFML Texture", "Can't create SFML Texture Class");
     }
-    std::cout << "Constructor in SFMLTexture" << std::endl;
 }
 
 SFMLTexture::~SFMLTexture()
 {
-    std::cout << "Destructor in SFMLTexture" << std::endl;
 }
 
 sf::Texture SFMLTexture::getTexture() const

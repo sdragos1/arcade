@@ -47,10 +47,27 @@ class GameList
         void decrementIndex();
 
         /**
+         * @brief Set index of Library
+         */
+        void setIndex(std::size_t newIndex);
+
+        /**
          * @brief Get the Current Game object
          * @return std::shared_ptr<shared::games::IGame> Current Game Library
          */
         std::shared_ptr<shared::games::IGame> getCurrentGame();
+
+        /**
+         * @brief Gets the index of the current lib
+         * @return std::size_t Index of Library
+         */
+        std::size_t getIndex() const noexcept;
+
+        /**
+         * @brief Return the entire game list
+         * @return std::vector<shared::graphics::IGraphicsProvider *> 
+         */
+        std::vector<std::shared_ptr<shared::games::IGame>> getLibraryList();
 
     protected:
         std::vector<std::shared_ptr<shared::games::IGame>> _libraryList;
