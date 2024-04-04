@@ -16,8 +16,11 @@ SolarFoxPlayer::SolarFoxPlayer()
             *this,
             0,
             SolarPlayerTextureProps);
+    std::shared_ptr<components::IComponent> keyboard =
+        std::make_shared<SolarFoxPlayerKeyboard>(*this);
 
     _components.push_back(texture);
+    _components.push_back(keyboard);
 }
 
 SolarFoxPlayer::~SolarFoxPlayer()

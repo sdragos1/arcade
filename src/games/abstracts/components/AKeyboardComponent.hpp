@@ -15,6 +15,6 @@ using namespace shared::games;
 class AKeyboardComponent : public virtual components::IKeyboardComponent,
                            public AComponent {
     public:
-        AKeyboardComponent(entity::IEntity &entity);
+        explicit AKeyboardComponent(entity::IEntity &entity);
         ~AKeyboardComponent();
 };

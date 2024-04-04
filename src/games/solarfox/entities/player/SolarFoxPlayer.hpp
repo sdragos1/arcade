@@ -9,6 +9,7 @@
 
 #include "abstracts/components/TextureComponent.hpp"
 #include "abstracts/entity/AEntity.hpp"
+#include "components/SolarFoxPlayerKeyboard.hpp"
 
 class SolarFoxPlayer : public AEntity {
     public:
