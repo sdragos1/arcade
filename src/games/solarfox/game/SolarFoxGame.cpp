@@ -109,7 +109,8 @@ void SolarFoxGame::_forwardProjectiles()
     for (int i = 0; i < _projectiles.size(); i++) {
         auto projectile = _projectiles[i];
 
-        if (projectile->getProjectileTravelDistance() > 3) {
+        if (projectile->getProjectileTravelDistance() > 3 &&
+            projectile->getType() == SolarFoxProjectile::PLAYER) {
             _removeProjectile(projectile);
             _playerShoot();
             continue;
@@ -175,6 +176,34 @@ void SolarFoxGame::_playerShoot()
     addProjectile(SolarFoxProjectile::PLAYER, position, direction);
 }
 
+void SolarFoxGame::_enemyShoot(int i)
+{
+    std::shared_ptr<TextureComponent> displayable = nullptr;
+
+    for (auto &component : _enemies[i]->getComponents()) {
+        if (component->getType() == components::TEXTURE) {
+            displayable = std::dynamic_pointer_cast<TextureComponent>(component);
+        }
+    }
+    if (displayable == nullptr)
+        return;
+    shared::types::Vector2f position = displayable->getPosition();
+    shared::types::Vector2f direction = {0, 0};
+    if (position.x == 0) {
+        direction.x = 1;
+    }
+    if (position.x == solarFoxGameSize.x - 1) {
+        direction.x = -1;
+    }
+    if (position.y == 0) {
+        direction.y = 1;
+    }
+    if (position.y == solarFoxGameSize.y - 1) {
+        direction.y = -1;
+    }
+    addProjectile(SolarFoxProjectile::ENEMY, position, direction);
+}
+
 void SolarFoxGame::_addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
     shared::types::Vector2u origin, shared::types::Vector2i direction)
 {
@@ -201,7 +230,9 @@ void SolarFoxGame::_moveEnemies()
         auto pos = displayable->getPosition();
         const int maxX = solarFoxGameSize.x - 1;
         const int maxY = solarFoxGameSize.y - 1;
-
+        if (pos.x == solarFoxGameSize.x / 2 || pos.y == solarFoxGameSize.y / 2) {
+            _enemyShoot(i);
+        }
         if (pos.x == 0 && pos.y == 0) {
             enemy->inverseDirection();
         }

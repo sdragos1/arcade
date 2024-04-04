@@ -41,6 +41,7 @@ class SolarFoxGame : public IGame {
         void _moveEnemies();
         void _playerShoot();
         void _removeProjectile(std::shared_ptr<SolarFoxProjectile> projectile);
+        void _enemyShoot(int i);
 
         entity::EntitiesMap _entities;
         std::shared_ptr<SolarFoxPlayer> _player;
