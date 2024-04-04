@@ -15,7 +15,7 @@ using namespace shared::games;
 class TextureComponent : public virtual components::ITextureComponent,
                           public ADisplayableComponent {
     public:
-        TextureComponent(shared::types::Vector2i position,
+        TextureComponent(shared::types::Vector2f position,
             shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex,
             components::TextureProps &textureProps);
         ~TextureComponent();

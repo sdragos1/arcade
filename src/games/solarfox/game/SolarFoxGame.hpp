@@ -27,14 +27,14 @@ class SolarFoxGame : public IGame {
         const Vector2u getSize(void) const noexcept override;
         const entity::EntitiesMap &getEntities(void) const override;
         const unsigned int getFps() const noexcept override;
-
+        const int getScore() const noexcept;
 
         void addProjectile(SolarFoxProjectile::ProjectileType type,
-            shared::types::Vector2i position,
-            shared::types::Vector2i direction);
+            shared::types::Vector2f position,
+            shared::types::Vector2f direction);
 
     private:
-        void _addEnemy(shared::types::Vector2i position, shared::types::Vector2u size,
+        void _addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
             shared::types::Vector2u origin);
         void _forwardPlayer();
         void _forwardProjectiles();

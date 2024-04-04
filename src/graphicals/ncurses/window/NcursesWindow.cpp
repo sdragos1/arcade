@@ -8,7 +8,7 @@
 #include "NcursesWindow.hpp"
 
 NcursesWindow::NcursesWindow(const WindowInitProps &windowProps) :
-_ncursesbasicwindow(47, 25)
+_ncursesbasicwindow(windowProps.size)
 {
     _running = true;
     _window = initscr();
@@ -84,20 +84,9 @@ void NcursesWindow::render(const TextureProps &props)
     std::dynamic_pointer_cast<NcursesTexture>(props.texture);
     std::string ascii = texture->getAscii();
 
-    int indexLineX = 0;
-    int indexLineY = 0;
-
-    for (int i = 0; i < ascii.length(); i++) {
-        if (ascii[i] == '\n') {
-            indexLineX = 0;
-            indexLineY++;
-            continue;
-        }
-
-        mvwprintw(_window, props.position.y + NCURSES_ORIGIN_OFFSET_Y + indexLineY,
-        props.position.x + NCURSES_ORIGIN_OFFSET_X + indexLineX, "%c", ascii[i]);
-        indexLineX++;
-    }
+    int pos_x = static_cast<int>(props.position.x + 1.0f);
+    int pos_y = static_cast<int>(props.position.y + 2.0f);
+    mvwprintw(_window, pos_y, pos_x, "%c", ascii[props.origin.x]);
 }
 
 void NcursesWindow::render(const TextProps &props)
@@ -272,13 +261,13 @@ void NcursesWindow::renderTitle() const
         int barX = 0;
         int barY = 1;
         wattron(_window, A_ALTCHARSET);
-        mvwhline(_window, 1, barX, ACS_HLINE, 50);
-        for (int index = 1; index < 28; index++) {
+        mvwhline(_window, 1, barX, ACS_HLINE, _ncursesbasicwindow.x + 2);
+        for (int index = 0; index < _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y; index++) {
             mvwhline(_window, index, 0, ACS_VLINE, 1);
         }
-        for (int index = 1; index < 28; index++) {
-            mvwhline(_window, index, 49, ACS_VLINE, 1);
+        for (int index = 0; index < _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y; index++) {
+            mvwhline(_window, index, _ncursesbasicwindow.x +  NCURSES_ORIGIN_OFFSET_X, ACS_VLINE, 1);
         }
-        mvwhline(_window, 28, 0, ACS_HLINE, 50);
+        mvwhline(_window, _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y , 0, ACS_HLINE, _ncursesbasicwindow.x + 2);
         wattroff(_window, A_ALTCHARSET);
 }

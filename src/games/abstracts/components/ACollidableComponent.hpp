@@ -15,7 +15,7 @@ using namespace shared::games;
 class ACollidableComponent : public virtual components::ICollidableComponent,
                              public PositionableComponent{
     public:
-        ACollidableComponent(shared::types::Vector2i position,
+        ACollidableComponent(shared::types::Vector2f position,
             shared::types::Vector2u size, entity::IEntity &entity);
         ~ACollidableComponent();
 };

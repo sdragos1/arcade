@@ -8,7 +8,7 @@
 #include "ACollidableComponent.hpp"
 
 ACollidableComponent::ACollidableComponent(
-    shared::types::Vector2i position,
+    shared::types::Vector2f position,
     shared::types::Vector2u size,
     entity::IEntity &entity)
     : PositionableComponent(position, size, entity, components::ComponentType::COLLIDABLE

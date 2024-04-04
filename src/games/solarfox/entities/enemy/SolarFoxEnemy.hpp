@@ -12,14 +12,14 @@
 
 class SolarFoxEnemy : public AEntity {
     public:
-        SolarFoxEnemy(shared::types::Vector2i position, shared::types::Vector2u size,
+        SolarFoxEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
             shared::types::Vector2u origin);
         ~SolarFoxEnemy();
 };
 
 static components::TextureProps SolarEnemyTextureProps = {
     .sources = {
-        .ascii = "assets/solarfox/player.txt",
+        .ascii = "assets/games/solarfox/enemies/bonbon_sheet.ascii",
         .bin = "assets/games/solarfox/enemies/bonbon_sheet.png",
         .binTileSize = {16, 16},
     },

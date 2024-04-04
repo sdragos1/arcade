@@ -7,7 +7,7 @@
 
 #include "PositionableComponent.hpp"
 
-PositionableComponent::PositionableComponent(shared::types::Vector2i position,
+PositionableComponent::PositionableComponent(shared::types::Vector2f position,
     shared::types::Vector2u size, entity::IEntity &entity,
         components::ComponentType type = components::ComponentType::POSITIONABLE)
     : AComponent(entity, type),
@@ -19,7 +19,7 @@ PositionableComponent::~PositionableComponent()
 {
 }
 
-shared::types::Vector2i &PositionableComponent::getPosition() noexcept
+shared::types::Vector2f &PositionableComponent::getPosition() noexcept
 {
     return _position;
 }

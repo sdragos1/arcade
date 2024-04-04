@@ -8,8 +8,8 @@
 #include "SolarFoxProjectile.hpp"
 
 SolarFoxProjectile::SolarFoxProjectile(ProjectileType type,
-    shared::types::Vector2i position,
-    shared::types::Vector2i direction)
+    shared::types::Vector2f position,
+    shared::types::Vector2f direction)
     : _type(type), _direction(direction), _position(position),
      _startingPosition(position),
       _textureProps(
@@ -31,17 +31,17 @@ SolarFoxProjectile::~SolarFoxProjectile()
 {
 }
 
-shared::types::Vector2i &SolarFoxProjectile::getDirection()
+shared::types::Vector2f &SolarFoxProjectile::getDirection()
 {
     return _direction;
 }
 
-shared::types::Vector2i &SolarFoxProjectile::getPosition()
+shared::types::Vector2f &SolarFoxProjectile::getPosition()
 {
     return _position;
 }
 
-shared::types::Vector2i &SolarFoxProjectile::getStartingPosition()
+shared::types::Vector2f &SolarFoxProjectile::getStartingPosition()
 {
     return _startingPosition;
 }
@@ -51,8 +51,14 @@ void SolarFoxProjectile::moveProjectile()
     for (auto &component : _components) {
         if (component->getType() == components::TEXTURE) {
             auto texture = std::dynamic_pointer_cast<TextureComponent>(component);
-            texture->getPosition().x += _direction.x;
-            texture->getPosition().y += _direction.y;
+            if (_direction.x != 0) {
+                std::cout << _direction.x << std::endl;
+                texture->getPosition().x += _direction.x / 2;
+            }
+            if (_direction.y != 0) {
+                std::cout << _direction.y / 2 << std::endl;
+                texture->getPosition().y += _direction.y / 2;
+            }
         }
     }
 }

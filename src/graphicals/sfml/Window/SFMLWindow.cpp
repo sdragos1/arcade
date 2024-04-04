@@ -280,14 +280,14 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
-                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / sizeTiles.x),
+                    (event.mouseButton.y / sizeTiles.y)}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
-                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
+                    (event.mouseButton.y / (sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseButtonReleased:
@@ -295,20 +295,20 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
-                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
+                    (event.mouseButton.y / (sizeTiles.y))}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
-                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
+                    (event.mouseButton.y / (sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseMoved:
                 eventsList.push_back(std::make_shared<shared::graphics::events::MouseMoveEvent>
-                    ((Vector2i) {(event.mouseButton.x / static_cast<int>(sizeTiles.x)),
-                    (event.mouseButton.y / static_cast<int>(sizeTiles.y))}));
+                    ((Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
+                    (event.mouseButton.y / (sizeTiles.y))}));
                 break;
             case sf::Event::KeyPressed:
                 KeyFindType = mapSFMLKeyToKeyType(event.key.code);

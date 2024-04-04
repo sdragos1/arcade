@@ -16,16 +16,16 @@ using namespace shared::games;
 class PositionableComponent : public virtual components::IPositionableComponent,
                               public AComponent {
     public:
-        PositionableComponent(shared::types::Vector2i position,
+        PositionableComponent(shared::types::Vector2f position,
             shared::types::Vector2u size, entity::IEntity &entity,
             components::ComponentType type);
         ~PositionableComponent();
 
-        shared::types::Vector2i &getPosition() noexcept override;
+        shared::types::Vector2f &getPosition() noexcept override;
         shared::types::Vector2u &getSize() noexcept override;
 
     protected:
-        shared::types::Vector2i _position;
+        shared::types::Vector2f _position;
         shared::types::Vector2u _size;
 };
 

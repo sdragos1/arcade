@@ -7,8 +7,8 @@
 
 #include "SolarFoxGame.hpp"
 
-const unsigned int playerSpeed = 200;
-const unsigned int projectileSpeed = 50;
+const unsigned int playerSpeed = 40;
+const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 
 SolarFoxGame::SolarFoxGame()
@@ -73,22 +73,22 @@ void SolarFoxGame::_forwardPlayer()
     {
         case components::IKeyboardComponent::ArrowCode::UP:
             if (pos.y > 2) {
-                displayable->getPosition().y -= 1;
+                displayable->getPosition().y -= 0.2;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::DOWN:
             if (pos.y < solarFoxGameSize.y - 3) {
-                displayable->getPosition().y += 1;
+                displayable->getPosition().y += 0.2;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::LEFT:
             if (pos.x > 2) {
-                displayable->getPosition().x -= 1;
+                displayable->getPosition().x -= 0.2;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::RIGHT:
             if (pos.x < solarFoxGameSize.x - 3) {
-                displayable->getPosition().x += 1;
+                displayable->getPosition().x += 0.2;
             }
             break;
     }
@@ -109,8 +109,8 @@ void SolarFoxGame::_forwardProjectiles()
 }
 
 void SolarFoxGame::addProjectile(SolarFoxProjectile::ProjectileType type,
-    shared::types::Vector2i position,
-    shared::types::Vector2i direction)
+    shared::types::Vector2f position,
+    shared::types::Vector2f direction)
 {
     std::shared_ptr<SolarFoxProjectile> projectile = std::make_shared<SolarFoxProjectile>(
         type,
@@ -144,8 +144,8 @@ void SolarFoxGame::_playerShoot()
     if (displayable == nullptr)
         return;
     auto lastDirection = keyboard->getLastDirection();
-    shared::types::Vector2i position = displayable->getPosition();
-    shared::types::Vector2i direction = {0, 0};
+    shared::types::Vector2f position = displayable->getPosition();
+    shared::types::Vector2f direction = {0, 0};
 
     switch (lastDirection)
     {
@@ -165,7 +165,7 @@ void SolarFoxGame::_playerShoot()
     addProjectile(SolarFoxProjectile::PLAYER, position, direction);
 }
 
-void SolarFoxGame::_addEnemy(shared::types::Vector2i position, shared::types::Vector2u size,
+void SolarFoxGame::_addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
     shared::types::Vector2u origin)
 {
     std::shared_ptr<SolarFoxEnemy> enemy = std::make_shared<SolarFoxEnemy>(
@@ -193,4 +193,9 @@ const entity::EntitiesMap &SolarFoxGame::getEntities(void) const
 const unsigned int SolarFoxGame::getFps() const noexcept
 {
     return 60;
+}
+
+const int SolarFoxGame::getScore() const noexcept
+{
+    return 0;
 }

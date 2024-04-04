@@ -16,7 +16,7 @@ class ATextComponent : public virtual components::ITextComponent,
                        public ADisplayableComponent {
     public:
         ATextComponent(
-            shared::types::Vector2i position,
+            shared::types::Vector2f position,
             shared::types::Vector2u size,
             entity::IEntity &entity,
             unsigned int zIndex,

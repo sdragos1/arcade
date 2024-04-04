@@ -11,7 +11,7 @@ SolarFoxPlayer::SolarFoxPlayer()
 {
     std::shared_ptr<components::IComponent> texture =
         std::make_shared<TextureComponent>(
-            shared::types::Vector2i(5, 5),
+            shared::types::Vector2f(5, 5),
             shared::types::Vector2u(1, 1),
             *this,
             0,

@@ -8,7 +8,7 @@
 #include "TextureComponent.hpp"
 
 TextureComponent::TextureComponent(
-    shared::types::Vector2i position,
+    shared::types::Vector2f position,
     shared::types::Vector2u size,
     entity::IEntity &entity,
     unsigned int zIndex,
