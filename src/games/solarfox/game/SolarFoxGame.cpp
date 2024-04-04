@@ -8,7 +8,7 @@
 #include "SolarFoxGame.hpp"
 
 const unsigned int playerSpeed = 200;
-const unsigned int projectileSpeed = 70;
+const unsigned int projectileSpeed = 50;
 const unsigned int projectileShootSpeed = 500;
 
 SolarFoxGame::SolarFoxGame()
@@ -24,6 +24,12 @@ SolarFoxGame::SolarFoxGame()
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
     _playerShoot();
+    _addWall({2, 2}, {solarFoxGameSize.x - 4, 1}, {solarfox::CollisionLayer::CENTER_WALL});
+    _addWall({2, solarFoxGameSize.y - 3}, {solarFoxGameSize.x - 4, 1},
+        {solarfox::CollisionLayer::CENTER_WALL});
+    _addWall({2, 2}, {1, solarFoxGameSize.y - 4}, {solarfox::CollisionLayer::CENTER_WALL});
+    _addWall({solarFoxGameSize.x - 3, 2}, {1, solarFoxGameSize.y - 4},
+        {solarfox::CollisionLayer::CENTER_WALL});
 }
 
 SolarFoxGame::~SolarFoxGame()
@@ -84,7 +90,7 @@ void SolarFoxGame::_forwardProjectiles()
     for (int i = 0; i < _projectiles.size(); i++) {
         auto projectile = _projectiles[i];
 
-        if (projectile->getProjectileTravelDistance() > 5) {
+        if (projectile->getProjectileTravelDistance() > 3) {
             _removeProjectile(projectile);
             _playerShoot();
             continue;
@@ -108,7 +114,8 @@ void SolarFoxGame::addProjectile(SolarFoxProjectile::ProjectileType type,
 
 void SolarFoxGame::_removeProjectile(std::shared_ptr<SolarFoxProjectile> projectile)
 {
-    _projectiles.erase(std::remove(_projectiles.begin(), _projectiles.end(), projectile), _projectiles.end());
+    _projectiles.erase(std::remove(_projectiles.begin(), _projectiles.end(),
+        projectile), _projectiles.end());
     _entities.erase(std::remove(_entities.begin(), _entities.end(), projectile), _entities.end());
 }
 
@@ -149,6 +156,14 @@ void SolarFoxGame::_playerShoot()
     addProjectile(SolarFoxProjectile::PLAYER, position, direction);
 }
 
+void SolarFoxGame::_addWall(shared::types::Vector2i position, shared::types::Vector2u size,
+    std::vector<solarfox::CollisionLayer> collisionLayers)
+{
+    std::shared_ptr<SolarFoxWall> wall = std::make_shared<SolarFoxWall>(position, size, collisionLayers);
+
+    _entities.push_back(wall);
+}
+
 const GameManifest &SolarFoxGame::getManifest(void) const noexcept
 {
     return solarFoxManifest;
@@ -156,7 +171,7 @@ const GameManifest &SolarFoxGame::getManifest(void) const noexcept
 
 const Vector2u SolarFoxGame::getSize(void) const noexcept
 {
-    return {800, 600};
+    return solarFoxGameSize;
 }
 
 const entity::EntitiesMap &SolarFoxGame::getEntities(void) const
