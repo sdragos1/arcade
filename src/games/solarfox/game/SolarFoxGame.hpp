@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "../entities/player/SolarFoxPlayer.hpp"
 #include "games/IGame.hpp"
 
 using namespace shared::games;

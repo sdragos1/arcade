@@ -10,6 +10,9 @@
 SolarFoxGame::SolarFoxGame()
     : _entities()
 {
+    std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
+
+    _entities.push_back(player);
 }
 
 SolarFoxGame::~SolarFoxGame()

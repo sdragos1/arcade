@@ -10,7 +10,7 @@
 #include "games/components/IDisplayableComponent.hpp"
 #include "PositionableComponent.hpp"
 
-class ADisplayableComponent : public components::IDisplayableComponent,
+class ADisplayableComponent : public virtual components::IDisplayableComponent,
                               public PositionableComponent {
     public:
         ADisplayableComponent(shared::types::Vector2i position,

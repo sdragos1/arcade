@@ -12,7 +12,7 @@
 
 using namespace shared::games;
 
-class ACollidableComponent : public components::ICollidableComponent,
+class ACollidableComponent : public virtual components::ICollidableComponent,
                              public PositionableComponent{
     public:
         ACollidableComponent(shared::types::Vector2i position,

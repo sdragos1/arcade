@@ -11,13 +11,13 @@
 
 using namespace shared::games;
 
-class AComponent {
+class AComponent : public virtual components::IComponent {
     public:
         AComponent(entity::IEntity &entity, components::ComponentType type);
         ~AComponent();
 
-        const components::ComponentType getType() const noexcept;
-        const entity::IEntity &getEntity() noexcept;
+        const components::ComponentType getType() const noexcept override;
+        const entity::IEntity &getEntity() noexcept override;
 
     protected:
         components::ComponentType _type;

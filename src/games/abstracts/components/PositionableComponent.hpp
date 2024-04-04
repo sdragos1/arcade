@@ -13,7 +13,8 @@
 
 using namespace shared::games;
 
-class PositionableComponent : public components::IPositionableComponent, public AComponent {
+class PositionableComponent : public virtual components::IPositionableComponent,
+                              public AComponent {
     public:
         PositionableComponent(shared::types::Vector2i position,
             shared::types::Vector2u size, entity::IEntity &entity,

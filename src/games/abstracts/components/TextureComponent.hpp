@@ -12,15 +12,19 @@
 
 using namespace shared::games;
 
-class ATextureComponent : public components::ITextureComponent,
+class TextureComponent : public virtual components::ITextureComponent,
                           public ADisplayableComponent {
     public:
-        ATextureComponent(shared::types::Vector2i position,
+        TextureComponent(shared::types::Vector2i position,
             shared::types::Vector2u size, entity::IEntity &entity, unsigned int zIndex,
             components::TextureProps &textureProps);
-        ~ATextureComponent();
+        ~TextureComponent();
 
         components::TextureProps &getTextureProps() noexcept override;
+
+        void onMousePress(std::shared_ptr<IGame> ctx) override;
+        void onMouseRelease(std::shared_ptr<IGame> ctx) override;
+        void onMouseHover(std::shared_ptr<IGame> ctx) override;
 
     protected:
         components::TextureProps &_textureProps;

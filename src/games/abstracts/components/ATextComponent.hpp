@@ -12,7 +12,7 @@
 
 using namespace shared::games;
 
-class ATextComponent : public components::ITextComponent,
+class ATextComponent : public virtual components::ITextComponent,
                        public ADisplayableComponent {
     public:
         ATextComponent(

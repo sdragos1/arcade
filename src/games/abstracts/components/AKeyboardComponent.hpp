@@ -12,7 +12,7 @@
 
 using namespace shared::games;
 
-class AKeyboardComponent : public components::IKeyboardComponent,
+class AKeyboardComponent : public virtual components::IKeyboardComponent,
                            public AComponent {
     public:
         AKeyboardComponent(entity::IEntity &entity);
