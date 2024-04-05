@@ -18,7 +18,6 @@
 class SDL2Texture : public shared::graphics::ITexture
 {
     public:
-
         /**
          * @brief Constructor of SDL2Texture Class
          * @param pathTexture
