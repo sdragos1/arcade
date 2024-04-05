@@ -12,7 +12,6 @@
 
 class AppleDisplayable : public shared::games::components::ITextureComponent {
     public:
-
         /**
          * @brief Construct a new Apple Displayable object
          * @param entity
