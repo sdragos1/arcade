@@ -14,6 +14,7 @@ SnakeGame::SnakeGame()
     std::shared_ptr<entity::IEntity> score = std::make_shared<ScoreEntity>();
     _entities.push_back(head);
     _entities.push_back(score);
+    _score = 0;
 }
 
 SnakeGame::~SnakeGame()
@@ -23,6 +24,11 @@ SnakeGame::~SnakeGame()
 void SnakeGame::compute(DeltaTime dt)
 {
     (void)dt;
+    _time -= dt;
+    if (_time > std::chrono::milliseconds(1000)) {
+        _score += 1;
+        _time = std::chrono::milliseconds(0);
+    }
 }
 
 const GameManifest &SnakeGame::getManifest(void) const noexcept
@@ -32,7 +38,7 @@ const GameManifest &SnakeGame::getManifest(void) const noexcept
 
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
-    return {1920, 1080};
+    return {48, 27};
 }
 
 const entity::EntitiesMap &SnakeGame::getEntities(void) const

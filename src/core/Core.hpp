@@ -7,32 +7,33 @@
 
 #pragma once
 
+#include <map>
 #include <string>
 #include <memory>
 #include <vector>
-#include <map>
+#include <fstream>
 #include <iostream>
 #include <dirent.h>
-#include "library/GameList.hpp"
-#include "library/GraphicList.hpp"
 #include "games/IGame.hpp"
-#include "library/loader/Directory.hpp"
 #include "types/Libraries.hpp"
-#include "graphics/IGraphicsProvider.hpp"
+#include "utils/CoreUtils.hpp"
+#include "library/GameList.hpp"
 #include "graphics/IWindow.hpp"
-#include "graphics/events/IMouseButtonEvent.hpp"
-#include "games/components/IComponent.hpp"
-#include "games/components/ITextureComponent.hpp"
-#include "games/components/IKeyboardComponent.hpp"
-#include "games/components/ITextComponent.hpp"
-#include "games/components/ISoundComponent.hpp"
-#include "games/components/ICollidableComponent.hpp"
+#include "library/GraphicList.hpp"
+#include "library/loader/Directory.hpp"
+#include "graphics/IGraphicsProvider.hpp"
 #include "events/key/KeyPressedEvent.hpp"
 #include "events/key/KeyReleaseEvent.hpp"
-#include "events/mouse/MouseButtonPressEvent.hpp"
-#include "events/mouse/MouseButtonReleaseEvent.hpp"
+#include "games/components/IComponent.hpp"
 #include "events/mouse/MouseMoveEvent.hpp"
-#include "utils/CoreUtils.hpp"
+#include "games/components/ITextComponent.hpp"
+#include "games/components/ISoundComponent.hpp"
+#include "graphics/events/IMouseButtonEvent.hpp"
+#include "games/components/ITextureComponent.hpp"
+#include "events/mouse/MouseButtonPressEvent.hpp"
+#include "games/components/IKeyboardComponent.hpp"
+#include "events/mouse/MouseButtonReleaseEvent.hpp"
+#include "games/components/ICollidableComponent.hpp"
 
 #define USAGE_MESS "USAGE: ./arcade library\n\tlibrary is the the graphics library to use initially"
 #define ICON_PATH "assets/window_icon.png"
@@ -217,6 +218,17 @@ class Core
          */
         shared::graphics::TextProps _TextPropsName();
 
+        shared::graphics::TextProps _TextPropsHighscore(float posBeginY);
+        void _setHighscore(shared::graphics::TextProps &highscore, std::size_t &indexGame, \
+        shared::graphics::TextProps &titleHighscore, \
+        std::vector<shared::graphics::TextProps> &listNameGame);
+        shared::graphics::TextureProps _TextPropsBackGround();
+        shared::graphics::TextureProps _TextPropsFrame(float PosX);
+
+        void _highscoreHandlers();
+        std::size_t _scoreIntoInt(std::string score);
+        std::vector<std::string> _fileIntoVector();
+
         // Display Functions
         /**
          * @brief display the displayable texture component of an entity
@@ -247,15 +259,16 @@ class Core
 
         // Sound Functions
 
-        std::unique_ptr<GameList>       _librariesGame;
-        std::unique_ptr<GraphicList>    _librariesRenderer;
-        std::map<void *, std::shared_ptr<ITexture>> _textures;
-        std::shared_ptr<IGame> _currGame;
-        IGraphicsProvider *_currRenderer;
-        std::unique_ptr<IWindow> _currWindow;
-        std::size_t _currLibIndex;
-        shared::games::entity::EntitiesMap _gameEntities;
-        bool _launchGame;
+        std::unique_ptr<GameList>                       _librariesGame;
+        std::unique_ptr<GraphicList>                    _librariesRenderer;
+        std::map<void *, std::shared_ptr<ITexture>>     _textures;
+        std::shared_ptr<IGame>                          _currGame;
+        IGraphicsProvider *                             _currRenderer;
+        std::unique_ptr<IWindow>                        _currWindow;
+        std::size_t                                     _currLibIndex;
+        shared::games::entity::EntitiesMap              _gameEntities;
+        bool                                            _launchGame;
+        std::string                                     _playerName;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
