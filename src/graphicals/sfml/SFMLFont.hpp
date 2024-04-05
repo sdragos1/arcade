@@ -17,10 +17,21 @@
 class SFMLFont : public shared::graphics::IFont
 {
     public:
+        /**
+         * @brief Construct a new SFMLFont object
+         * @param pathFont
+         */
         explicit SFMLFont(std::string pathFont);
 
+        /**
+         * @brief Destroy the SFMLFont object
+         */
         ~SFMLFont();
 
+        /**
+         * @brief Get the path to the Font object
+         * @return path
+         */
         std::string getPath() const;
 
     private:
