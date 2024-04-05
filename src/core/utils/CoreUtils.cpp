@@ -59,8 +59,8 @@ TextVerticalAlign CoreUtils::mapTextVerticalAlign(
 bool CoreUtils::isDisplayablePressed(std::shared_ptr<components::IDisplayableComponent> displayable,
     std::shared_ptr<events::IMouseEvent> mouseEvent)
 {
-    Vector2i mousePos = mouseEvent->getPosition();
-    Vector2i displayablePos = displayable->getPosition();
+    Vector2f mousePos = mouseEvent->getPosition();
+    Vector2f displayablePos = displayable->getPosition();
     Vector2u displayableSize = displayable->getSize();
 
     if (mousePos.x >= displayablePos.x &&
@@ -91,9 +91,9 @@ bool CoreUtils::checkCollision(
     std::shared_ptr<components::ICollidableComponent> collidable1,
     std::shared_ptr<components::ICollidableComponent> collidable2)
 {
-    Vector2i pos1 = collidable1->getPosition();
+    Vector2f pos1 = collidable1->getPosition();
     Vector2u size1 = collidable1->getSize();
-    Vector2i pos2 = collidable2->getPosition();
+    Vector2f pos2 = collidable2->getPosition();
     Vector2u size2 = collidable2->getSize();
 
     if (pos1.x < pos2.x + size2.x &&

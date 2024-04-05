@@ -24,9 +24,12 @@ class SnakeGame : public IGame {
         const Vector2u getSize(void) const noexcept override;
         const entity::EntitiesMap &getEntities(void) const override;
         const unsigned int getFps() const noexcept override;
+        const int getScore() const noexcept override;
 
     private:
         entity::EntitiesMap _entities;
+        DeltaTime _time;
+        int _score;
 };
 
 static GameManifest snakeManifest = {

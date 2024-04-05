@@ -8,7 +8,7 @@
 #include "SDL2Window.hpp"
 
 SDL2Window::SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps) :
-_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y)
+_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.size.y * 40)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
@@ -27,14 +27,14 @@ _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x, windowProps.size.y
 
     if (windowProps.mode == shared::graphics::IWindow::FULLSCREEN) {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
-        0, windowProps.size.x, windowProps.size.y,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
             throw SDL2WindowException("SDL2 Window", SDL_GetError());
         }
     } else {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
-        0, windowProps.size.x, windowProps.size.y,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
             throw SDL2WindowException("SDL2 Window", SDL_GetError());
@@ -75,8 +75,8 @@ Vector2u SDL2Window::getSize() const
     int windowHeight = 0;
     SDL_GetWindowSize(_window, &windowWidth, &windowHeight);
 
-    return ((Vector2u) {static_cast<unsigned int>(windowWidth),
-    static_cast<unsigned int>(windowHeight)});
+    return ((Vector2u) {static_cast<unsigned int>(windowWidth) / 40,
+    static_cast<unsigned int>(windowHeight) / 40});
 }
 
 void SDL2Window::setFramerateLimit(unsigned int fps)
@@ -138,6 +138,13 @@ void SDL2Window::render(const shared::graphics::TextureProps &props)
         int x = (props.position.x * sizeTiles.x);
         int y = (props.position.y * sizeTiles.y);
 
+        SDL_Rect srcRect = {
+            static_cast<int>(props.origin.x) * static_cast<int>(props.binTileSize.x),
+            static_cast<int>(props.origin.y) * static_cast<int>(props.binTileSize.y),
+            static_cast<int>(props.size.x) * static_cast<int>(props.binTileSize.x),
+            static_cast<int>(props.size.y) * static_cast<int>(props.binTileSize.y)
+        };
+
         SDL_Rect destRect = {x, y,
         static_cast<int>(props.size.x) * static_cast<int>(_sdl2basicTiles.x),
         static_cast<int>(props.size.y) * static_cast<int>(_sdl2basicTiles.y)};
@@ -181,8 +188,12 @@ void SDL2Window::render(const shared::graphics::TextProps &props)
         vertical = (windowHeight) - (textHeight);
     }
 
-    SDL_Rect dstRect = {horizontal + (props.position.x * static_cast<int>(_sdl2basicTiles.x)),
-    vertical + (props.position.y * static_cast<int>(_sdl2basicTiles.y)), textWidth, textHeight};
+    SDL_Rect dstRect = {
+        horizontal + static_cast<int>(props.position.x * static_cast<float>(_sdl2basicTiles.x)),
+        vertical + static_cast<int>(props.position.y * static_cast<float>(_sdl2basicTiles.y)),
+        textWidth,
+        textHeight
+    };
     if (SDL_RenderCopy(_renderer, sdl2Font->getTexture(), nullptr, &dstRect) < 0) {
         std::cout << SDL_GetError() << std::endl;
     }
@@ -314,14 +325,14 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {(event.button.x / static_cast<int>(sizeTiles.x)),
-                    (event.button.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.button.button == SDL_BUTTON_LEFT) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2i) {(event.button.x / static_cast<int>(sizeTiles.x)),
-                    (event.button.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case SDL_MOUSEBUTTONUP:
@@ -329,20 +340,20 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2i) {(event.button.x / static_cast<int>(sizeTiles.x)),
-                    (event.button.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.button.button == SDL_BUTTON_LEFT) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2i) {(event.button.x / static_cast<int>(sizeTiles.x)),
-                    (event.button.y / static_cast<int>(sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case SDL_MOUSEMOTION:
                 eventsList.push_back(std::make_shared<shared::graphics::events::MouseMoveEvent>
-                    ((Vector2i) {(event.motion.x / static_cast<int>(sizeTiles.x)),
-                    (event.motion.y / static_cast<int>(sizeTiles.y))}));
+                    ((Vector2f) {(event.motion.x / static_cast<float>(sizeTiles.x)),
+                    (event.motion.y / static_cast<float>(sizeTiles.y))}));
                 break;
             case SDL_KEYDOWN:
                 keycode = event.key.keysym.sym;
