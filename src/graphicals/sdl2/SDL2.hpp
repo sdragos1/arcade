@@ -20,7 +20,6 @@
 class SDL2 : public shared::graphics::IGraphicsProvider
 {
     public:
-
         /**
          * @brief Constructor of SDL2 Class
          */
