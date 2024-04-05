@@ -92,13 +92,13 @@ class SnakeTailDisplayable : public components::ITextureComponent {
 
         /**
          * @brief Get the Position object
-         * @return Vector2i&
+         * @return Vector2f&
          */
         Vector2f &getPosition(void) noexcept override;
 
         /**
          * @brief Get the Old Position object
-         * @return Vector2i&
+         * @return Vector2f&
          */
         Vector2f &getOldPosition(void) noexcept;
 

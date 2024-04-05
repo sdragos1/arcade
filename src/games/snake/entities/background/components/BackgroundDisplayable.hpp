@@ -74,7 +74,7 @@ class BackgroundDisplayable : public shared::games::components::ITextureComponen
 
         /**
          * @brief Get the Position object
-         * @return Vector2i&
+         * @return Vector2f&
          */
         Vector2f &getPosition(void) noexcept override;
         Vector2f _position;

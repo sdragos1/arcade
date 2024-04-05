@@ -67,7 +67,7 @@ void Core::runMenu()
 
 shared::graphics::TextProps Core::_TextPropsTitleGame()
 {
-    int posBeginY = 7 + static_cast<int>(_librariesRenderer->getLibraryList().size());
+    float posBeginY = 7 + static_cast<float>(_librariesRenderer->getLibraryList().size());
     shared::graphics::TextProps choiceGame {
         .font = _currRenderer->createFont("assets/fonts/Crang.ttf"),
         .fontSize = 20,
@@ -76,7 +76,7 @@ shared::graphics::TextProps Core::_TextPropsTitleGame()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2i) {5, posBeginY}
+        .position = (shared::types::Vector2f) {5, posBeginY}
     };
     return choiceGame;
 }
@@ -87,7 +87,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGame(std::size_t in
     std::vector<shared::graphics::TextProps> list;
     std::vector<std::shared_ptr<shared::games::IGame>> libraryList =
     _librariesGame->getLibraryList();
-    int posBeginY = 7 + static_cast<int>(_librariesRenderer->getLibraryList().size());
+    float posBeginY = 7 + static_cast<float>(_librariesRenderer->getLibraryList().size());
     std::string star = "";
 
     for (std::size_t index = 0; index < libraryList.size(); index++) {
@@ -103,7 +103,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGame(std::size_t in
             .verticalAlign = shared::graphics::TOP,
             .color = shared::types::Color {255, 255, 255, 255},
             .size = (shared::types::Vector2u) {5, 5},
-            .position = (shared::types::Vector2i) {7, posBeginY + static_cast<int>(index) + 1}
+            .position = (shared::types::Vector2f) {7, posBeginY + static_cast<float>(index) + 1}
         };
         list.push_back(nameGame);
     }
@@ -120,7 +120,7 @@ shared::graphics::TextProps Core::_TextPropsTitleGraphic()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2i) {5, 5}
+        .position = (shared::types::Vector2f) {5, 5}
     };
     return choiceGraphic;
 }
@@ -145,7 +145,7 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGraphic(std::size_t
             .verticalAlign = shared::graphics::TOP,
             .color = shared::types::Color {255, 255, 255, 255},
             .size = (shared::types::Vector2u) {5, 5},
-            .position = (shared::types::Vector2i) {7, 6 + static_cast<int>(index)}
+            .position = (shared::types::Vector2f) {7, 6 + static_cast<float>(index)}
         };
         list.push_back(nameGraphic);
     }
@@ -154,8 +154,8 @@ std::vector<shared::graphics::TextProps> Core::_TextPropsListGraphic(std::size_t
 
 shared::graphics::TextProps Core::_TextPropsTitleName()
 {
-    int posBeginY = 9 + static_cast<int>(_librariesRenderer->getLibraryList().size()) +
-    static_cast<int>(_librariesGame->getLibraryList().size());
+    float posBeginY = 9 + static_cast<float>(_librariesRenderer->getLibraryList().size()) +
+    static_cast<float>(_librariesGame->getLibraryList().size());
 
     shared::graphics::TextProps choiceName {
         .font = _currRenderer->createFont("assets/fonts/Crang.ttf"),
@@ -165,15 +165,15 @@ shared::graphics::TextProps Core::_TextPropsTitleName()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2i) {5, posBeginY}
+        .position = (shared::types::Vector2f) {5, posBeginY}
     };
     return choiceName;
 }
 
 shared::graphics::TextProps Core::_TextPropsName()
 {
-    int posBeginY = 9 + static_cast<int>(_librariesRenderer->getLibraryList().size()) +
-    static_cast<int>(_librariesGame->getLibraryList().size());
+    float posBeginY = 9 + static_cast<float>(_librariesRenderer->getLibraryList().size()) +
+    static_cast<float>(_librariesGame->getLibraryList().size());
 
     shared::graphics::TextProps name {
         .font = nullptr,
@@ -183,7 +183,7 @@ shared::graphics::TextProps Core::_TextPropsName()
         .verticalAlign = shared::graphics::TOP,
         .color = shared::types::Color {255, 255, 255, 255},
         .size = (shared::types::Vector2u) {5, 5},
-        .position = (shared::types::Vector2i) {7, posBeginY + 1}
+        .position = (shared::types::Vector2f) {7, posBeginY + 1}
     };
     return name;
 }

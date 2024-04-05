@@ -62,7 +62,7 @@ class ScoreTextDisplayable : public shared::games::components::ITextComponent {
 
         /**
          * @brief Get the Position object
-         * @return const Vector2i&
+         * @return const Vector2f&
          */
         Vector2f &getPosition(void) noexcept override;
 

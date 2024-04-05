@@ -61,6 +61,8 @@ class SnakeGame : public IGame {
          */
         const entity::EntitiesMap &getEntities(void) const override;
 
+        const int getScore() const noexcept override;
+
         /**
          * @brief Get the Fps object
          * @return const unsigned int
@@ -103,6 +105,7 @@ class SnakeGame : public IGame {
         entity::EntitiesMap _entities;
 
         DeltaTime _moveCd;
+        int _score;
 };
 
 /**

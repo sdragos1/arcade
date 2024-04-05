@@ -62,7 +62,7 @@ class HighScoreTextDisplayable : public shared::games::components::ITextComponen
 
         /**
          * @brief Get the Position object
-         * @return const Vector2i&
+         * @return const Vector2f&
          */
         Vector2f &getPosition(void) noexcept override;
 

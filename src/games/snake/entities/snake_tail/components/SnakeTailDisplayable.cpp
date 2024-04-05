@@ -10,8 +10,8 @@
 SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
-    _position({13, 9}),
-    _oldPosition({13, 9}),
+    _position({14, 9}),
+    _oldPosition({14, 9}),
     _size({1, 1}),
     _zIndex(1),
     _textureProps(
