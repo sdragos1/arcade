@@ -13,7 +13,6 @@
 class SDL2FontException : public shared::graphics::exceptions::IFontException
 {
     public:
-
         /**
          * @brief Constructor of SDL2FontException Class
          * @param where

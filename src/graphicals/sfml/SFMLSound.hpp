@@ -20,7 +20,6 @@
 class SFMLSound : public shared::graphics::ISound
 {
     public:
-
         /**
          * @brief Construct a new SFMLSound object
          * @param path

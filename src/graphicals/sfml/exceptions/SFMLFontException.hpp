@@ -13,7 +13,6 @@
 class SFMLFontException : public shared::graphics::exceptions::IFontException
 {
     public:
-
         /**
          * @brief Construct a new SFMLFontException object
          * @param where

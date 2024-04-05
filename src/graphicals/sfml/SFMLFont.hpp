@@ -17,7 +17,6 @@
 class SFMLFont : public shared::graphics::IFont
 {
     public:
-
         /**
          * @brief Construct a new SFMLFont object
          * @param pathFont

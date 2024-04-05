@@ -13,7 +13,6 @@
 class SFMLSoundException : public shared::graphics::exceptions::ISoundException
 {
     public:
-
         /**
          * @brief Construct a new SFMLSoundException object
          * @param where

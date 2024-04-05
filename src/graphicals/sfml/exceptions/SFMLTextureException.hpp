@@ -13,7 +13,6 @@
 class SFMLTextureException : public shared::graphics::exceptions::ITextureException
 {
     public:
-
         /**
          * @brief Construct a new SFMLTextureException object
          * @param where

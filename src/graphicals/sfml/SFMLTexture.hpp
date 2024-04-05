@@ -17,7 +17,6 @@
 class SFMLTexture : public shared::graphics::ITexture
 {
     public:
-
         /**
          * @brief Construct a new SFMLTexture object
          * @param pathTexture

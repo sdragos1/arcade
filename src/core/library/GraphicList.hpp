@@ -64,7 +64,7 @@ class GraphicList
 
         /**
          * @brief Get the Library List object
-         * @return std::vector<shared::graphics::IGraphicsProvider *> 
+         * @return std::vector<shared::graphics::IGraphicsProvider *>
          */
         std::vector<shared::graphics::IGraphicsProvider *> getLibraryList();
 
