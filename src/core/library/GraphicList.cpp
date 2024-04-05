@@ -71,3 +71,15 @@ std::size_t GraphicList::getIndex() const noexcept
 {
     return _index;
 }
+
+std::vector<shared::graphics::IGraphicsProvider *> GraphicList::getLibraryList()
+{
+    return _libraryList;
+}
+
+void GraphicList::setIndex(std::size_t newIndex)
+{
+    if (newIndex >= _libraryList.size())
+        return;
+    _index = newIndex;
+}

@@ -33,7 +33,8 @@ _sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x, windowProps.size.y
 
 SFMLWindow::~SFMLWindow()
 {
-    _window.close();
+    if (_window.isOpen())
+        _window.close();
     std::cout << "Destructor in SFMLWindow" << std::endl;
 }
 

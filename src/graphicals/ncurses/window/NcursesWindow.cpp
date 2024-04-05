@@ -264,10 +264,6 @@ void NcursesWindow::renderTitle() const
         mvwprintw(_window, 0, titleX + NCURSES_ORIGIN_OFFSET_X, "%s", _title.c_str());
         wattroff(_window, A_BOLD | COLOR_PAIR(1));
         int padding = 2;
-        for (int i = 0; i < padding; ++i) {
-            mvwprintw(_window, 0, titleX - i - 1, " ");
-            mvwprintw(_window, 0, titleX + titleLength + i, " ");
-        }
         int barWidth = _ncursesbasicwindow.x;
         int barX = 0;
         int barY = 1;

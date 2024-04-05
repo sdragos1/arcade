@@ -37,6 +37,13 @@ std::size_t GameList::getNbGame() const
     return _libraryList.size();
 }
 
+void GameList::setIndex(std::size_t newIndex)
+{
+    if (newIndex >= _libraryList.size())
+        return;
+    _index = newIndex;
+}
+
 void GameList::incrementIndex()
 {
     if (_index + 1 == _libraryList.size()) {
@@ -58,4 +65,14 @@ void GameList::decrementIndex()
 std::shared_ptr<shared::games::IGame> GameList::getCurrentGame()
 {
     return _libraryList[_index];
+}
+
+std::size_t GameList::getIndex() const noexcept
+{
+    return _index;
+}
+
+std::vector<std::shared_ptr<shared::games::IGame>> GameList::getLibraryList()
+{
+    return _libraryList;
 }

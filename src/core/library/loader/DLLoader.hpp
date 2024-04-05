@@ -28,7 +28,9 @@ class DLLoader
 
         ~DLLoader()
         {
-            dlclose(_libraryInstance);
+            if (dlclose(_libraryInstance) != 0) {
+                std::cout << "ERROR: " << dlerror() << std::endl;
+            }
         }
 
         shared::types::LibraryType getType(const std::string functionName)
