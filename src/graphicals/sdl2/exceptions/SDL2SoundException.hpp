@@ -13,7 +13,6 @@
 class SDL2SoundException : public shared::graphics::exceptions::ISoundException
 {
     public:
-
         /**
          * @brief Constructor of SDL2SoundException Class
          * @param where
