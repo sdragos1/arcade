@@ -17,11 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Update submodules
-        run: |
-          git config --global --add safe.directory /__w/arcade/arcade
-          make update_module
-
       - name: Program Compilation
         run: make
 
