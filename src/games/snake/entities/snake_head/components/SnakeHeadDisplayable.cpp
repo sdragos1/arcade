@@ -17,7 +17,7 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     _textureProps(
         {
             .sources = {
-                .ascii = "$",
+                .ascii = "assets/snake/snake_head.txt",
                 .bin = "assets/snake/snake.png",
                 .binTileSize = {40, 40}
             },

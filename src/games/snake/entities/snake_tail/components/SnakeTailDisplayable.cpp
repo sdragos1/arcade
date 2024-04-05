@@ -17,8 +17,8 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     _textureProps(
         {
             .sources = {
-                .ascii = "<",
-                .bin = "assets/snake/snake.png",
+                .ascii = "assets/snake/snake_tail.txt",
+                .bin = "assets/snake/tail.png",
                 .binTileSize = {40, 40}
             },
             .origin = {0, 0}

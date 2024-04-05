@@ -17,7 +17,7 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector
     _textureProps(
         {
             .sources = {
-                .ascii = "O",
+                .ascii = "assets/snake/snake.txt",
                 .bin = "assets/snake/snake.png",
                 .binTileSize = {40, 40}
             },

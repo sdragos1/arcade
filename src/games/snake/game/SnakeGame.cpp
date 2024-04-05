@@ -8,14 +8,16 @@
 #include "SnakeGame.hpp"
 
 static int snakeGameScore = 0;
-static float maxTop = 0;
+static float maxTop = -1;
 static float maxBot = 18;
-static float maxLeft = 0;
+static float maxLeft = -1;
 static float maxRight = 32;
 
 SnakeGame::SnakeGame()
     :   _entities()
 {
+    _moveSpeed = 75;
+
     std::shared_ptr<HighScoreTextEntity> highScore = std::make_shared<HighScoreTextEntity>();
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
@@ -45,13 +47,20 @@ SnakeGame::~SnakeGame()
 void SnakeGame::compute(DeltaTime dt)
 {
     _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
+    _plusScoreCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
 
-
-    if (_moveCd.count() >= 50) {
+    if (_moveCd.count() >= _moveSpeed) {
         moveSnake();
         updatePosition();
         _moveCd = std::chrono::milliseconds(0);
     }
+    //to remove
+    if (_plusScoreCd.count() >= 5000 && _snakeEntities.size() > 0) {
+        snakeGameScore += 1;
+        increaseSnakeSize();
+        _plusScoreCd = std::chrono::milliseconds(0);
+    }
+    _moveSpeed = increaseDifficulty(snakeGameScore);
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept
@@ -200,4 +209,43 @@ void SnakeGame::moveSnake()
             }
         }
     }
+}
+
+void SnakeGame::increaseSnakeSize()
+{
+    auto tailIt = std::find_if(_snakeEntities.rbegin(), _snakeEntities.rend(), [](const auto& entity) {
+        return std::any_of(entity->getComponents().begin(), entity->getComponents().end(), [](const auto& component) {
+            return std::dynamic_pointer_cast<SnakeTailDisplayable>(component) != nullptr;
+        });
+    });
+    auto tailEntity = *tailIt;
+    auto tailComponent = std::dynamic_pointer_cast<SnakeTailDisplayable>(tailEntity->getComponents().front());
+
+    Vector2f newPosition = tailComponent->getPosition();
+    std::shared_ptr<SnakeBodyEntity> newBody = std::make_shared<SnakeBodyEntity>(newPosition);
+
+    auto insertPos = std::next(tailIt).base();
+    _snakeEntities.insert(insertPos, newBody);
+    _entities.push_back(newBody);
+}
+
+int SnakeGame::increaseDifficulty(int score)
+{
+    if (score >= 5 && score < 10) {
+        _moveSpeed = 50;
+        return _moveSpeed;
+    }
+    if (score >= 10 && score < 20) {
+        _moveSpeed = 40;
+        return _moveSpeed;
+    }
+    if (score >= 20 && score < 30) {
+        _moveSpeed = 30;
+        return _moveSpeed;
+    }
+    if (score >= 40) {
+        _moveSpeed = 20;
+        return _moveSpeed;
+    }
+    return _moveSpeed;
 }

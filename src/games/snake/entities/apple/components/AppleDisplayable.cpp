@@ -16,7 +16,7 @@ AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
     _textureProps(
         {
             .sources = {
-                .ascii = "@",
+                .ascii = "assets/snake/apple.txt",
                 .bin = "assets/snake/apple.png",
                 .binTileSize = {40, 40}
             },

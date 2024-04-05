@@ -16,7 +16,7 @@ BackgroundDisplayable::BackgroundDisplayable(const shared::games::entity::IEntit
     _textureProps(
         {
             .sources = {
-                .ascii = "",
+                .ascii = "assets/snake/background.txt",
                 .bin = "assets/snake/background.png",
                 .binTileSize = {40, 40}
             },

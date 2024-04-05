@@ -99,13 +99,32 @@ class SnakeGame : public IGame {
          */
         void updateTailPosition(Vector2f);
 
+        /**
+         * @brief Check if the snake has gone outside of the map and replace at it at the opposite side
+         * @param head
+         */
         void checkMapExit(std::shared_ptr<SnakeHeadDisplayable> head);
-    protected:
+
+        /**
+         * @brief Increases snake score and length
+         */
+        void increaseSnakeSize();
+
+        /**
+         * @brief Increases the difficulty of the game
+         * @param score
+         * return _moveSpeed
+         */
+        int increaseDifficulty(int score);
+
     private:
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
         entity::EntitiesMap _entities;
 
+        int _moveSpeed;
+
         DeltaTime _moveCd;
+        DeltaTime _plusScoreCd;
 };
 
 /**
