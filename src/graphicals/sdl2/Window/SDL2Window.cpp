@@ -75,8 +75,8 @@ Vector2u SDL2Window::getSize() const
     int windowHeight = 0;
     SDL_GetWindowSize(_window, &windowWidth, &windowHeight);
 
-    return ((Vector2u) {static_cast<unsigned int>(windowWidth),
-    static_cast<unsigned int>(windowHeight)});
+    return ((Vector2u) {static_cast<unsigned int>(windowWidth) / 40,
+    static_cast<unsigned int>(windowHeight) / 40});
 }
 
 void SDL2Window::setFramerateLimit(unsigned int fps)
