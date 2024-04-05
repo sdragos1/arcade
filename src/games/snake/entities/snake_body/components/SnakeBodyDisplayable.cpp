@@ -18,7 +18,7 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector
         {
             .sources = {
                 .ascii = "O",
-                .bin = "assets/games/snake/snake.png",
+                .bin = "assets/snake/snake.png",
                 .binTileSize = {40, 40}
             },
             .origin = {0, 0}

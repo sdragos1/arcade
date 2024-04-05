@@ -15,7 +15,7 @@ HighScoreTextDisplayable::HighScoreTextDisplayable(const std::string &content, c
             shared::games::components::ITextComponent::LEFT,
             shared::games::components::ITextComponent::TOP,
             {
-                "assets/fonts/upheavtt.ttf",
+                "assets/snake/upheavtt.ttf",
                 30
             },
             shared::types::Color(0, 0, 0, 0)

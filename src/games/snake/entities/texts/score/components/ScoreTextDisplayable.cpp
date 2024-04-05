@@ -15,7 +15,7 @@ ScoreTextDisplayable::ScoreTextDisplayable(const std::string &content, const sha
             shared::games::components::ITextComponent::CENTER,
             shared::games::components::ITextComponent::TOP,
             {
-                "assets/fonts/upheavtt.ttf",
+                "assets/snake/upheavtt.ttf",
                 30
             },
             shared::types::Color(0, 0, 0, 0)

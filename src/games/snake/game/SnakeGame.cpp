@@ -96,8 +96,8 @@ Vector2f SnakeGame::updateBodyPositions(auto it)
         for (auto compIt = components.begin(); compIt != components.end(); ++compIt) {
             if (compIt->get()->getType() == components::ComponentType::TEXTURE) {
                 if (auto body = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*compIt)) {
-                    tailNewPosition = body->getOldPosition();
                     body->setOldPosition(body->getPosition());
+                    tailNewPosition = body->getOldPosition();
                     body->setPosition(previousPosition);
                     previousPosition = tailNewPosition;
                 }

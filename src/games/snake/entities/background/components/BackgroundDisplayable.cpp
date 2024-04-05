@@ -17,7 +17,7 @@ BackgroundDisplayable::BackgroundDisplayable(const shared::games::entity::IEntit
         {
             .sources = {
                 .ascii = "",
-                .bin = "assets/games/snake/background.png",
+                .bin = "assets/snake/background.png",
                 .binTileSize = {40, 40}
             },
             .origin = {0, 0}
