@@ -18,7 +18,7 @@ class shared::graphics::events::MouseButtonReleaseEvent :
   public shared::graphics::events::IMouseButtonEvent
 {
     public:
-        MouseButtonReleaseEvent(MouseButton button, types::Vector2i position)
+        MouseButtonReleaseEvent(MouseButton button, types::Vector2f position)
         : _button(button), _pos(position) {}
 
         ~MouseButtonReleaseEvent() = default;
@@ -28,7 +28,7 @@ class shared::graphics::events::MouseButtonReleaseEvent :
             return _button;
         }
 
-        const shared::types::Vector2i getPosition(void) const noexcept override
+        const shared::types::Vector2f getPosition(void) const noexcept override
         {
             return _pos;
         }
@@ -40,5 +40,5 @@ class shared::graphics::events::MouseButtonReleaseEvent :
 
     private:
         MouseButton             _button;
-        shared::types::Vector2i _pos;
+        shared::types::Vector2f _pos;
 };
