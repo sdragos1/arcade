@@ -28,6 +28,7 @@ debug: fclean
 	cmake --build $(BUILD_PATH)
 
 tests_run: fclean
+	git clone https://github.com/G-Epitech/MAYBDF-ArcadeShared.git common
 	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON
 	cmake --build $(BUILD_PATH)
 	ctest --test-dir $(BUILD_PATH)
