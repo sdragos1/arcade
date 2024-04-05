@@ -1,10 +1,10 @@
 # Add Graphic Library Guide
-## Introduction
-#### Project Explication:
+## :notebook_with_decorative_cover: Introduction
+#### :briefcase: Project Explication:
 
 In the Arcade projects you have the possibility to add your own graphic library.
 
-In order to be able to change in full millieux of the games on the libraries you just added is not that great?
+In order to be able to change in the middle of the games on the libraries you just added is not that great?
 Be careful not to add 2 times the same libraries although it is possible it is useless.
 
 Of course there are certain rules to respect that we will address.
@@ -14,12 +14,12 @@ Of course there are certain rules to respect that we will address.
 ### Basic:
 
 To do this please create your folder at this place "src/graphicals" and named
-this repertoir in minicules by the name of your graphic libraries.
+this repertoir in lowercase letter by the name of your graphic libraries.
 
 ------------
 
 Then for your libraries to be added to the construction of our projects,
-I let you go in the file "src/graphicals/CMakeLists.txt".
+I let you go in the file **"src/graphicals/CMakeLists.txt"**.
 When you are in this file, at the end you should see:
 
 ```bash
@@ -104,6 +104,7 @@ virtual std::shared_ptr<ITexture> createTexture(const std::string &bin, const st
 */
 virtual std::shared_ptr<IFont> createFont(const std::string &path) = 0;
 ```
+
 ------------
 
 #### The Window Class:
