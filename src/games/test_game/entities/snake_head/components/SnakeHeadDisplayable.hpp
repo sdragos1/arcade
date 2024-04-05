@@ -29,8 +29,8 @@ class SnakeHeadDisplayable : public components::ITextureComponent {
         void onMouseRelease(std::shared_ptr<IGame> ctx) override;
 
         // Position
-        Vector2i &getPosition(void) noexcept override;
-        Vector2i _position;
+        Vector2f &getPosition(void) noexcept override;
+        Vector2f _position;
 
     private:
         const entity::IEntity &_entity;

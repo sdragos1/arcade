@@ -34,42 +34,117 @@
 class SDL2Window : public shared::graphics::IWindow
 {
     public:
+        /**
+         * @brief Construct a new SDL2Window object
+         * @param windowProps
+         */
         explicit SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps);
 
+        /**
+         * @brief Destroy the SDL2Window object
+         */
         ~SDL2Window();
 
+        /**
+         * @brief Set the Title of the Window object
+         * @param title
+         */
         void setTitle(const std::string &title) override;
 
+        /**
+         * @brief Set the Size of the Window object
+         * @param size
+         */
         void setSize(Vector2u size) override;
 
+        /**
+         * @brief Get the Size of the Window object
+         * @return Vector2u
+         */
         Vector2u getSize() const override;
 
+        /**
+         * @brief Set the Framerate Limit of the Window object
+         * @param fps
+         */
         void setFramerateLimit(unsigned int fps) override;
 
+        /**
+         * @brief Get the Framerate Limit of the Window object
+         * @return unsigned int
+         */
         unsigned int getFramerateLimit() const override;
 
+        /**
+         * @brief Set the Mode of the Window object
+         * @param mode
+         */
         void setMode(shared::graphics::IWindow::WindowMode mode) override;
 
+        /**
+         * @brief Get the Mode of the Window object
+         * @return shared::graphics::IWindow::WindowMode
+         */
         shared::graphics::IWindow::WindowMode getMode(void) const override;
 
+        /**
+         * @brief Set the Icon of the Window object
+         * @param icon
+         */
         void setIcon(const std::string &icon) override;
 
+        /**
+         * @brief Render the texture props on the window
+         * @param props
+         */
         void render(const shared::graphics::TextureProps &props) override;
 
+        /**
+         * @brief Render the texts props on the window
+         * @param props
+         */
         void render(const shared::graphics::TextProps &props) override;
 
+        /**
+         * @brief Clear the window
+         */
         void clear(void) override;
 
+        /**
+         * @brief Display the window
+         */
         void display(void) override;
 
+        /**
+         * @brief Close the window
+         */
         void close(void) override;
 
+        /**
+         * @brief Check if the window is open
+         * @return bool
+         */
         bool isOpen(void) const override;
 
+        /**
+         * @brief Get the Events object
+         * @return std::vector<std::shared_ptr<shared::graphics::events::IEvent>>
+         */
         std::vector<std::shared_ptr<shared::graphics::events::IEvent>> getEvents(void) override;
 
+        /**
+         * @brief Map the key to keyTypes to make it match our key types
+         * @param sfmlKey
+         * @return shared::graphics::events::IKeyEvent::KeyType
+         */
         shared::graphics::events::IKeyEvent::KeyType mapSDL2KeyToKeyType(SDL_Keycode sdl2Key);
 
+        /**
+         * @brief Map the key to keyCodes to make it match our key codes
+         * @param sfmlKey
+         * @param type
+         * @return shared::graphics::events::IKeyEvent::KeyCode
+         */
         shared::graphics::events::IKeyEvent::KeyCode mapSDL2KeyToKeyCode
         (SDL_Keycode sdl2Key, shared::graphics::events::IKeyEvent::KeyType type);
 

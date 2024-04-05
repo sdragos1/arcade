@@ -21,6 +21,7 @@ Core::Core(std::string defaultLib)
         _librariesRenderer = std::make_unique<GraphicList>(librariesPath, defaultLib);
         _currLibIndex = _librariesRenderer->getIndex();
         _launchGame = false;
+        _playerName = "";
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
@@ -293,6 +294,7 @@ std::size_t Core::runArcade()
         _currWindow->clear();
         _displayManager();
         _currWindow->display();
+        _highscoreHandlers();
     }
     return 0;
 }

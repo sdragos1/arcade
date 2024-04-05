@@ -70,7 +70,7 @@ void SnakeHeadDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
     (void)ctx;
 }
 
-Vector2i &SnakeHeadDisplayable::getPosition(void) noexcept
+Vector2f &SnakeHeadDisplayable::getPosition(void) noexcept
 {
     return _position;
 }
