@@ -30,7 +30,6 @@ class SnakeGame : public IGame {
         int _score;
         entity::EntitiesMap _entities;
         DeltaTime _time;
-        int _score;
 };
 
 static GameManifest snakeManifest = {
