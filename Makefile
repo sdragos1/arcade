@@ -9,6 +9,7 @@ NAME = 				arcade
 BUILD_PATH = 		build
 
 all:
+	git clone https://github.com/G-Epitech/MAYBDF-ArcadeShared.git common
 	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 	cmake --build $(BUILD_PATH)
 
@@ -18,6 +19,7 @@ clean:
 fclean:	clean
 	rm -f $(NAME)
 	rm -rf ./lib
+	rm -rf common/
 
 re:	fclean all
 
@@ -26,13 +28,10 @@ debug: fclean
 	cmake --build $(BUILD_PATH)
 
 tests_run: fclean
+	git clone https://github.com/G-Epitech/MAYBDF-ArcadeShared.git common
 	cmake -S . -B $(BUILD_PATH) -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTS=ON
 	cmake --build $(BUILD_PATH)
 	ctest --test-dir $(BUILD_PATH)
-
-update_module:
-	@git submodule init
-	@git submodule update --remote --merge
 
 style: fclean
 	@cpplint --recursive src tests shared

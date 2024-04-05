@@ -18,7 +18,7 @@ class shared::graphics::events::MouseMoveEvent :
 public shared::graphics::events::IMouseEvent
 {
    public:
-    explicit MouseMoveEvent(types::Vector2i position) : _pos(position) {}
+    explicit MouseMoveEvent(types::Vector2f position) : _pos(position) {}
 
     ~MouseMoveEvent() = default;
 
@@ -27,11 +27,11 @@ public shared::graphics::events::IMouseEvent
         return shared::graphics::events::MOUSE_MOVE;
     }
 
-    const shared::types::Vector2i getPosition(void) const noexcept override
+    const shared::types::Vector2f getPosition(void) const noexcept override
     {
         return _pos;
     }
 
     private:
-        shared::types::Vector2i _pos;
+        shared::types::Vector2f _pos;
 };

@@ -4,6 +4,7 @@ set(SRCS_CORE
     Main.cpp
     Core.cpp
     Menu.cpp
+    HighScore.cpp
     library/GraphicList.cpp
     library/GameList.cpp
     library/loader/Directory.cpp
