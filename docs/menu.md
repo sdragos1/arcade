@@ -20,3 +20,10 @@ To exit the arcade you will need to press the **F2**
 
 Finally to launch the arcade with the graphic library chooses, the game chooses and your nickname,
 you will have to press the key **F3**
+
+
+------------
+
+## What it looks like ?
+
+![Menu](assets/menu/menu.png)
