@@ -27,9 +27,9 @@ class SnakeGame : public IGame {
         const int getScore() const noexcept override;
 
     private:
+        int _score;
         entity::EntitiesMap _entities;
         DeltaTime _time;
-        int _score;
 };
 
 static GameManifest snakeManifest = {

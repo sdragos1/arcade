@@ -146,9 +146,9 @@ void SDL2Window::render(const shared::graphics::TextureProps &props)
         };
 
         SDL_Rect destRect = {x, y,
-        static_cast<int>(props.size.x) * static_cast<int>(_sdl2basicTiles.x),
-        static_cast<int>(props.size.y) * static_cast<int>(_sdl2basicTiles.y)};
-        if (SDL_RenderCopy(_renderer, sdl2Texture->getTexture(), NULL, &destRect) < 0) {
+            static_cast<int>(props.size.x) * static_cast<int>(_sdl2basicTiles.x),
+            static_cast<int>(props.size.y) * static_cast<int>(_sdl2basicTiles.y)};
+        if (SDL_RenderCopy(_renderer, sdl2Texture->getTexture(), &srcRect, &destRect) < 0) {
             std::cout << SDL_GetError() << std::endl;
         }
     }
