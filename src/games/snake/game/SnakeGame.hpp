@@ -99,13 +99,13 @@ class SnakeGame : public IGame {
          */
         void updateTailPosition(Vector2f);
 
+        void checkMapExit(std::shared_ptr<SnakeHeadDisplayable> head);
     protected:
     private:
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
         entity::EntitiesMap _entities;
 
         DeltaTime _moveCd;
-        int _score;
 };
 
 /**

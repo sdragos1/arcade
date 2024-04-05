@@ -7,6 +7,12 @@
 
 #include "SnakeGame.hpp"
 
+static int snakeGameScore = 0;
+static float maxTop = 0;
+static float maxBot = 18;
+static float maxLeft = 0;
+static float maxRight = 32;
+
 SnakeGame::SnakeGame()
     :   _entities()
 {
@@ -140,6 +146,18 @@ void SnakeGame::updatePosition()
     }
 }
 
+void SnakeGame::checkMapExit(std::shared_ptr<SnakeHeadDisplayable> head)
+{
+    if (head->getPosition().x < maxLeft)
+        head->setPosition({maxRight, head->getPosition().y});
+    if (head->getPosition().x > maxRight)
+        head->setPosition({maxLeft, head->getPosition().y});
+    if (head->getPosition().y < maxTop)
+        head->setPosition({head->getPosition().x, maxBot});
+    if (head->getPosition().y > maxBot)
+        head->setPosition({head->getPosition().x, maxTop});
+}
+
 void SnakeGame::moveSnake()
 {
     for (auto entityIt = _snakeEntities.begin(); entityIt != _snakeEntities.end(); ++entityIt) {
@@ -175,6 +193,7 @@ void SnakeGame::moveSnake()
                         }
                         head->setOldPosition(head->getPosition());
                         head->setPosition(newPosition);
+                        checkMapExit(head);
                         break;
                     }
                 }

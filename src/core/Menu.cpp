@@ -17,7 +17,7 @@ void Core::runMenu()
     if (_currRenderer == nullptr)
         _currRenderer = _librariesRenderer->getCurrentLibrary();
     _currWindow = _currRenderer->createWindow({
-        .size = (Vector2u) {1920, 1080},
+        .size = (Vector2u) {48, 27},
         .mode = IWindow::WindowMode::WINDOWED,
         .fps = 120,
         .title = "Menu",
