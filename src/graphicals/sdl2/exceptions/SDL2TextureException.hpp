@@ -13,7 +13,6 @@
 class SDL2TextureException : public shared::graphics::exceptions::ITextureException
 {
     public:
-
         /**
          * @brief Constructor of SDL2TextureException Class
          * @param where

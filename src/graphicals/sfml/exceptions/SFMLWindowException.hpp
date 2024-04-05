@@ -13,7 +13,6 @@
 class SFMLWindowException : public shared::graphics::exceptions::IWindowException
 {
     public:
-
         /**
          * @brief Constructor of SFMLWindowException Class
          * @param where

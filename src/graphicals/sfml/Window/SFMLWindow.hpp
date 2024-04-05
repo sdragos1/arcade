@@ -35,7 +35,6 @@
 class SFMLWindow : public shared::graphics::IWindow
 {
     public:
-
         /**
          * @brief Construct a new SFMLWindow object
          * @param windowProps

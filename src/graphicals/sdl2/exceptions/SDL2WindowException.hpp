@@ -13,7 +13,6 @@
 class SDL2WindowException : public shared::graphics::exceptions::IWindowException
 {
     public:
-
         /**
          * @brief Constructor of SDL2WindowException Class
          * @param where
