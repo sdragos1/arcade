@@ -18,12 +18,28 @@
 class SDL2Texture : public shared::graphics::ITexture
 {
     public:
+
+        /**
+         * @brief Constructor of SDL2Texture Class
+         * @param pathTexture
+         */
         explicit SDL2Texture(std::string pathTexture);
 
+        /**
+         * @brief Destructor of SDL2Texture Class
+         */
         ~SDL2Texture();
 
+        /**
+         * @brief Get the Path object
+         * @param renderer
+         */
         void setTexture(SDL_Renderer *renderer);
 
+        /**
+         * @brief Get the Texture object
+         * @return SDL_Texture*
+         */
         SDL_Texture *getTexture() const;
 
     private:
