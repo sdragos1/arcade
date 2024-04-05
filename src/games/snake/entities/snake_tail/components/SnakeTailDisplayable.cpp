@@ -10,8 +10,8 @@
 SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     :
     _entity(entity),
-    _position({14, 9}),
-    _oldPosition({14, 9}),
+    _position({13, 9}),
+    _oldPosition({13, 9}),
     _size({1, 1}),
     _zIndex(1),
     _textureProps(
@@ -19,7 +19,7 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
             .sources = {
                 .ascii = "<",
                 .bin = "assets/games/snake/snake.png",
-                .binTileSize = {1, 1}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }
@@ -71,23 +71,23 @@ void SnakeTailDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
     (void)ctx;
 }
 
-Vector2i &SnakeTailDisplayable::getPosition(void) noexcept
+Vector2f &SnakeTailDisplayable::getPosition(void) noexcept
 {
     return _position;
 }
 
-Vector2i &SnakeTailDisplayable::getOldPosition(void) noexcept
+Vector2f &SnakeTailDisplayable::getOldPosition(void) noexcept
 {
     return _oldPosition;
 }
 
-void SnakeTailDisplayable::setPosition(Vector2i pos) noexcept
+void SnakeTailDisplayable::setPosition(Vector2f pos) noexcept
 {
     _oldPosition = _position;
     _position = pos;
 }
 
-void SnakeTailDisplayable::setOldPosition(Vector2i pos) noexcept
+void SnakeTailDisplayable::setOldPosition(Vector2f pos) noexcept
 {
     _oldPosition = pos;
 }

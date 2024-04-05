@@ -76,9 +76,9 @@ class AppleDisplayable : public shared::games::components::ITextureComponent {
          * @brief Get the Position object
          * @return Vector2i&
          */
-        Vector2i &getPosition(void) noexcept override;
+        Vector2f &getPosition(void) noexcept override;
 
-        Vector2i _position;
+        Vector2f _position;
 
     private:
         const shared::games::entity::IEntity &_entity;

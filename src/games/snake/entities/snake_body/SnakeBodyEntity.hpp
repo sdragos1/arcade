@@ -19,7 +19,7 @@ class SnakeBodyEntity : public entity::IEntity {
          * @brief Construct a new Snake Body Entity object
          * @param position
          */
-        SnakeBodyEntity(Vector2i position);
+        SnakeBodyEntity(Vector2f position);
 
         /**
          * @brief Destroy a new Snake Body Entity object

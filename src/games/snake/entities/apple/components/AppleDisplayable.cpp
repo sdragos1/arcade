@@ -18,7 +18,7 @@ AppleDisplayable::AppleDisplayable(const shared::games::entity::IEntity &entity)
             .sources = {
                 .ascii = "@",
                 .bin = "assets/games/snake/apple.png",
-                .binTileSize = {1, 1}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }
@@ -70,7 +70,7 @@ void AppleDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame> ctx)
     (void)ctx;
 }
 
-Vector2i &AppleDisplayable::getPosition(void) noexcept
+Vector2f &AppleDisplayable::getPosition(void) noexcept
 {
     return _position;
 }

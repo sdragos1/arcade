@@ -7,7 +7,7 @@
 
 #include "SnakeBodyEntity.hpp"
 
-SnakeBodyEntity::SnakeBodyEntity(Vector2i position)
+SnakeBodyEntity::SnakeBodyEntity(Vector2f position)
     : _components()
 {
     std::shared_ptr<SnakeBodyDisplayable> displayable = std::make_shared<SnakeBodyDisplayable>(*this, position);

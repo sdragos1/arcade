@@ -58,7 +58,7 @@ void HighScoreTextDisplayable::onMouseHover(std::shared_ptr<shared::games::IGame
 {
 }
 
-shared::types::Vector2i &HighScoreTextDisplayable::getPosition(void) noexcept
+shared::types::Vector2f &HighScoreTextDisplayable::getPosition(void) noexcept
 {
     return _position;
 }

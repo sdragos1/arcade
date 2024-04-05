@@ -89,13 +89,13 @@ class SnakeGame : public IGame {
          * @param it
          * @return The tail position after the update
          */
-        Vector2i updateBodyPositions(auto it);
+        Vector2f updateBodyPositions(auto it);
 
         /**
          * @brief Update the tail position
          * @param position
          */
-        void updateTailPosition(Vector2i);
+        void updateTailPosition(Vector2f);
 
     protected:
     private:

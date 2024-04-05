@@ -13,19 +13,22 @@ SnakeGame::SnakeGame()
     std::shared_ptr<HighScoreTextEntity> highScore = std::make_shared<HighScoreTextEntity>();
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
-    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2i(16, 9));
-    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2i(15, 9));
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2f(16, 9));
+    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2f(15, 9));
+    std::shared_ptr<SnakeBodyEntity> body3 = std::make_shared<SnakeBodyEntity>(Vector2f(14, 9));
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
     std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
     _snakeEntities.push_back(head);
     _snakeEntities.push_back(body);
     _snakeEntities.push_back(body2);
+    _snakeEntities.push_back(body3);
     _snakeEntities.push_back(tail);
     _entities.push_back(background);
     _entities.push_back(head);
     _entities.push_back(body);
     _entities.push_back(body2);
+    _entities.push_back(body3);
     _entities.push_back(tail);
     _entities.push_back(apple);
     _entities.push_back(score);
@@ -41,10 +44,10 @@ void SnakeGame::compute(DeltaTime dt)
     _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
 
 
-    if (_moveCd.count() >= 100) {
+    if (_moveCd.count() >= 50) {
         moveSnake();
         updatePosition();
-        _moveCd -= std::chrono::milliseconds(100);
+        _moveCd = std::chrono::milliseconds(0);
     }
 }
 
@@ -55,7 +58,7 @@ const GameManifest &SnakeGame::getManifest() const noexcept
 
 const Vector2u SnakeGame::getSize(void) const noexcept
 {
-    return {30, 20};
+    return {32, 18};
 }
 
 const entity::EntitiesMap &SnakeGame::getEntities(void) const
@@ -79,11 +82,11 @@ bool SnakeGame::hasHeadMoved(auto it)
     return false;
 }
 
-Vector2i SnakeGame::updateBodyPositions(auto it)
+Vector2f SnakeGame::updateBodyPositions(auto it)
 {
     auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it);
-    Vector2i tailNewPosition = {0, 0};
-    Vector2i previousPosition = head->getOldPosition();
+    Vector2f tailNewPosition = {0, 0};
+    Vector2f previousPosition = head->getOldPosition();
 
     auto prevIt = _snakeEntities.begin();
     for (auto it = std::next(_snakeEntities.begin()); it != _snakeEntities.end(); ++it) {
@@ -91,7 +94,7 @@ Vector2i SnakeGame::updateBodyPositions(auto it)
         for (auto compIt = components.begin(); compIt != components.end(); ++compIt) {
             if (compIt->get()->getType() == components::ComponentType::TEXTURE) {
                 if (auto body = std::dynamic_pointer_cast<SnakeBodyDisplayable>(*compIt)) {
-                    tailNewPosition = body->getOldPosition();
+                    tailNewPosition = body->getPosition();
                     body->setOldPosition(body->getPosition());
                     body->setPosition(previousPosition);
                     previousPosition = tailNewPosition;
@@ -103,7 +106,7 @@ Vector2i SnakeGame::updateBodyPositions(auto it)
     return tailNewPosition;
 }
 
-void SnakeGame::updateTailPosition(Vector2i tailNewPosition)
+void SnakeGame::updateTailPosition(Vector2f tailNewPosition)
 {
     for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
         auto components = it->get()->getComponents();
@@ -127,8 +130,8 @@ void SnakeGame::updatePosition()
         for (auto it = components.begin(); it != components.end(); ++it) {
             if (it->get()->getType() == components::ComponentType::TEXTURE) {
                 if (hasHeadMoved(it) == true) {
-                    Vector2i tailNewPosition = updateBodyPositions(it);
-                    updateTailPosition(tailNewPosition);
+                    Vector2f tailNewPosition = updateBodyPositions(it);
+                    // updateTailPosition(tailNewPosition);
                 }
             }
         }
@@ -153,7 +156,7 @@ void SnakeGame::moveSnake()
             for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
                 if (componentIt->get()->getType() == components::ComponentType::TEXTURE) {
                     if (auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*componentIt)) {
-                        Vector2i newPosition = head->getPosition();
+                        Vector2f newPosition = head->getPosition();
                         switch (direction) {
                             case SnakeHeadKeyboard::UP:
                                 newPosition.y -= 1;
@@ -168,7 +171,6 @@ void SnakeGame::moveSnake()
                                 newPosition.x += 1;
                                 break;
                         }
-                        head->setOldPosition(head->getPosition());
                         head->setPosition(newPosition);
                         break;
                     }

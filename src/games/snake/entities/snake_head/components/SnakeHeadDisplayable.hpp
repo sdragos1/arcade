@@ -82,29 +82,29 @@ class SnakeHeadDisplayable : public components::ITextureComponent {
          * @param pos
          * @return void
          */
-        void setPosition(Vector2i pos) noexcept;
+        void setPosition(Vector2f pos) noexcept;
 
         /**
          * @brief Set the Old Position object
          * @param pos
          * @return void
          */
-        void setOldPosition(Vector2i pos) noexcept;
+        void setOldPosition(Vector2f pos) noexcept;
 
         /**
          * @brief Get the Position object
          * @return Vector2i&
          */
-        Vector2i &getPosition(void) noexcept override;
+        Vector2f &getPosition(void) noexcept override;
 
         /**
          * @brief Get the Old Position object
          * @return Vector2i&
          */
-        Vector2i &getOldPosition(void) noexcept;
+        Vector2f &getOldPosition(void) noexcept;
 
-        Vector2i _position;
-        Vector2i _oldPosition;
+        Vector2f _position;
+        Vector2f _oldPosition;
         components::TextureProps _textureProps;
 
     private:

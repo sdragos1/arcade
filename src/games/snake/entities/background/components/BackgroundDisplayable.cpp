@@ -11,14 +11,14 @@ BackgroundDisplayable::BackgroundDisplayable(const shared::games::entity::IEntit
     :
     _entity(entity),
     _position({0, 0}),
-    _size({30, 20}),
+    _size({32, 18}),
     _zIndex(10),
     _textureProps(
         {
             .sources = {
                 .ascii = "",
                 .bin = "assets/games/snake/background.png",
-                .binTileSize = {16, 16}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }
@@ -70,7 +70,7 @@ void BackgroundDisplayable::onMouseRelease(std::shared_ptr<shared::games::IGame>
     (void)ctx;
 }
 
-Vector2i &BackgroundDisplayable::getPosition(void) noexcept
+Vector2f &BackgroundDisplayable::getPosition(void) noexcept
 {
     return _position;
 }

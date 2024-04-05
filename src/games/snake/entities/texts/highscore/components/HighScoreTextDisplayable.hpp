@@ -64,7 +64,7 @@ class HighScoreTextDisplayable : public shared::games::components::ITextComponen
          * @brief Get the Position object
          * @return const Vector2i&
          */
-        Vector2i &getPosition(void) noexcept override;
+        Vector2f &getPosition(void) noexcept override;
 
         /**
          * @brief Get the Type object
@@ -83,6 +83,6 @@ class HighScoreTextDisplayable : public shared::games::components::ITextComponen
         shared::games::components::ITextComponent::TextProps _props;
         Vector2u _size;
         unsigned int _zIndex;
-        Vector2i _position;
+        Vector2f _position;
         const shared::games::entity::IEntity &_entity;
 };

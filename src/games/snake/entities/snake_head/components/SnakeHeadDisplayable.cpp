@@ -19,7 +19,7 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
             .sources = {
                 .ascii = "$",
                 .bin = "assets/games/snake/snake.png",
-                .binTileSize = {1, 1}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }
@@ -71,23 +71,23 @@ void SnakeHeadDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
     (void)ctx;
 }
 
-Vector2i &SnakeHeadDisplayable::getPosition(void) noexcept
+Vector2f &SnakeHeadDisplayable::getPosition(void) noexcept
 {
     return _position;
 }
 
-Vector2i &SnakeHeadDisplayable::getOldPosition(void) noexcept
+Vector2f &SnakeHeadDisplayable::getOldPosition(void) noexcept
 {
     return _oldPosition;
 }
 
-void SnakeHeadDisplayable::setPosition(Vector2i pos) noexcept
+void SnakeHeadDisplayable::setPosition(Vector2f pos) noexcept
 {
     _oldPosition = _position;
     _position = pos;
 }
 
-void SnakeHeadDisplayable::setOldPosition(Vector2i pos) noexcept
+void SnakeHeadDisplayable::setOldPosition(Vector2f pos) noexcept
 {
     _oldPosition = pos;
 }

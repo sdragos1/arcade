@@ -7,7 +7,7 @@
 
 #include "SnakeBodyDisplayable.hpp"
 
-SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector2i position)
+SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector2f position)
     :
     _entity(entity),
     _position(position),
@@ -19,7 +19,7 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector
             .sources = {
                 .ascii = "O",
                 .bin = "assets/games/snake/snake.png",
-                .binTileSize = {1, 1}
+                .binTileSize = {40, 40}
             },
             .origin = {0, 0}
         }
@@ -71,22 +71,22 @@ void SnakeBodyDisplayable::onMouseRelease(std::shared_ptr<IGame> ctx)
     (void)ctx;
 }
 
-Vector2i &SnakeBodyDisplayable::getPosition(void) noexcept
+Vector2f &SnakeBodyDisplayable::getPosition(void) noexcept
 {
     return _position;
 }
 
-Vector2i &SnakeBodyDisplayable::getOldPosition(void) noexcept
+Vector2f &SnakeBodyDisplayable::getOldPosition(void) noexcept
 {
     return _oldPosition;
 }
 
-void SnakeBodyDisplayable::setPosition(Vector2i pos) noexcept
+void SnakeBodyDisplayable::setPosition(Vector2f pos) noexcept
 {
     _position = pos;
 }
 
-void SnakeBodyDisplayable::setOldPosition(Vector2i pos) noexcept
+void SnakeBodyDisplayable::setOldPosition(Vector2f pos) noexcept
 {
     _oldPosition = pos;
 }
