@@ -42,8 +42,8 @@ class AppleCollidable : public shared::games::components::ICollidableComponent {
          */
         void onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target) override;
 
-    protected:
     private:
+        const shared::games::entity::IEntity &_entity;
 };
 
 #endif /* !APPLECOLLIDABLE_HPP_ */

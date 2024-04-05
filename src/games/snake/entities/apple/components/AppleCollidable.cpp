@@ -7,8 +7,9 @@
 
 #include "AppleCollidable.hpp"
 
-AppleCollidable::AppleCollidable(shared::games::entity::IEntity &entity)
-    : shared::games::components::ICollidableComponent(entity)
+AppleCollidable::AppleCollidable(const shared::games::entity::IEntity &entity)
+    :
+    _entity(entity)
 {
 }
 

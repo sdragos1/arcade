@@ -7,8 +7,9 @@
 
 #include "SnakeBodyCollidable.hpp"
 
-SnakeBodyCollidable::SnakeBodyCollidable(shared::games::entity::IEntity &entity)
-    : shared::games::components::ICollidableComponent(entity)
+SnakeBodyCollidable::SnakeBodyCollidable(const shared::games::entity::IEntity &entity)
+    :
+    _entity(entity)
 {
 }
 

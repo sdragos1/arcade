@@ -7,8 +7,9 @@
 
 #include "SnakeTailCollidable.hpp"
 
-SnakeTailCollidable::SnakeTailCollidable(shared::games::entity::IEntity &entity)
-    : shared::games::components::ICollidableComponent(entity)
+SnakeTailCollidable::SnakeTailCollidable(const shared::games::entity::IEntity &entity)
+    :
+    _entity(entity)
 {
 }
 
