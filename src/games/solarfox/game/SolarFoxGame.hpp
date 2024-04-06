@@ -74,6 +74,7 @@ class SolarFoxGame : public IGame {
         std::vector<std::shared_ptr<SolarFoxPowerup>> _powerups;
         std::shared_ptr<SolarFoxScore> _score;
         DeltaTime _playerMoveTime;
+        DeltaTime _playerShootTime;
         DeltaTime _playerProjectileShootTime;
         DeltaTime _projectileMoveTime;
         DeltaTime _enemyMoveTime;

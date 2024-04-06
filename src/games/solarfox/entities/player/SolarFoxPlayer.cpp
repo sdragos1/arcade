@@ -26,3 +26,14 @@ SolarFoxPlayer::SolarFoxPlayer()
 SolarFoxPlayer::~SolarFoxPlayer()
 {
 }
+
+bool SolarFoxPlayer::isShooting() const
+{
+    for (auto &component : _components) {
+        if (component->getType() == components::ComponentType::KEYBOARD) {
+            auto keyboard = std::dynamic_pointer_cast<SolarFoxPlayerKeyboard>(component);
+            return keyboard->isShooting();
+        }
+    }
+    return false;
+}

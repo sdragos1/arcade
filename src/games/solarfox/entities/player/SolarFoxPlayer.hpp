@@ -15,6 +15,8 @@ class SolarFoxPlayer : public AEntity {
     public:
         SolarFoxPlayer();
         ~SolarFoxPlayer();
+
+        bool isShooting() const;
 };
 
 static components::TextureProps SolarPlayerTextureProps = {

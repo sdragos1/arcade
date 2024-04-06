@@ -8,6 +8,7 @@
 #include "SolarFoxGame.hpp"
 
 const unsigned int playerSpeed = 40;
+const unsigned int playerShootSpeed = 300;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 const unsigned int enemySpeed = 30;
@@ -21,6 +22,7 @@ SolarFoxGame::SolarFoxGame()
     _powerups(),
     _score(nullptr),
     _playerMoveTime(std::chrono::milliseconds(0)),
+    _playerShootTime(std::chrono::milliseconds(0)),
     _projectileMoveTime(std::chrono::milliseconds(0)),
     _playerProjectileShootTime(std::chrono::milliseconds(0)),
     _enemyMoveTime(std::chrono::milliseconds(0))
@@ -63,7 +65,6 @@ void SolarFoxGame::_initPlayer()
 
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
-    _playerShoot();
 }
 
 SolarFoxGame::~SolarFoxGame()
@@ -89,6 +90,7 @@ void SolarFoxGame::_updateTimes(DeltaTime dt)
     _playerProjectileShootTime -= dt;
     _enemyMoveTime -= dt;
     _enemyShootStageTime -= dt;
+    _playerShootTime -= dt;
 }
 
 void SolarFoxGame::_computePlayer()
@@ -96,6 +98,11 @@ void SolarFoxGame::_computePlayer()
     if (_playerMoveTime >= std::chrono::milliseconds(playerSpeed)) {
         _forwardPlayer();
         _playerMoveTime = std::chrono::milliseconds(0);
+    }
+    if (_playerShootTime >= std::chrono::milliseconds(playerShootSpeed) &&
+        _player->isShooting() == true) {
+        _playerShoot();
+        _playerShootTime = std::chrono::milliseconds(0);
     }
 }
 
@@ -189,7 +196,6 @@ void SolarFoxGame::_forwardProjectiles()
         if (projectileType == PLAYER) {
             if (travelDistance >= 3) {
                 _removeProjectile(projectile);
-                _playerShoot();
                 continue;
             }
         }
