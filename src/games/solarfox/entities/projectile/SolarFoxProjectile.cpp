@@ -55,8 +55,8 @@ void SolarFoxProjectile::moveProjectile()
         moveOffset.y /= 2;
     }
     if (_type == ENEMY) {
-        moveOffset.x /= 6;
-        moveOffset.y /= 6;
+        moveOffset.x /= 4;
+        moveOffset.y /= 4;
     }
     for (auto &component : _components) {
         if (component->getType() == components::TEXTURE) {

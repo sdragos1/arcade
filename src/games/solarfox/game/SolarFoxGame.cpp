@@ -23,8 +23,29 @@ SolarFoxGame::SolarFoxGame()
     _playerProjectileShootTime(std::chrono::milliseconds(0)),
     _enemyMoveTime(std::chrono::milliseconds(0))
 {
-    std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
+    _initEnemies();
+    _initPlayer();
+    _initPowerups();
+}
 
+void SolarFoxGame::_initPowerups()
+{
+    for (int i = 0; i < 15; ++i) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<int> disX(WALKABLE_AREA_BEGIN_X, WALKABLE_AREA_END_X);
+        std::uniform_int_distribution<int> disY(WALKABLE_AREA_BEGIN_Y, WALKABLE_AREA_END_Y);
+        int powerupX = disX(gen);
+        int powerupY = disY(gen);
+
+        std::shared_ptr<SolarFoxPowerup> powerup = std::make_shared<SolarFoxPowerup>(
+            shared::types::Vector2f(powerupX, powerupY));
+        _entities.push_back(powerup);
+    }
+}
+
+void SolarFoxGame::_initEnemies()
+{
     _addEnemy({0, 0}, {1, 1}, {1, 0}, {-1, 0});
     _addEnemy({static_cast<float>(solarFoxGameSize.x - 1),
         static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {3, 0}, {1, 0});
@@ -32,6 +53,12 @@ SolarFoxGame::SolarFoxGame()
         {0, 1});
     _addEnemy({0, static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {2, 0},
         {0, -1});
+}
+
+void SolarFoxGame::_initPlayer()
+{
+    std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
+
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);
     _playerShoot();
@@ -105,22 +132,22 @@ void SolarFoxGame::_forwardPlayer()
     switch (lastDirection)
     {
         case components::IKeyboardComponent::ArrowCode::UP:
-            if (pos.y > 2) {
+            if (pos.y > WALKABLE_AREA_BEGIN_Y) {
                 displayable->getPosition().y -= moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::DOWN:
-            if (pos.y < solarFoxGameSize.y - 3) {
+            if (pos.y < WALKABLE_AREA_END_Y) {
                 displayable->getPosition().y += moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::LEFT:
-            if (pos.x > 2) {
+            if (pos.x > WALKABLE_AREA_BEGIN_X) {
                 displayable->getPosition().x -= moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::RIGHT:
-            if (pos.x < solarFoxGameSize.x - 3) {
+            if (pos.x < WALKABLE_AREA_END_X) {
                 displayable->getPosition().x += moveSpeed;
             }
             break;

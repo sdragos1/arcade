@@ -8,12 +8,21 @@
 #pragma once
 
 #include <iostream>
+#include <random>
 #include <algorithm>
 #include "../entities/projectile/SolarFoxProjectile.hpp"
 #include "../entities/player/SolarFoxPlayer.hpp"
 #include "../entities/enemy/SolarFoxEnemy.hpp"
+#include "../entities/powerup/SolarFoxPowerup.hpp"
 #include "games/IGame.hpp"
 
+
+static Vector2u solarFoxGameSize = {20, 15};
+
+#define WALKABLE_AREA_BEGIN_X 2
+#define WALKABLE_AREA_BEGIN_Y 2
+#define WALKABLE_AREA_END_X solarFoxGameSize.x - 3
+#define WALKABLE_AREA_END_Y solarFoxGameSize.y - 3
 
 using namespace shared::games;
 
@@ -34,6 +43,10 @@ class SolarFoxGame : public IGame {
             shared::types::Vector2f direction);
 
     private:
+        void _initPowerups();
+        void _initEnemies();
+        void _initPlayer();
+
         void _updateTimes(DeltaTime dt);
         void _computeEnemies();
         void _computePlayer();
@@ -72,4 +85,3 @@ static GameManifest solarFoxManifest = {
     }
 };
 
-static Vector2u solarFoxGameSize = {20, 15};
