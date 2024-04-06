@@ -364,10 +364,12 @@ std::vector<shared::graphics::TextProps> &listNameGraphic)
                 if (EventKey->getKeyType() == shared::graphics::events::IKeyEvent::CHAR) {
                     if ('a' <= EventKey->getKeyCode().character &&
                     EventKey->getKeyCode().character <= 'z') {
-                        _playerName += EventKey->getKeyCode().character;
-                        name.content = _playerName;
-                        name.font.reset();
-                        name.font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        if (_playerName.size() < 34) {
+                            _playerName += EventKey->getKeyCode().character;
+                            name.content = _playerName;
+                            name.font.reset();
+                            name.font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        }
                     }
                 }
                 if (EventKey->getKeyType() == shared::graphics::events::IKeyEvent::FUNC) {
