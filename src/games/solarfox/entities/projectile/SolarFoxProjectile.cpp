@@ -48,14 +48,24 @@ shared::types::Vector2f &SolarFoxProjectile::getStartingPosition()
 
 void SolarFoxProjectile::moveProjectile()
 {
+    Vector2f moveOffset = {_direction.x, _direction.y};
+
+    if (_type == PLAYER) {
+        moveOffset.x /= 2;
+        moveOffset.y /= 2;
+    }
+    if (_type == ENEMY) {
+        moveOffset.x /= 6;
+        moveOffset.y /= 6;
+    }
     for (auto &component : _components) {
         if (component->getType() == components::TEXTURE) {
             auto texture = std::dynamic_pointer_cast<TextureComponent>(component);
             if (_direction.x != 0) {
-                texture->getPosition().x += _direction.x / 2;
+                texture->getPosition().x += moveOffset.x;
             }
             if (_direction.y != 0) {
-                texture->getPosition().y += _direction.y / 2;
+                texture->getPosition().y += moveOffset.y;
             }
         }
     }

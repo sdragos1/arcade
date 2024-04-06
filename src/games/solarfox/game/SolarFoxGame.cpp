@@ -11,7 +11,7 @@ const unsigned int playerSpeed = 40;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 const unsigned int enemySpeed = 30;
-const unsigned int enemyShootStageSpeed = 600;
+const unsigned int enemyShootStageSpeed = 620;
 
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
@@ -141,7 +141,7 @@ void SolarFoxGame::_forwardProjectiles()
             }
         }
         if (projectileType == SolarFoxProjectile::ENEMY) {
-            if (travelDistance >= 20) {
+            if (travelDistance >= 15) {
                 _removeProjectile(projectile);
                 continue;
             }
