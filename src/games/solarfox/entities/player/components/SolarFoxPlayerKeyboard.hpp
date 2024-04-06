@@ -9,6 +9,7 @@
 
 #include "abstracts/components/TextureComponent.hpp"
 #include "abstracts/components/AKeyboardComponent.hpp"
+#include "../SolarFoxPlayer.hpp"
 
 using namespace shared::games;
 
@@ -25,8 +26,11 @@ class SolarFoxPlayerKeyboard : public AKeyboardComponent {
 
         components::IKeyboardComponent::ArrowCode getLastDirection() const;
 
+        bool isBoost() const;
+
     private:
         shared::types::Vector2i getDirectionVector();
 
         components::IKeyboardComponent::ArrowCode _lastDirection;
+        bool _boost;
 };

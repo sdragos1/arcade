@@ -9,6 +9,7 @@
 
 SolarFoxPlayerKeyboard::SolarFoxPlayerKeyboard(entity::IEntity &entity)
     : AKeyboardComponent(entity), _lastDirection(components::IKeyboardComponent::ArrowCode::UP)
+    , _boost(false)
 {
 }
 
@@ -47,16 +48,26 @@ void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
         displayable->getTextureProps().origin.x = 3;
         _lastDirection = components::IKeyboardComponent::ArrowCode::RIGHT;
     }
+    if (keyData.code.character == 'b') {
+        _boost = true;
+    }
 }
 
 void SolarFoxPlayerKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
     components::IKeyboardComponent::KeyData keyData)
 {
     (void)ctx;
-    (void)keyData;
+    if (keyData.code.character == 'b') {
+        _boost = false;
+    }
 }
 
 components::IKeyboardComponent::ArrowCode SolarFoxPlayerKeyboard::getLastDirection() const
 {
     return _lastDirection;
+}
+
+bool SolarFoxPlayerKeyboard::isBoost() const
+{
+    return _boost;
 }

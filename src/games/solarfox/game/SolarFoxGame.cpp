@@ -98,27 +98,30 @@ void SolarFoxGame::_forwardPlayer()
         return;
     auto lastDirection = keyboard->getLastDirection();
     auto pos = displayable->getPosition();
+    float moveSpeed = 0.2;
 
+    if (keyboard->isBoost())
+        moveSpeed = 0.4;
     switch (lastDirection)
     {
         case components::IKeyboardComponent::ArrowCode::UP:
             if (pos.y > 2) {
-                displayable->getPosition().y -= 0.2;
+                displayable->getPosition().y -= moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::DOWN:
             if (pos.y < solarFoxGameSize.y - 3) {
-                displayable->getPosition().y += 0.2;
+                displayable->getPosition().y += moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::LEFT:
             if (pos.x > 2) {
-                displayable->getPosition().x -= 0.2;
+                displayable->getPosition().x -= moveSpeed;
             }
             break;
         case components::IKeyboardComponent::ArrowCode::RIGHT:
             if (pos.x < solarFoxGameSize.x - 3) {
-                displayable->getPosition().x += 0.2;
+                displayable->getPosition().x += moveSpeed;
             }
             break;
     }
