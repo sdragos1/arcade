@@ -10,4 +10,4 @@
 #include "abstracts/components/AKeyboardComponent.hpp"
 
 #define SOLARFOX_BOOST_KEY 'c'
-#define SOLARFOX_SHOOT_KEY 'x'
+#define SOLARFOX_SHOOT_KEY 'v'

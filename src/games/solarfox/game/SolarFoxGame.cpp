@@ -33,19 +33,31 @@ SolarFoxGame::SolarFoxGame()
 
 void SolarFoxGame::_initPowerups()
 {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> disX(WALKABLE_AREA_BEGIN_X, WALKABLE_AREA_END_X);
+    std::uniform_int_distribution<int> disY(WALKABLE_AREA_BEGIN_Y, WALKABLE_AREA_END_Y);
+
     for (int i = 0; i < 5; i++) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<int> disX(WALKABLE_AREA_BEGIN_X, WALKABLE_AREA_END_X);
-        std::uniform_int_distribution<int> disY(WALKABLE_AREA_BEGIN_Y, WALKABLE_AREA_END_Y);
         int powerupX = disX(gen);
         int powerupY = disY(gen);
 
         std::shared_ptr<SolarFoxPowerup> powerup = std::make_shared<SolarFoxPowerup>(
-            shared::types::Vector2f(powerupX, powerupY));
+            shared::types::Vector2f(powerupX, powerupY), GOOD);
         _entities.push_back(powerup);
         _powerups.push_back(powerup);
     }
+
+    for (int i = 0; i < 2; i++) {
+        int powerupX = disX(gen);
+        int powerupY = disY(gen);
+
+        std::shared_ptr<SolarFoxPowerup> powerup = std::make_shared<SolarFoxPowerup>(
+            shared::types::Vector2f(powerupX, powerupY), BAD);
+        _entities.push_back(powerup);
+        _powerups.push_back(powerup);
+    }
+    std::cout << _powerups.size() << std::endl;
 }
 
 void SolarFoxGame::_initEnemies()

@@ -23,10 +23,16 @@ void SolarFoxPlayerCollidable::onCollide(std::shared_ptr<IGame> ctx,
 {
     auto targetProjectile = std::dynamic_pointer_cast<SolarFoxProjectileCollidable>(target);
 
-    if (targetProjectile == nullptr)
-        return;
-    if (targetProjectile->getProjectileType() == ENEMY) {
-        _destroyed = true;
+    if (targetProjectile != nullptr) {
+        if (targetProjectile->getProjectileType() == ENEMY) {
+            _destroyed = true;
+        }
+    }
+    auto targetPowerup = std::dynamic_pointer_cast<SolarFoxPowerupCollidable>(target);
+    if (targetPowerup != nullptr) {
+        if (targetPowerup->getPowerupType() == BAD) {
+            _destroyed = true;
+        }
     }
 }
 

@@ -9,9 +9,10 @@
 #include "SolarFoxPowerupCollidable.hpp"
 
 SolarFoxPowerupCollidable::SolarFoxPowerupCollidable(shared::types::Vector2f position,
-    entity::IEntity &entity)
+    entity::IEntity &entity, PowerupType type)
     : ACollidableComponent(position, shared::types::Vector2u(1, 1), entity)
     , _destroyed(false)
+    , _type(type)
 {
 }
 
@@ -34,4 +35,9 @@ void SolarFoxPowerupCollidable::onCollide(std::shared_ptr<IGame> ctx,
 bool SolarFoxPowerupCollidable::isDestroyed() const
 {
     return _destroyed;
+}
+
+PowerupType SolarFoxPowerupCollidable::getPowerupType() const
+{
+    return _type;
 }

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../../projectile/components/SolarFoxProjectileCollidable.hpp"
+#include "../../powerup/components/SolarFoxPowerupCollidable.hpp"
 #include "abstracts/components/ACollidableComponent.hpp"
 
 class SolarFoxPlayerCollidable : public ACollidableComponent {

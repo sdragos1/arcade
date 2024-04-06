@@ -7,7 +7,8 @@
 
 #include "SolarFoxPowerup.hpp"
 
-SolarFoxPowerup::SolarFoxPowerup(Vector2f pos)
+SolarFoxPowerup::SolarFoxPowerup(Vector2f pos, PowerupType type)
+    :_type(type)
 {
     std::shared_ptr<TextureComponent> texture =
     std::make_shared<TextureComponent>(
@@ -15,9 +16,9 @@ SolarFoxPowerup::SolarFoxPowerup(Vector2f pos)
         shared::types::Vector2u(1, 1),
         *this,
         0,
-        SolarFoxPowerupTextureProps);
+        _type == GOOD ? SolarFoxPowerupTextureProps : SolarFoxPowerupBadTextureProps);
     std::shared_ptr<SolarFoxPowerupCollidable> collidable =
-        std::make_shared<SolarFoxPowerupCollidable>(pos, *this);
+        std::make_shared<SolarFoxPowerupCollidable>(pos, *this, _type);
 
     _components.push_back(texture);
     _components.push_back(collidable);
@@ -26,4 +27,9 @@ SolarFoxPowerup::SolarFoxPowerup(Vector2f pos)
 SolarFoxPowerup::~SolarFoxPowerup()
 {
     _components.clear();
+}
+
+PowerupType SolarFoxPowerup::getPowerupType() const
+{
+    return _type;
 }
