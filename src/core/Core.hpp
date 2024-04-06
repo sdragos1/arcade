@@ -95,6 +95,8 @@ class Core
         void _displayText(std::shared_ptr<components::ITextComponent> displayable);
         void _displayManager();
 
+        void _handleCollisions();
+
         // Sound Functions
 
         std::unique_ptr<GameList>       _librariesGame;

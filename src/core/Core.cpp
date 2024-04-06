@@ -205,11 +205,6 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
                     std::dynamic_pointer_cast<events::MouseMoveEvent>(event));
             }
         }
-        if (type == components::ComponentType::COLLIDABLE) {
-            auto collidable =
-                std::dynamic_pointer_cast<components::ICollidableComponent>(component);
-            _handleCollisions(collidable, entity);
-        }
     }
 }
 
@@ -257,6 +252,19 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
     }
 }
 
+void Core::_handleCollisions()
+{
+    for (auto &entity : _gameEntities) {
+        for (auto &component : entity->getComponents()) {
+            if (component->getType() == components::COLLIDABLE) {
+                auto collidable =
+                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+                _handleCollisions(collidable, entity);
+            }
+        }
+    }
+}
+
 void Core::runArcade()
 {
     auto prevTime = std::chrono::high_resolution_clock::now();
@@ -272,6 +280,7 @@ void Core::runArcade()
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
         _handleEvents();
+        _handleCollisions();
         _currWindow->clear();
         _displayManager();
         _currWindow->display();
