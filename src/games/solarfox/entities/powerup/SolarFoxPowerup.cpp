@@ -25,4 +25,5 @@ SolarFoxPowerup::SolarFoxPowerup(Vector2f pos)
 
 SolarFoxPowerup::~SolarFoxPowerup()
 {
+    _components.clear();
 }

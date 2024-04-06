@@ -174,6 +174,11 @@ void SolarFoxGame::_forwardPlayer()
     auto pos = displayable->getPosition();
     float moveSpeed = 0.2;
 
+    if (pos.x < WALKABLE_AREA_BEGIN_X || pos.x > WALKABLE_AREA_END_X ||
+        pos.y < WALKABLE_AREA_BEGIN_Y || pos.y > WALKABLE_AREA_END_Y) {
+        _gameRestart(true);
+        return;
+    }
     if (keyboard->isBoost())
         moveSpeed = 0.3;
     switch (lastDirection)
@@ -197,6 +202,8 @@ void SolarFoxGame::_forwardPlayer()
             if (pos.x < WALKABLE_AREA_END_X) {
                 displayable->getPosition().x += moveSpeed;
             }
+            break;
+        default:
             break;
     }
     collidable->getPosition() = displayable->getPosition();

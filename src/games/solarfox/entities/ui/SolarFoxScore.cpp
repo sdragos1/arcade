@@ -28,6 +28,7 @@ SolarFoxScore::SolarFoxScore()
 
 SolarFoxScore::~SolarFoxScore()
 {
+    _components.clear();
 }
 
 void SolarFoxScore::increaseScore(std::size_t score)

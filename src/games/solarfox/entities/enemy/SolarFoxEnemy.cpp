@@ -31,6 +31,7 @@ SolarFoxEnemy::SolarFoxEnemy(shared::types::Vector2f position, shared::types::Ve
 
 SolarFoxEnemy::~SolarFoxEnemy()
 {
+    _components.clear();
 }
 
 void SolarFoxEnemy::inverseDirection()

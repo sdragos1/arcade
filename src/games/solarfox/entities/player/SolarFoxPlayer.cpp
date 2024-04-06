@@ -30,6 +30,7 @@ SolarFoxPlayer::SolarFoxPlayer()
 
 SolarFoxPlayer::~SolarFoxPlayer()
 {
+    _components.clear();
 }
 
 bool SolarFoxPlayer::isShooting() const

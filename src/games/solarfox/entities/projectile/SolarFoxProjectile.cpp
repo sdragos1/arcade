@@ -32,6 +32,7 @@ SolarFoxProjectile::SolarFoxProjectile(ProjectileType type,
 
 SolarFoxProjectile::~SolarFoxProjectile()
 {
+    _components.clear();
 }
 
 shared::types::Vector2f &SolarFoxProjectile::getDirection()
