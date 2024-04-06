@@ -9,7 +9,9 @@
 
 #include "games/components/IKeyboardComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
+#include "games/components/ICollidableComponent.hpp"
 #include "SnakeHeadDisplayable.hpp"
+#include "SnakeHeadCollidable.hpp"
 
 using namespace shared::games;
 

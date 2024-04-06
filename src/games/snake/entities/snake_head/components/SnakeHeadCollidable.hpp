@@ -8,7 +8,9 @@
 #ifndef SNAKEHEADCOLLIDABLE_HPP_
 #define SNAKEHEADCOLLIDABLE_HPP_
 
+#include <iostream>
 #include "games/components/ICollidableComponent.hpp"
+#include "../../apple/components/AppleCollidable.hpp"
 
 class SnakeHeadCollidable : public shared::games::components::ICollidableComponent {
     public:
@@ -35,6 +37,12 @@ class SnakeHeadCollidable : public shared::games::components::ICollidableCompone
          */
         const shared::games::entity::IEntity &getEntity() noexcept override;
 
+        void setPosition(Vector2f pos) noexcept;
+
+        Vector2f &getPosition(void) noexcept override;
+
+        Vector2u &getSize(void) noexcept override;
+
         /**
          * @brief On collide event handler for the component
          * @param ctx Context of the game
@@ -44,6 +52,8 @@ class SnakeHeadCollidable : public shared::games::components::ICollidableCompone
 
     private:
         const shared::games::entity::IEntity &_entity;
+        Vector2f _position;
+        Vector2u _size;
 };
 
 #endif /* !SnakeHeadCOLLIDABLE_HPP_ */

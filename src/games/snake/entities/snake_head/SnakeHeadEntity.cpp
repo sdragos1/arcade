@@ -14,9 +14,12 @@ SnakeHeadEntity::SnakeHeadEntity()
         std::make_shared<SnakeHeadDisplayable>(*this);
     std::shared_ptr<SnakeHeadKeyboard> keyboard =
         std::make_shared<SnakeHeadKeyboard>(*this);
+    std::shared_ptr<SnakeHeadCollidable> collidable =
+        std::make_shared<SnakeHeadCollidable>(*this);
 
     _components.push_back(displayable);
     _components.push_back(keyboard);
+    _components.push_back(collidable);
 }
 
 SnakeHeadEntity::~SnakeHeadEntity()

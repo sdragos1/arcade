@@ -53,9 +53,7 @@ void SnakeGame::compute(DeltaTime dt)
         moveSnake();
         updatePosition();
         _moveCd = std::chrono::milliseconds(0);
-        checkCollisions();
     }
-
     // to remove
     if (_plusScoreCd.count() >= 5000 && _snakeEntities.size() > 0) {
         snakeGameScore += 1;
@@ -63,39 +61,6 @@ void SnakeGame::compute(DeltaTime dt)
         _plusScoreCd = std::chrono::milliseconds(0);
     }
     _moveSpeed = increaseDifficulty(snakeGameScore);
-}
-
-void SnakeGame::checkCollisions()
-{
-    // get the SnakeHeadEntity and AppleEntity from _entities
-    // get the collidable components from the entities with getComponents()
-    // call the appleCollidable->onCollide() method with the snakeHeadCollidable as the target
-
-    auto headEntity = std::shared_ptr<SnakeHeadEntity>();
-    auto appleEntity = std::shared_ptr<AppleEntity>();
-    auto snakeHeadCollidable = std::shared_ptr<SnakeHeadCollidable>();
-    auto appleCollidable = std::shared_ptr<AppleCollidable>();
-
-    for (auto entity : _entities) {
-        if (auto head = std::dynamic_pointer_cast<SnakeHeadEntity>(entity)) {
-            headEntity = head;
-        }
-        if (auto apple = std::dynamic_pointer_cast<AppleEntity>(entity)) {
-            appleEntity = apple;
-        }
-    }
-    for (auto component : headEntity->getComponents()) {
-        if (auto collidable = std::dynamic_pointer_cast<SnakeHeadCollidable>(component)) {
-            snakeHeadCollidable = collidable;
-        }
-    }
-    for (auto component : appleEntity->getComponents()) {
-        if (auto collidable = std::dynamic_pointer_cast<AppleCollidable>(component)) {
-            appleCollidable = collidable;
-        }
-    }
-    // To FIX
-    // appleCollidable->onCollide(NULL, snakeHeadCollidable);
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept
@@ -152,6 +117,7 @@ Vector2f SnakeGame::updateBodyPositions(auto it)
                     previousPosition = tailNewPosition;
                 }
             }
+            // set the collidable component to position
         }
         prevIt = it;
     }
@@ -190,6 +156,22 @@ void SnakeGame::updatePosition()
     }
 }
 
+bool SnakeGame::findDirection(auto it)
+{
+    bool directionFound = false;
+
+    for (auto componentIt = it->get()->getComponents().begin(); componentIt != it->get()->getComponents().end(); ++componentIt) {
+        if (componentIt->get()->getType() == components::ComponentType::KEYBOARD) {
+            if (auto keyboard = std::dynamic_pointer_cast<SnakeHeadKeyboard>(*componentIt)) {
+                _direction = keyboard->_direction;
+                directionFound = true;
+                return directionFound;
+            }
+        }
+    }
+    return directionFound;
+}
+
 void SnakeGame::checkMapExit(std::shared_ptr<SnakeHeadDisplayable> head)
 {
     if (head->getPosition().x < maxLeft)
@@ -202,44 +184,38 @@ void SnakeGame::checkMapExit(std::shared_ptr<SnakeHeadDisplayable> head)
         head->setPosition({head->getPosition().x, maxTop});
 }
 
+void SnakeGame::updateHeadPosition(auto it)
+{
+    if (auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it)) {
+        Vector2f newPosition = head->getPosition();
+        switch (_direction) {
+            case SnakeHeadKeyboard::UP:
+                newPosition.y -= 1;
+                break;
+            case SnakeHeadKeyboard::DOWN:
+                newPosition.y += 1;
+                break;
+            case SnakeHeadKeyboard::LEFT:
+                newPosition.x -= 1;
+                break;
+            case SnakeHeadKeyboard::RIGHT:
+                newPosition.x += 1;
+                break;
+        }
+        head->setOldPosition(head->getPosition());
+        head->setPosition(newPosition);
+        checkMapExit(head);
+        return;
+    }
+}
+
 void SnakeGame::moveSnake()
 {
     for (auto entityIt = _snakeEntities.begin(); entityIt != _snakeEntities.end(); ++entityIt) {
-        SnakeHeadKeyboard::Direction direction;
-        bool directionFound = false;
-        for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
-            if (componentIt->get()->getType() == components::ComponentType::KEYBOARD) {
-                if (auto keyboard = std::dynamic_pointer_cast<SnakeHeadKeyboard>(*componentIt)) {
-                    direction = keyboard->_direction;
-                    directionFound = true;
-                    break;
-                }
-            }
-        }
-        if (directionFound) {
+        if (findDirection(entityIt) == true) {
             for (auto componentIt = entityIt->get()->getComponents().begin(); componentIt != entityIt->get()->getComponents().end(); ++componentIt) {
                 if (componentIt->get()->getType() == components::ComponentType::TEXTURE) {
-                    if (auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*componentIt)) {
-                        Vector2f newPosition = head->getPosition();
-                        switch (direction) {
-                            case SnakeHeadKeyboard::UP:
-                                newPosition.y -= 1;
-                                break;
-                            case SnakeHeadKeyboard::DOWN:
-                                newPosition.y += 1;
-                                break;
-                            case SnakeHeadKeyboard::LEFT:
-                                newPosition.x -= 1;
-                                break;
-                            case SnakeHeadKeyboard::RIGHT:
-                                newPosition.x += 1;
-                                break;
-                        }
-                        head->setOldPosition(head->getPosition());
-                        head->setPosition(newPosition);
-                        checkMapExit(head);
-                        break;
-                    }
+                    updateHeadPosition(componentIt);
                 }
             }
         }

@@ -118,13 +118,15 @@ class SnakeGame : public IGame {
          */
         int increaseDifficulty(int score);
 
-        void checkCollisions();
+        bool findDirection(auto it);
+        void updateHeadPosition(auto it);
 
     private:
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
         entity::EntitiesMap _entities;
 
         int _moveSpeed;
+        SnakeHeadKeyboard::Direction _direction;
 
         DeltaTime _moveCd;
         DeltaTime _plusScoreCd;
