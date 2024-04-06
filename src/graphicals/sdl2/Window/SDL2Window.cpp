@@ -188,8 +188,12 @@ void SDL2Window::render(const shared::graphics::TextProps &props)
         vertical = (windowHeight) - (textHeight);
     }
 
-    SDL_Rect dstRect = {horizontal + (props.position.x * static_cast<int>(_sdl2basicTiles.x)),
-    vertical + (props.position.y * static_cast<int>(_sdl2basicTiles.y)), textWidth, textHeight};
+    SDL_Rect dstRect = {
+        horizontal + static_cast<int>(props.position.x * static_cast<float>(_sdl2basicTiles.x)),
+        vertical + static_cast<int>(props.position.y * static_cast<float>(_sdl2basicTiles.y)),
+        textWidth,
+        textHeight
+    };
     if (SDL_RenderCopy(_renderer, sdl2Font->getTexture(), nullptr, &dstRect) < 0) {
         std::cout << SDL_GetError() << std::endl;
     }

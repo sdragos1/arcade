@@ -27,7 +27,6 @@ class ScoreText : public shared::games::components::ITextComponent {
         void onMouseRelease(std::shared_ptr<shared::games::IGame> ctx) override;
         void onMouseHover(std::shared_ptr<shared::games::IGame> ctx) override;
         Vector2f &getPosition(void) noexcept override;
->>>>>>> 914b2d2 (#37 feat: also fixed the test game, the SDL2 and the SFML to make them use Vector2f instead of Vector2i for the positions)
         const shared::games::components::ComponentType getType() const noexcept override;
         const shared::games::entity::IEntity &getEntity() noexcept override;
 
