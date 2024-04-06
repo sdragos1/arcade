@@ -29,6 +29,7 @@ class SolarFoxProjectile : public AEntity {
         const ProjectileType getType() const;
         void moveProjectile();
         unsigned int getProjectileTravelDistance();
+        bool isDestroyed() const;
 
     private:
         shared::types::Vector2u _getOriginFromDirection();

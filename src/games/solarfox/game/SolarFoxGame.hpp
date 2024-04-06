@@ -53,6 +53,7 @@ class SolarFoxGame : public IGame {
         void _computeEnemies();
         void _computePlayer();
         void _computePowerups();
+        void _computerProjectiles();
 
         void _addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
             shared::types::Vector2u origin, shared::types::Vector2i direction);

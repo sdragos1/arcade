@@ -58,8 +58,8 @@ void SolarFoxProjectile::moveProjectile()
         moveOffset.y /= 2;
     }
     if (_type == ENEMY) {
-        moveOffset.x /= 4;
-        moveOffset.y /= 4;
+        moveOffset.x /= 7;
+        moveOffset.y /= 7;
     }
     for (auto &component : _components) {
         if (component->getType() == components::TEXTURE) {
@@ -113,4 +113,15 @@ unsigned int SolarFoxProjectile::getProjectileTravelDistance()
         }
     }
     return distance;
+}
+
+bool SolarFoxProjectile::isDestroyed() const
+{
+    for (auto &component : _components) {
+        if (component->getType() == components::COLLIDABLE) {
+            auto collidable = std::dynamic_pointer_cast<SolarFoxProjectileCollidable>(component);
+            return collidable->isDestroyed();
+        }
+    }
+    return false;
 }

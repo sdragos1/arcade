@@ -12,7 +12,7 @@ const unsigned int playerShootSpeed = 300;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 const unsigned int enemySpeed = 30;
-const unsigned int enemyShootStageSpeed = 620;
+const unsigned int enemyShootStageSpeed = 420;
 
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
@@ -77,10 +77,7 @@ void SolarFoxGame::compute(DeltaTime dt)
     _computePowerups();
     _computePlayer();
     _computeEnemies();
-    if (_projectileMoveTime >= std::chrono::milliseconds(projectileSpeed)) {
-        _forwardProjectiles();
-        _projectileMoveTime = std::chrono::milliseconds(0);
-    }
+    _computerProjectiles();
 }
 
 void SolarFoxGame::_updateTimes(DeltaTime dt)
@@ -135,6 +132,19 @@ void SolarFoxGame::_computePowerups()
     }
     if (_powerups.size() == 0) {
         _gameRestart();
+    }
+}
+
+void SolarFoxGame::_computerProjectiles()
+{
+    for (int i = 0; i < _projectiles.size(); i++) {
+        if (_projectiles[i]->isDestroyed()) {
+            _removeProjectile(_projectiles[i]);
+        }
+    }
+    if (_projectileMoveTime >= std::chrono::milliseconds(projectileSpeed)) {
+        _forwardProjectiles();
+        _projectileMoveTime = std::chrono::milliseconds(0);
     }
 }
 
