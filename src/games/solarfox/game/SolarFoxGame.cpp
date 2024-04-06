@@ -11,6 +11,7 @@ const unsigned int playerSpeed = 40;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 const unsigned int enemySpeed = 30;
+const unsigned int enemyShootStageSpeed = 600;
 
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
@@ -42,22 +43,41 @@ SolarFoxGame::~SolarFoxGame()
 
 void SolarFoxGame::compute(DeltaTime dt)
 {
-    _playerMoveTime -= dt;
-    _projectileMoveTime -= dt;
-    _playerProjectileShootTime -= dt;
-    _enemyMoveTime -= dt;
-
-    if (_playerMoveTime >= std::chrono::milliseconds(playerSpeed)) {
-        _forwardPlayer();
-        _playerMoveTime = std::chrono::milliseconds(0);
-    }
+    _updateTimes(dt);
+    _computePlayer();
+    _computeEnemies();
     if (_projectileMoveTime >= std::chrono::milliseconds(projectileSpeed)) {
         _forwardProjectiles();
         _projectileMoveTime = std::chrono::milliseconds(0);
     }
+}
+
+void SolarFoxGame::_updateTimes(DeltaTime dt)
+{
+    _playerMoveTime -= dt;
+    _projectileMoveTime -= dt;
+    _playerProjectileShootTime -= dt;
+    _enemyMoveTime -= dt;
+    _enemyShootStageTime -= dt;
+}
+
+void SolarFoxGame::_computePlayer()
+{
+    if (_playerMoveTime >= std::chrono::milliseconds(playerSpeed)) {
+        _forwardPlayer();
+        _playerMoveTime = std::chrono::milliseconds(0);
+    }
+}
+
+void SolarFoxGame::_computeEnemies()
+{
     if (_enemyMoveTime >= std::chrono::milliseconds(enemySpeed)) {
         _moveEnemies();
         _enemyMoveTime = std::chrono::milliseconds(0);
+    }
+    if (_enemyShootStageTime >= std::chrono::milliseconds(enemyShootStageSpeed)) {
+        _handleEnemyShoot();
+        _enemyShootStageTime = std::chrono::milliseconds(0);
     }
 }
 
@@ -241,9 +261,6 @@ void SolarFoxGame::_moveEnemies()
         auto pos = displayable->getPosition();
         const int maxX = solarFoxGameSize.x - 1;
         const int maxY = solarFoxGameSize.y - 1;
-        if (pos.x == solarFoxGameSize.x / 2 || pos.y == solarFoxGameSize.y / 2) {
-            _enemyShoot(i);
-        }
         if (pos.x == 0 && pos.y == 0) {
             enemy->inverseDirection();
         }
@@ -257,6 +274,16 @@ void SolarFoxGame::_moveEnemies()
             enemy->inverseDirection();
         }
         enemy->move();
+    }
+}
+
+void SolarFoxGame::_handleEnemyShoot()
+{
+    for (int i = 0; i < _enemies.size(); i++) {
+        if (_enemies[i]->isReadyToShoot()) {
+            _enemyShoot(i);
+        }
+        _enemies[i]->incrementShootingStage();
     }
 }
 

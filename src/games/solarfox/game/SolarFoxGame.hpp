@@ -34,6 +34,10 @@ class SolarFoxGame : public IGame {
             shared::types::Vector2f direction);
 
     private:
+        void _updateTimes(DeltaTime dt);
+        void _computeEnemies();
+        void _computePlayer();
+
         void _addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
             shared::types::Vector2u origin, shared::types::Vector2i direction);
         void _forwardPlayer();
@@ -42,6 +46,7 @@ class SolarFoxGame : public IGame {
         void _playerShoot();
         void _removeProjectile(std::shared_ptr<SolarFoxProjectile> projectile);
         void _enemyShoot(int i);
+        void _handleEnemyShoot();
 
         entity::EntitiesMap _entities;
         std::shared_ptr<SolarFoxPlayer> _player;
@@ -51,6 +56,7 @@ class SolarFoxGame : public IGame {
         DeltaTime _playerProjectileShootTime;
         DeltaTime _projectileMoveTime;
         DeltaTime _enemyMoveTime;
+        DeltaTime _enemyShootStageTime;
 };
 
 static GameManifest solarFoxManifest = {

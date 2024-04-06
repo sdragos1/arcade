@@ -19,10 +19,14 @@ class SolarFoxEnemy : public AEntity {
         void inverseDirection();
         shared::types::Vector2i getDirection() const;
         void move();
+        void incrementShootingStage();
+        bool isReadyToShoot();
 
     private:
         shared::types::Vector2i _direction;
         components::TextureProps _textureProps;
+        std::size_t _shootingStage;
+        std::shared_ptr<TextureComponent> _texture;
 };
 
 static components::TextureProps SolarEnemyTextureProps = {

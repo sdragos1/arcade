@@ -19,13 +19,14 @@ SolarFoxEnemy::SolarFoxEnemy(shared::types::Vector2f position, shared::types::Ve
                 .binTileSize = {16, 16},
             },
             .origin = origin,
-        }
-    )
+        }),
+    _shootingStage(0),
+    _texture(nullptr)
 {
-    std::shared_ptr<TextureComponent> texture = std::make_shared<TextureComponent>(
+    _texture = std::make_shared<TextureComponent>(
         position, size, *this, 0, _textureProps);
 
-    _components.push_back(texture);
+    _components.push_back(_texture);
 }
 
 SolarFoxEnemy::~SolarFoxEnemy()
@@ -60,4 +61,17 @@ void SolarFoxEnemy::move()
     if (_direction.y != 0) {
         displayable->getPosition().x += static_cast<float>(_direction.y) / 4;
     }
+}
+
+void SolarFoxEnemy::incrementShootingStage()
+{
+    _shootingStage++;
+    if (_shootingStage > 3)
+        _shootingStage = 0;
+    _texture->getTextureProps().origin.y = _shootingStage;
+}
+
+bool SolarFoxEnemy::isReadyToShoot()
+{
+    return _shootingStage == 3;
 }
