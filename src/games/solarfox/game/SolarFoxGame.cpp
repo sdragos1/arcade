@@ -26,10 +26,7 @@ SolarFoxGame::SolarFoxGame()
     _enemyMoveTime(std::chrono::milliseconds(0))
 {
     _score = std::make_shared<SolarFoxScore>();
-    _initPowerups();
-    _initEnemies();
-    _initPlayer();
-    _entities.push_back(_score);
+    _gameInit();
 }
 
 void SolarFoxGame::_initPowerups()
@@ -128,6 +125,9 @@ void SolarFoxGame::_computePowerups()
                 }
             }
         }
+    }
+    if (_powerups.size() == 0) {
+        _gameRestart();
     }
 }
 
@@ -338,6 +338,28 @@ void SolarFoxGame::_handleEnemyShoot()
         }
         _enemies[i]->incrementShootingStage();
     }
+}
+
+void SolarFoxGame::_gameRestart()
+{
+    _entities.clear();
+    _player = nullptr;
+    _enemies.clear();
+    _projectiles.clear();
+    _powerups.clear();
+    _playerMoveTime = std::chrono::milliseconds(0);
+    _projectileMoveTime = std::chrono::milliseconds(0);
+    _playerProjectileShootTime = std::chrono::milliseconds(0);
+    _enemyMoveTime = std::chrono::milliseconds(0);
+    _gameInit();
+}
+
+void SolarFoxGame::_gameInit()
+{
+    _entities.push_back(_score);
+    _initPowerups();
+    _initEnemies();
+    _initPlayer();
 }
 
 const GameManifest &SolarFoxGame::getManifest(void) const noexcept

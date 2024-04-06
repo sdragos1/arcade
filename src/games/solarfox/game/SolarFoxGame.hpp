@@ -64,6 +64,9 @@ class SolarFoxGame : public IGame {
         void _enemyShoot(int i);
         void _handleEnemyShoot();
 
+        void _gameRestart();
+        void _gameInit();
+
         entity::EntitiesMap _entities;
         std::shared_ptr<SolarFoxPlayer> _player;
         std::vector<std::shared_ptr<SolarFoxEnemy>> _enemies;
