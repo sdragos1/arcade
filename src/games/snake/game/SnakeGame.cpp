@@ -53,8 +53,10 @@ void SnakeGame::compute(DeltaTime dt)
         moveSnake();
         updatePosition();
         _moveCd = std::chrono::milliseconds(0);
+        // checkCollisions();
     }
-    //to remove
+
+    // to remove
     if (_plusScoreCd.count() >= 5000 && _snakeEntities.size() > 0) {
         snakeGameScore += 1;
         increaseSnakeSize();

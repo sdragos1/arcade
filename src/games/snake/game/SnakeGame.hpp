@@ -13,6 +13,7 @@
 #include <sstream>
 #include <string>
 #include <list>
+#include <memory>
 #include "games/IGame.hpp"
 #include "../entities/snake_head/SnakeHeadEntity.hpp"
 #include "../entities/snake_body/SnakeBodyEntity.hpp"
@@ -116,6 +117,8 @@ class SnakeGame : public IGame {
          * return _moveSpeed
          */
         int increaseDifficulty(int score);
+
+        void checkCollisions();
 
     private:
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;

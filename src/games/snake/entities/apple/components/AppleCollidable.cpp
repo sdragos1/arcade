@@ -6,6 +6,7 @@
 */
 
 #include "AppleCollidable.hpp"
+#include <iostream>
 
 AppleCollidable::AppleCollidable(const shared::games::entity::IEntity &entity)
     :
@@ -29,6 +30,10 @@ const shared::games::entity::IEntity &AppleCollidable::getEntity() noexcept
 
 void AppleCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
-    (void)ctx;
-    (void)target;
+    for (auto &component : _entity.getComponents()) {
+        if (auto displayable = std::dynamic_pointer_cast<AppleDisplayable>(component)) {
+            displayable->_position = {static_cast<float>(rand() % 32), static_cast<float>(rand() % 18)};
+            break;
+        }
+    }
 }

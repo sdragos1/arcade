@@ -10,6 +10,7 @@
 
 #include "games/components/ICollidableComponent.hpp"
 
+
 class SnakeTailCollidable : public shared::games::components::ICollidableComponent {
     public:
         /**

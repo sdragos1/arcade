@@ -9,6 +9,7 @@
 #define APPLEENTITY_HPP_
 
 #include "components/AppleDisplayable.hpp"
+#include "components/AppleCollidable.hpp"
 #include "games/IEntity.hpp"
 
 class AppleEntity : public shared::games::entity::IEntity {

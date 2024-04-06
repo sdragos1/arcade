@@ -9,6 +9,8 @@
 #define APPLECOLLIDABLE_HPP_
 
 #include "games/components/ICollidableComponent.hpp"
+#include "games/components/IDisplayableComponent.hpp"
+#include "AppleDisplayable.hpp"
 
 class AppleCollidable : public shared::games::components::ICollidableComponent {
     public:
