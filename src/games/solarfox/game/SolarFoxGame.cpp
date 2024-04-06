@@ -106,14 +106,25 @@ void SolarFoxGame::_forwardPlayer()
 
 void SolarFoxGame::_forwardProjectiles()
 {
+    unsigned int travelDistance = 0;
+    SolarFoxProjectile::ProjectileType projectileType;
+
     for (int i = 0; i < _projectiles.size(); i++) {
         auto projectile = _projectiles[i];
-
-        if (projectile->getProjectileTravelDistance() > 3 &&
-            projectile->getType() == SolarFoxProjectile::PLAYER) {
-            _removeProjectile(projectile);
-            _playerShoot();
-            continue;
+        travelDistance = projectile->getProjectileTravelDistance();
+        projectileType = projectile->getType();
+        if (projectileType == SolarFoxProjectile::PLAYER) {
+            if (travelDistance >= 3) {
+                _removeProjectile(projectile);
+                _playerShoot();
+                continue;
+            }
+        }
+        if (projectileType == SolarFoxProjectile::ENEMY) {
+            if (travelDistance >= 20) {
+                _removeProjectile(projectile);
+                continue;
+            }
         }
         projectile->moveProjectile();
     }

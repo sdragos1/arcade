@@ -61,7 +61,7 @@ void SolarFoxProjectile::moveProjectile()
     }
 }
 
-const SolarFoxProjectile::ProjectileType &SolarFoxProjectile::getType() const
+const SolarFoxProjectile::ProjectileType SolarFoxProjectile::getType() const
 {
     return _type;
 }

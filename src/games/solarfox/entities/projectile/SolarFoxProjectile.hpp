@@ -29,7 +29,7 @@ class SolarFoxProjectile : public AEntity {
         shared::types::Vector2f &getDirection();
         shared::types::Vector2f &getPosition();
         shared::types::Vector2f &getStartingPosition();
-        const ProjectileType &getType() const;
+        const ProjectileType getType() const;
         void moveProjectile();
         unsigned int getProjectileTravelDistance();
 
@@ -46,7 +46,7 @@ class SolarFoxProjectile : public AEntity {
 static components::TextureProps SolarFoxEnemyProjectileTextureProps = {
     .sources = {
         .ascii = "assets/solarfox/projectile.txt",
-        .bin = "assets/games/solarfox/projectiles/player_beam_sheet.png",
+        .bin = "assets/games/solarfox/projectiles/enemy_projectile.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},
