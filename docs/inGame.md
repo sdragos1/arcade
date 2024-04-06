@@ -22,3 +22,5 @@ To return to the menu, simply press the **e** key.
 To change graphics libraries and use the next one, simply press the **d** key.
 
 To change the graphic libraries and use the previous one, simply press the **q** key.
+
+------------
