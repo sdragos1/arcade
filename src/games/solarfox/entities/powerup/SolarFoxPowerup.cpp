@@ -16,8 +16,11 @@ SolarFoxPowerup::SolarFoxPowerup(Vector2f pos)
         *this,
         0,
         SolarFoxPowerupTextureProps);
+    std::shared_ptr<SolarFoxPowerupCollidable> collidable =
+        std::make_shared<SolarFoxPowerupCollidable>(pos, *this);
 
     _components.push_back(texture);
+    _components.push_back(collidable);
 }
 
 SolarFoxPowerup::~SolarFoxPowerup()

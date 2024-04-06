@@ -14,6 +14,7 @@
 #include "../entities/player/SolarFoxPlayer.hpp"
 #include "../entities/enemy/SolarFoxEnemy.hpp"
 #include "../entities/powerup/SolarFoxPowerup.hpp"
+#include "../entities/powerup/components/SolarFoxPowerupCollidable.hpp"
 #include "games/IGame.hpp"
 
 
@@ -38,7 +39,7 @@ class SolarFoxGame : public IGame {
         const unsigned int getFps() const noexcept override;
         const int getScore() const noexcept;
 
-        void addProjectile(SolarFoxProjectile::ProjectileType type,
+        void addProjectile(ProjectileType type,
             shared::types::Vector2f position,
             shared::types::Vector2f direction);
 
@@ -50,6 +51,7 @@ class SolarFoxGame : public IGame {
         void _updateTimes(DeltaTime dt);
         void _computeEnemies();
         void _computePlayer();
+        void _computePowerups();
 
         void _addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
             shared::types::Vector2u origin, shared::types::Vector2i direction);
@@ -65,6 +67,7 @@ class SolarFoxGame : public IGame {
         std::shared_ptr<SolarFoxPlayer> _player;
         std::vector<std::shared_ptr<SolarFoxEnemy>> _enemies;
         std::vector<std::shared_ptr<SolarFoxProjectile>> _projectiles;
+        std::vector<std::shared_ptr<SolarFoxPowerup>> _powerups;
         DeltaTime _playerMoveTime;
         DeltaTime _playerProjectileShootTime;
         DeltaTime _projectileMoveTime;

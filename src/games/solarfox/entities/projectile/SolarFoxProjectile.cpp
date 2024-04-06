@@ -23,8 +23,11 @@ SolarFoxProjectile::SolarFoxProjectile(ProjectileType type,
         0,
         _textureProps);
     texture->getTextureProps().origin = _getOriginFromDirection();
+    std::shared_ptr<SolarFoxProjectileCollidable> collidable =
+        std::make_shared<SolarFoxProjectileCollidable>(_position, *this, _type);
 
     _components.push_back(texture);
+    _components.push_back(collidable);
 }
 
 SolarFoxProjectile::~SolarFoxProjectile()
@@ -67,11 +70,16 @@ void SolarFoxProjectile::moveProjectile()
             if (_direction.y != 0) {
                 texture->getPosition().y += moveOffset.y;
             }
+            _position = texture->getPosition();
+        }
+        if (component->getType() == components::COLLIDABLE) {
+            auto collidable = std::dynamic_pointer_cast<SolarFoxProjectileCollidable>(component);
+            collidable->getPosition() = _position;
         }
     }
 }
 
-const SolarFoxProjectile::ProjectileType SolarFoxProjectile::getType() const
+const ProjectileType SolarFoxProjectile::getType() const
 {
     return _type;
 }

@@ -104,12 +104,12 @@ void SFMLWindow::render(const shared::graphics::TextureProps &props)
         sf::Texture entityTexture = sfmlTexture->getTexture();
         sf::Sprite sprite(entityTexture);
 
+        sprite.setOrigin(0, 0);
+
         sf::IntRect rect
          (props.origin.x * props.binTileSize.x, props.origin.y * props.binTileSize.y,
          props.size.x * props.binTileSize.x, props.size.y * props.binTileSize.y);
         sprite.setTextureRect(rect);
-
-        sprite.setOrigin(0, 0);
 
         sprite.setPosition(
         props.position.x * _sfmlbasicTiles.x,

@@ -23,14 +23,14 @@ SolarFoxGame::SolarFoxGame()
     _playerProjectileShootTime(std::chrono::milliseconds(0)),
     _enemyMoveTime(std::chrono::milliseconds(0))
 {
+    _initPowerups();
     _initEnemies();
     _initPlayer();
-    _initPowerups();
 }
 
 void SolarFoxGame::_initPowerups()
 {
-    for (int i = 0; i < 15; ++i) {
+    for (int i = 0; i < 5; i++) {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_int_distribution<int> disX(WALKABLE_AREA_BEGIN_X, WALKABLE_AREA_END_X);
@@ -41,6 +41,7 @@ void SolarFoxGame::_initPowerups()
         std::shared_ptr<SolarFoxPowerup> powerup = std::make_shared<SolarFoxPowerup>(
             shared::types::Vector2f(powerupX, powerupY));
         _entities.push_back(powerup);
+        _powerups.push_back(powerup);
     }
 }
 
@@ -71,6 +72,7 @@ SolarFoxGame::~SolarFoxGame()
 void SolarFoxGame::compute(DeltaTime dt)
 {
     _updateTimes(dt);
+    _computePowerups();
     _computePlayer();
     _computeEnemies();
     if (_projectileMoveTime >= std::chrono::milliseconds(projectileSpeed)) {
@@ -105,6 +107,22 @@ void SolarFoxGame::_computeEnemies()
     if (_enemyShootStageTime >= std::chrono::milliseconds(enemyShootStageSpeed)) {
         _handleEnemyShoot();
         _enemyShootStageTime = std::chrono::milliseconds(0);
+    }
+}
+
+void SolarFoxGame::_computePowerups()
+{
+    for (int i = 0; i < _powerups.size(); i++) {
+        for (auto &component : _powerups[i]->getComponents()) {
+            if (component->getType() == components::COLLIDABLE) {
+                auto collidable = std::dynamic_pointer_cast<SolarFoxPowerupCollidable>(component);
+                if (collidable->isDestroyed() == true) {
+                    _entities.erase(std::remove(_entities.begin(), _entities.end(),
+                        _powerups[i]), _entities.end());
+                    _powerups.erase(_powerups.begin() + i);
+                }
+            }
+        }
     }
 }
 
@@ -157,20 +175,20 @@ void SolarFoxGame::_forwardPlayer()
 void SolarFoxGame::_forwardProjectiles()
 {
     unsigned int travelDistance = 0;
-    SolarFoxProjectile::ProjectileType projectileType;
+    ProjectileType projectileType;
 
     for (int i = 0; i < _projectiles.size(); i++) {
         auto projectile = _projectiles[i];
         travelDistance = projectile->getProjectileTravelDistance();
         projectileType = projectile->getType();
-        if (projectileType == SolarFoxProjectile::PLAYER) {
+        if (projectileType == PLAYER) {
             if (travelDistance >= 3) {
                 _removeProjectile(projectile);
                 _playerShoot();
                 continue;
             }
         }
-        if (projectileType == SolarFoxProjectile::ENEMY) {
+        if (projectileType == ENEMY) {
             if (travelDistance >= 15) {
                 _removeProjectile(projectile);
                 continue;
@@ -180,7 +198,7 @@ void SolarFoxGame::_forwardProjectiles()
     }
 }
 
-void SolarFoxGame::addProjectile(SolarFoxProjectile::ProjectileType type,
+void SolarFoxGame::addProjectile(ProjectileType type,
     shared::types::Vector2f position,
     shared::types::Vector2f direction)
 {
@@ -234,7 +252,7 @@ void SolarFoxGame::_playerShoot()
             direction.x = 1;
             break;
     }
-    addProjectile(SolarFoxProjectile::PLAYER, position, direction);
+    addProjectile(PLAYER, position, direction);
 }
 
 void SolarFoxGame::_enemyShoot(int i)
@@ -262,7 +280,7 @@ void SolarFoxGame::_enemyShoot(int i)
     if (position.y == solarFoxGameSize.y - 1) {
         direction.y = -1;
     }
-    addProjectile(SolarFoxProjectile::ENEMY, position, direction);
+    addProjectile(ENEMY, position, direction);
 }
 
 void SolarFoxGame::_addEnemy(shared::types::Vector2f position, shared::types::Vector2u size,

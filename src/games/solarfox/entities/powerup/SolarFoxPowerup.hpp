@@ -7,12 +7,13 @@
 
 #pragma once
 
+#include "components/SolarFoxPowerupCollidable.hpp"
 #include "abstracts/components/TextureComponent.hpp"
 #include "abstracts/entity/AEntity.hpp"
 
 class SolarFoxPowerup : public AEntity {
     public:
-        SolarFoxPowerup(Vector2f pos);
+        explicit SolarFoxPowerup(Vector2f pos);
         ~SolarFoxPowerup();
 };
 

@@ -9,18 +9,15 @@
 
 #include <iostream>
 #include "abstracts/components/TextureComponent.hpp"
+#include "components/SolarFoxProjectileCollidable.hpp"
 #include "abstracts/entity/AEntity.hpp"
 #include "types/Vector.hpp"
+#include "Projectile.hpp"
 
 using namespace shared::games;
 
 class SolarFoxProjectile : public AEntity {
     public:
-        typedef enum {
-            PLAYER,
-            ENEMY
-        } ProjectileType;
-
         SolarFoxProjectile(ProjectileType type,
             shared::types::Vector2f position,
             shared::types::Vector2f direction);

@@ -92,14 +92,21 @@ bool CoreUtils::checkCollision(
     std::shared_ptr<components::ICollidableComponent> collidable2)
 {
     auto pos1 = collidable1->getPosition();
-    Vector2u size1 = collidable1->getSize();
+    auto size1 = collidable1->getSize();
     auto pos2 = collidable2->getPosition();
-    Vector2u size2 = collidable2->getSize();
+    auto size2 = collidable2->getSize();
 
-    if (pos1.x < pos2.x + size2.x &&
-    pos1.x + size1.x > pos2.x &&
-    pos1.y < pos2.y + size2.y &&
-    pos1.y + size1.y > pos2.y) {
+    float left1 = pos1.x;
+    float right1 = pos1.x + size1.x;
+    float top1 = pos1.y;
+    float bottom1 = pos1.y + size1.y;
+
+    float left2 = pos2.x;
+    float right2 = pos2.x + size2.x;
+    float top2 = pos2.y;
+    float bottom2 = pos2.y + size2.y;
+
+    if (right1 >= left2 && left1 <= right2 && bottom1 >= top2 && top1 <= bottom2) {
         return true;
     }
     return false;
