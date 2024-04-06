@@ -13,6 +13,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "graphics/ISound.hpp"
+#include "exceptions/SFMLSoundException.hpp"
 #include "types/Libraries.hpp"
 #include "graphics/IGraphicsProvider.hpp"
 

@@ -21,11 +21,6 @@ class ScoreText : public shared::games::components::ITextComponent {
         void onMousePress(std::shared_ptr <shared::games::IGame> ctx) override;
         void onMouseRelease(std::shared_ptr <shared::games::IGame> ctx) override;
         void onMouseHover(std::shared_ptr <shared::games::IGame> ctx) override;
-        Vector2i &getPosition(void) noexcept override;
-=======
-        void onMousePress(std::shared_ptr<shared::games::IGame> ctx) override;
-        void onMouseRelease(std::shared_ptr<shared::games::IGame> ctx) override;
-        void onMouseHover(std::shared_ptr<shared::games::IGame> ctx) override;
         Vector2f &getPosition(void) noexcept override;
         const shared::games::components::ComponentType getType() const noexcept override;
         const shared::games::entity::IEntity &getEntity() noexcept override;
