@@ -24,12 +24,12 @@ SolarFoxGame::SolarFoxGame()
 {
     std::shared_ptr<entity::IEntity> player = std::make_shared<SolarFoxPlayer>();
 
-    _addEnemy({0, 0}, {1, 1}, {0, 0}, {-1, 0});
+    _addEnemy({0, 0}, {1, 1}, {1, 0}, {-1, 0});
     _addEnemy({static_cast<float>(solarFoxGameSize.x - 1),
-        static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0}, {1, 0});
+        static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {3, 0}, {1, 0});
     _addEnemy({static_cast<float>(solarFoxGameSize.x - 1), 0}, {1, 1}, {0, 0},
         {0, 1});
-    _addEnemy({0, static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {0, 0},
+    _addEnemy({0, static_cast<float>(solarFoxGameSize.y - 1)}, {1, 1}, {2, 0},
         {0, -1});
     _player = std::dynamic_pointer_cast<SolarFoxPlayer>(player);
     _entities.push_back(player);

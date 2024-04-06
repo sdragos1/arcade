@@ -22,6 +22,7 @@ class SolarFoxEnemy : public AEntity {
 
     private:
         shared::types::Vector2i _direction;
+        components::TextureProps _textureProps;
 };
 
 static components::TextureProps SolarEnemyTextureProps = {

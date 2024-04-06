@@ -10,11 +10,20 @@
 
 SolarFoxEnemy::SolarFoxEnemy(shared::types::Vector2f position, shared::types::Vector2u size,
     shared::types::Vector2u origin, shared::types::Vector2i direction)
-    : _direction(direction)
+    : _direction(direction),
+    _textureProps(
+        components::TextureProps{
+            .sources = {
+                .ascii = "assets/games/solarfox/enemies/bonbon_sheet.ascii",
+                .bin = "assets/games/solarfox/enemies/bonbon_sheet.png",
+                .binTileSize = {16, 16},
+            },
+            .origin = origin,
+        }
+    )
 {
     std::shared_ptr<TextureComponent> texture = std::make_shared<TextureComponent>(
-        position, size, *this, 0, SolarEnemyTextureProps);
-    texture->getTextureProps().origin = origin;
+        position, size, *this, 0, _textureProps);
 
     _components.push_back(texture);
 }
