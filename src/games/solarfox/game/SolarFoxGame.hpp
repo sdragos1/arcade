@@ -65,7 +65,7 @@ class SolarFoxGame : public IGame {
         void _enemyShoot(int i);
         void _handleEnemyShoot();
 
-        void _gameRestart();
+        void _gameRestart(bool resetScore);
         void _gameInit();
 
         entity::EntitiesMap _entities;

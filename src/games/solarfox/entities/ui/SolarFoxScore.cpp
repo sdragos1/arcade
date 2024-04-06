@@ -46,3 +46,9 @@ std::size_t SolarFoxScore::getScore() const
 {
     return _score;
 }
+
+void SolarFoxScore::resetScore()
+{
+    _score = 0;
+    _textProps.content = "Score: 0";
+}

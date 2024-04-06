@@ -10,6 +10,7 @@
 #include "abstracts/components/TextureComponent.hpp"
 #include "abstracts/entity/AEntity.hpp"
 #include "components/SolarFoxPlayerKeyboard.hpp"
+#include "components/SolarFoxPlayerCollidable.hpp"
 
 class SolarFoxPlayer : public AEntity {
     public:
@@ -17,6 +18,7 @@ class SolarFoxPlayer : public AEntity {
         ~SolarFoxPlayer();
 
         bool isShooting() const;
+        bool isDestroyed() const;
 };
 
 static components::TextureProps SolarPlayerTextureProps = {

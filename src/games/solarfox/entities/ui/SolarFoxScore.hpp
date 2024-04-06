@@ -20,6 +20,7 @@ class SolarFoxScore : public AEntity {
         void increaseScore(std::size_t score);
         void decreaseScore(std::size_t score);
         std::size_t getScore() const;
+        void resetScore();
 
     private:
         std::size_t _score;

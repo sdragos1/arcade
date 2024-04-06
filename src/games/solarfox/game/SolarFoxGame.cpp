@@ -12,7 +12,7 @@ const unsigned int playerShootSpeed = 300;
 const unsigned int projectileSpeed = 20;
 const unsigned int projectileShootSpeed = 500;
 const unsigned int enemySpeed = 30;
-const unsigned int enemyShootStageSpeed = 420;
+const unsigned int enemyShootStageSpeed = 620;
 
 SolarFoxGame::SolarFoxGame()
     : _entities() ,
@@ -74,8 +74,8 @@ SolarFoxGame::~SolarFoxGame()
 void SolarFoxGame::compute(DeltaTime dt)
 {
     _updateTimes(dt);
-    _computePowerups();
     _computePlayer();
+    _computePowerups();
     _computeEnemies();
     _computerProjectiles();
 }
@@ -92,6 +92,9 @@ void SolarFoxGame::_updateTimes(DeltaTime dt)
 
 void SolarFoxGame::_computePlayer()
 {
+    if (_player->isDestroyed() == true) {
+        _gameRestart(true);
+    }
     if (_playerMoveTime >= std::chrono::milliseconds(playerSpeed)) {
         _forwardPlayer();
         _playerMoveTime = std::chrono::milliseconds(0);
@@ -131,7 +134,7 @@ void SolarFoxGame::_computePowerups()
         }
     }
     if (_powerups.size() == 0) {
-        _gameRestart();
+        _gameRestart(false);
     }
 }
 
@@ -152,6 +155,7 @@ void SolarFoxGame::_forwardPlayer()
 {
     std::shared_ptr<TextureComponent> displayable = nullptr;
     std::shared_ptr<SolarFoxPlayerKeyboard> keyboard = nullptr;
+    std::shared_ptr<SolarFoxPlayerCollidable> collidable = nullptr;
 
     for (auto &component : _player->getComponents()) {
         if (component->getType() == components::TEXTURE) {
@@ -159,6 +163,9 @@ void SolarFoxGame::_forwardPlayer()
         }
         if (component->getType() == components::KEYBOARD) {
             keyboard = std::dynamic_pointer_cast<SolarFoxPlayerKeyboard>(component);
+        }
+        if (component->getType() == components::COLLIDABLE) {
+            collidable = std::dynamic_pointer_cast<SolarFoxPlayerCollidable>(component);
         }
     }
     if (displayable == nullptr)
@@ -192,6 +199,7 @@ void SolarFoxGame::_forwardPlayer()
             }
             break;
     }
+    collidable->getPosition() = displayable->getPosition();
 }
 
 void SolarFoxGame::_forwardProjectiles()
@@ -356,7 +364,7 @@ void SolarFoxGame::_handleEnemyShoot()
     }
 }
 
-void SolarFoxGame::_gameRestart()
+void SolarFoxGame::_gameRestart(bool resetScore)
 {
     _entities.clear();
     _player = nullptr;
@@ -367,6 +375,8 @@ void SolarFoxGame::_gameRestart()
     _projectileMoveTime = std::chrono::milliseconds(0);
     _playerProjectileShootTime = std::chrono::milliseconds(0);
     _enemyMoveTime = std::chrono::milliseconds(0);
+    if (resetScore)
+        _score->resetScore();
     _gameInit();
 }
 
