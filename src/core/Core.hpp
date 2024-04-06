@@ -49,6 +49,12 @@ using namespace shared::graphics;
 class Core
 {
     public:
+        typedef struct {
+            std::shared_ptr<ISound> graphicSound;
+            components::SoundState gameState;
+            ISound::SoundState graphicState;
+        } SoundMapProps;
+
         /**
          * @brief Constructor of Core Class
          *

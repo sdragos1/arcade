@@ -14,9 +14,12 @@ SnakeHeadEntity::SnakeHeadEntity()
         std::make_shared<SnakeHeadDisplayable>(*this);
     std::shared_ptr<components::IComponent> keyboard =
         std::make_shared<SnakeHeadKeyboard>(*this);
+    std::shared_ptr<components::IComponent> sound =
+        std::make_shared<SnakeHeadSound>(*this, "./assets/sounds/BipEffect.wav");
 
     _components.push_back(displayable);
     _components.push_back(keyboard);
+    _components.push_back(sound);
 }
 
 SnakeHeadEntity::~SnakeHeadEntity()
