@@ -166,10 +166,12 @@ shared::graphics::TextProps Core::_TextPropsTitleGraphic()
 }
 
 
-std::vector<shared::graphics::TextProps> Core::_TextPropsListGraphic(std::size_t indexGraphic)
+std::vector<shared::graphics::TextProps>
+    Core::_TextPropsListGraphic(std::size_t indexGraphic)
 {
     std::vector<shared::graphics::TextProps> list;
-    std::vector<shared::graphics::IGraphicsProvider *> libraryList = _librariesRenderer->getLibraryList();
+    std::vector<shared::graphics::IGraphicsProvider *> libraryList =
+        _librariesRenderer->getLibraryList();
     std::string star = "";
 
     for (std::size_t index = 0; index < libraryList.size(); index++) {
@@ -279,67 +281,89 @@ std::vector<shared::graphics::TextProps> listNamelib, shared::graphics::TextProp
     }
 }
 
-void Core::_eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame, shared::graphics::TextProps &name,
-std::vector<shared::graphics::TextProps> &listNameGame, std::vector<shared::graphics::TextProps> &listNameGraphic)
+void Core::_eventsMenu(std::size_t &indexGraphic, std::size_t &indexGame,
+    shared::graphics::TextProps &name,
+    std::vector<shared::graphics::TextProps> &listNameGame,
+    std::vector<shared::graphics::TextProps> &listNameGraphic)
 {
-    std::vector<std::shared_ptr<shared::graphics::events::IEvent>> events = _currWindow->getEvents();
+    std::vector<std::shared_ptr<shared::graphics::events::IEvent>> events =
+        _currWindow->getEvents();
 
     for (int index = 0; index < events.size(); index++) {
         if (events[index]->getType() == shared::graphics::events::WINDOW_CLOSE) {
             _currWindow->close();
         }
         if (events[index]->getType() == shared::graphics::events::KEY_PRESS) {
-            auto EventKey = std::dynamic_pointer_cast<shared::graphics::events::IKeyEvent>(events[index]);
-            
+            auto EventKey =
+                std::dynamic_pointer_cast<shared::graphics::events::IKeyEvent>(events[index]);
             if (EventKey != nullptr) {
                 if (EventKey->getKeyType() == shared::graphics::events::IKeyEvent::ARROW) {
-                    if (EventKey->getKeyCode().arrow == shared::graphics::events::IKeyEvent::ArrowCode::DOWN) {
-                        listNameGraphic[indexGraphic].content.erase(listNameGraphic[indexGraphic].content.size() - 4);
+                    if (EventKey->getKeyCode().arrow ==
+                        shared::graphics::events::IKeyEvent::ArrowCode::DOWN) {
+                        listNameGraphic[indexGraphic].content.
+                            erase(listNameGraphic[indexGraphic].content.size() - 4);
                         listNameGraphic[indexGraphic].font.reset();
-                        listNameGraphic[indexGraphic].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGraphic[indexGraphic].font =
+                            _currRenderer->createFont("assets/fonts/Crang.ttf");
                         if (indexGraphic + 1 == _librariesRenderer->getNbGraphic())
                             indexGraphic = 0;
                         else
                             indexGraphic += 1;
                         listNameGraphic[indexGraphic].content += "   *";
                         listNameGraphic[indexGraphic].font.reset();
-                        listNameGraphic[indexGraphic].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGraphic[indexGraphic].font =
+                            _currRenderer->createFont("assets/fonts/Crang.ttf");
                     }
-                    if (EventKey->getKeyCode().arrow == shared::graphics::events::IKeyEvent::ArrowCode::UP) {
-                        listNameGraphic[indexGraphic].content.erase(listNameGraphic[indexGraphic].content.size() - 4);
-                        listNameGraphic[indexGraphic].font.reset();
-                        listNameGraphic[indexGraphic].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                    if (EventKey->getKeyCode().arrow ==
+                        shared::graphics::events::IKeyEvent::ArrowCode::UP) {
+                        listNameGraphic[indexGraphic].
+                            content.erase(listNameGraphic[indexGraphic].content.size() - 4);
+                        listNameGraphic[indexGraphic].
+                            font.reset();
+                        listNameGraphic[indexGraphic].
+                            font = _currRenderer->createFont("assets/fonts/Crang.ttf");
                         if (indexGraphic - 1 == -1)
                             indexGraphic = _librariesRenderer->getNbGraphic() - 1;
                         else
                             indexGraphic -= 1;
                         listNameGraphic[indexGraphic].content += "   *";
                         listNameGraphic[indexGraphic].font.reset();
-                        listNameGraphic[indexGraphic].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGraphic[indexGraphic].
+                            font = _currRenderer->createFont("assets/fonts/Crang.ttf");
                     }
-                    if (EventKey->getKeyCode().arrow == shared::graphics::events::IKeyEvent::ArrowCode::LEFT) {
-                        listNameGame[indexGame].content.erase(listNameGame[indexGame].content.size() - 4);
-                        listNameGame[indexGame].font.reset();
-                        listNameGame[indexGame].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                    if (EventKey->getKeyCode().arrow ==
+                        shared::graphics::events::IKeyEvent::ArrowCode::LEFT) {
+                        listNameGame[indexGame].
+                            content.erase(listNameGame[indexGame].content.size() - 4);
+                        listNameGame[indexGame].
+                            font.reset();
+                        listNameGame[indexGame].
+                            font = _currRenderer->createFont("assets/fonts/Crang.ttf");
                         if (indexGame - 1 == -1)
                             indexGame = _librariesGame->getNbGame() - 1;
                         else
                             indexGame -= 1;
                         listNameGame[indexGame].content += "   *";
-                        listNameGame[indexGame].font.reset();
-                        listNameGame[indexGame].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGame[indexGame]
+                            .font.reset();
+                        listNameGame[indexGame].font =
+                            _currRenderer->createFont("assets/fonts/Crang.ttf");
                     }
-                    if (EventKey->getKeyCode().arrow == shared::graphics::events::IKeyEvent::ArrowCode::RIGHT) {
-                        listNameGame[indexGame].content.erase(listNameGame[indexGame].content.size() - 4);
+                    if (EventKey->getKeyCode().arrow ==
+                        shared::graphics::events::IKeyEvent::ArrowCode::RIGHT) {
+                        listNameGame[indexGame].
+                            content.erase(listNameGame[indexGame].content.size() - 4);
                         listNameGame[indexGame].font.reset();
-                        listNameGame[indexGame].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGame[indexGame].
+                            font = _currRenderer->createFont("assets/fonts/Crang.ttf");
                         if (indexGame + 1 == _librariesGame->getNbGame())
                             indexGame = 0;
                         else
                             indexGame += 1;
                         listNameGame[indexGame].content += "   *";
                         listNameGame[indexGame].font.reset();
-                        listNameGame[indexGame].font = _currRenderer->createFont("assets/fonts/Crang.ttf");
+                        listNameGame[indexGame]
+                            .font = _currRenderer->createFont("assets/fonts/Crang.ttf");
                     }
                 }
                 if (EventKey->getKeyType() == shared::graphics::events::IKeyEvent::CHAR) {
