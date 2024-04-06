@@ -30,10 +30,14 @@ const shared::games::entity::IEntity &AppleCollidable::getEntity() noexcept
 
 void AppleCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
-    for (auto &component : _entity.getComponents()) {
-        if (auto displayable = std::dynamic_pointer_cast<AppleDisplayable>(component)) {
-            displayable->_position = {static_cast<float>(rand() % 32), static_cast<float>(rand() % 18)};
-            break;
-        }
-    }
+    //(void)ctx;
+    //auto targetEntity = target->getEntity();
+    //auto targetCollidable = targetEntity->getComponents();
+
+    //for (auto &component : targetCollidable) {
+    //    if (component->getType() == shared::games::components::ComponentType::COLLIDABLE) {
+    //        auto collidable = std::dynamic_pointer_cast<shared::games::components::ICollidableComponent>(component);
+    //        std::cout << "Apple collided" << std::endl;
+    //    }
+    //}
 }

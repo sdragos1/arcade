@@ -53,7 +53,7 @@ void SnakeGame::compute(DeltaTime dt)
         moveSnake();
         updatePosition();
         _moveCd = std::chrono::milliseconds(0);
-        // checkCollisions();
+        checkCollisions();
     }
 
     // to remove
@@ -63,6 +63,39 @@ void SnakeGame::compute(DeltaTime dt)
         _plusScoreCd = std::chrono::milliseconds(0);
     }
     _moveSpeed = increaseDifficulty(snakeGameScore);
+}
+
+void SnakeGame::checkCollisions()
+{
+    // get the SnakeHeadEntity and AppleEntity from _entities
+    // get the collidable components from the entities with getComponents()
+    // call the appleCollidable->onCollide() method with the snakeHeadCollidable as the target
+
+    auto headEntity = std::shared_ptr<SnakeHeadEntity>();
+    auto appleEntity = std::shared_ptr<AppleEntity>();
+    auto snakeHeadCollidable = std::shared_ptr<SnakeHeadCollidable>();
+    auto appleCollidable = std::shared_ptr<AppleCollidable>();
+
+    for (auto entity : _entities) {
+        if (auto head = std::dynamic_pointer_cast<SnakeHeadEntity>(entity)) {
+            headEntity = head;
+        }
+        if (auto apple = std::dynamic_pointer_cast<AppleEntity>(entity)) {
+            appleEntity = apple;
+        }
+    }
+    for (auto component : headEntity->getComponents()) {
+        if (auto collidable = std::dynamic_pointer_cast<SnakeHeadCollidable>(component)) {
+            snakeHeadCollidable = collidable;
+        }
+    }
+    for (auto component : appleEntity->getComponents()) {
+        if (auto collidable = std::dynamic_pointer_cast<AppleCollidable>(component)) {
+            appleCollidable = collidable;
+        }
+    }
+    // To FIX
+    // appleCollidable->onCollide(NULL, snakeHeadCollidable);
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept

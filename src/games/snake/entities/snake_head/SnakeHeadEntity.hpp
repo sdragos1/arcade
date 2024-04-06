@@ -9,6 +9,7 @@
 
 #include "components/SnakeHeadDisplayable.hpp"
 #include "components/SnakeHeadKeyboard.hpp"
+#include "components/SnakeHeadCollidable.hpp"
 #include "games/IEntity.hpp"
 
 using namespace shared::games;
