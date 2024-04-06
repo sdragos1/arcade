@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include "games/components/ICollidableComponent.hpp"
+#include "games/components/IDisplayableComponent.hpp"
 #include "../../apple/components/AppleCollidable.hpp"
 
 class SnakeHeadCollidable : public shared::games::components::ICollidableComponent {

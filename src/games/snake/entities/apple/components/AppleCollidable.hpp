@@ -8,9 +8,10 @@
 #ifndef APPLECOLLIDABLE_HPP_
 #define APPLECOLLIDABLE_HPP_
 
+#include <iostream>
 #include "games/components/ICollidableComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
-#include "AppleDisplayable.hpp"
+#include "../../snake_head/components/SnakeHeadCollidable.hpp"
 
 class AppleCollidable : public shared::games::components::ICollidableComponent {
     public:
@@ -50,6 +51,7 @@ class AppleCollidable : public shared::games::components::ICollidableComponent {
          */
         void onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target) override;
 
+        unsigned int _score;
     private:
         const shared::games::entity::IEntity &_entity;
         Vector2f _position;

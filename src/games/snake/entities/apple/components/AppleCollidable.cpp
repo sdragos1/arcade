@@ -6,10 +6,9 @@
 */
 
 #include "AppleCollidable.hpp"
-#include <iostream>
 
 AppleCollidable::AppleCollidable(const shared::games::entity::IEntity &entity)
-    : _entity(entity), _position(0, 0), _size(0, 0)
+    : _entity(entity), _position(0, 0), _size(0, 0), _score(0)
 {
     for (auto &component : _entity.getComponents()) {
         if (auto displayable = std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(component)) {
@@ -44,8 +43,16 @@ Vector2u &AppleCollidable::getSize(void) noexcept
     return _size;
 }
 
+void AppleCollidable::setPosition(Vector2f position) noexcept
+{
+    _position = position;
+}
+
 void AppleCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
     (void)ctx;
-    std::cout << "Apple collided" << std::endl;
+    if (auto snakeHead = std::dynamic_pointer_cast<SnakeHeadCollidable>(target)) {
+        _score += 1;
+        setPosition({static_cast<float>(rand() % 32), static_cast<float>(rand() % 18)});
+    }
 }

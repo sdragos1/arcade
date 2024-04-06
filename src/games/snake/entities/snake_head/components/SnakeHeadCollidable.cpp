@@ -51,9 +51,5 @@ void SnakeHeadCollidable::setPosition(Vector2f pos) noexcept
 void SnakeHeadCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
     (void)ctx;
-
-    auto apple = std::dynamic_pointer_cast<AppleCollidable>(target);
-    if (apple) {
-        std::cout << "SnakeHead collided with Apple" << std::endl;
-    }
+    //does it colide with itself?
 }

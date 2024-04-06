@@ -119,17 +119,19 @@ class SnakeGame : public IGame {
         int increaseDifficulty(int score);
 
         bool findDirection(auto it);
-        void updateHeadPosition(auto it);
+        Vector2f updateHeadPosition(auto it);
+        void updateHeadCollidablePosition(auto it, Vector2f pos);
+
+        void updateApplePosition();
 
     private:
-        std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
         entity::EntitiesMap _entities;
+        SnakeHeadKeyboard::Direction _direction;
+        std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
 
         int _moveSpeed;
-        SnakeHeadKeyboard::Direction _direction;
-
+        unsigned int _prevScore;
         DeltaTime _moveCd;
-        DeltaTime _plusScoreCd;
 };
 
 /**
