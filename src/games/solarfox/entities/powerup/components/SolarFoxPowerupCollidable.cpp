@@ -26,8 +26,6 @@ void SolarFoxPowerupCollidable::onCollide(std::shared_ptr<IGame> ctx,
 
     if (targetProjectile) {
         if (targetProjectile->getProjectileType() == PLAYER) {
-            std::cout << "Powerup collided with something" << targetProjectile->getPosition().x << "|"
-            << targetProjectile->getPosition().y << std::endl;
             _destroyed = true;
         }
     }

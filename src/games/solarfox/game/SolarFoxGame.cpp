@@ -18,14 +18,18 @@ SolarFoxGame::SolarFoxGame()
     _player(nullptr),
     _enemies(),
     _projectiles(),
+    _powerups(),
+    _score(nullptr),
     _playerMoveTime(std::chrono::milliseconds(0)),
     _projectileMoveTime(std::chrono::milliseconds(0)),
     _playerProjectileShootTime(std::chrono::milliseconds(0)),
     _enemyMoveTime(std::chrono::milliseconds(0))
 {
+    _score = std::make_shared<SolarFoxScore>();
     _initPowerups();
     _initEnemies();
     _initPlayer();
+    _entities.push_back(_score);
 }
 
 void SolarFoxGame::_initPowerups()
@@ -120,6 +124,7 @@ void SolarFoxGame::_computePowerups()
                     _entities.erase(std::remove(_entities.begin(), _entities.end(),
                         _powerups[i]), _entities.end());
                     _powerups.erase(_powerups.begin() + i);
+                    _score->increaseScore(100);
                 }
             }
         }
