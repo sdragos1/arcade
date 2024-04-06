@@ -151,7 +151,7 @@ void SolarFoxGame::_forwardPlayer()
     float moveSpeed = 0.2;
 
     if (keyboard->isBoost())
-        moveSpeed = 0.4;
+        moveSpeed = 0.3;
     switch (lastDirection)
     {
         case components::IKeyboardComponent::ArrowCode::UP:
