@@ -44,3 +44,8 @@ const unsigned int SnakeGame::getFps() const noexcept
 {
     return 60;
 }
+
+const int SnakeGame::getScore() const noexcept
+{
+    return _score;
+}

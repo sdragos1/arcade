@@ -58,7 +58,7 @@ void ScoreText::onMouseHover(std::shared_ptr<shared::games::IGame> ctx)
 {
 }
 
-shared::types::Vector2i &ScoreText::getPosition(void) noexcept
+shared::types::Vector2f &ScoreText::getPosition(void) noexcept
 {
     return _position;
 }
