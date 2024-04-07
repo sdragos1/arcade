@@ -67,7 +67,7 @@ void SnakeGame::compute(DeltaTime dt)
         _prevScore = getScore();
         for (auto it = _entities.begin(); it != _entities.end(); ++it) {
             if (auto scoreEntity = std::dynamic_pointer_cast<ScoreTextEntity>(*it)) {
-                scoreEntity->updateScore(getScore());
+                // scoreEntity->updateScore(getScore());
             }
         }
         updateApplePosition();

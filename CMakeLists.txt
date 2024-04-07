@@ -9,6 +9,23 @@ add_subdirectory(src/core)
 add_subdirectory(src/graphicals)
 add_subdirectory(src/games)
 
+set(REPO_URL "https://github.com/G-Epitech/MAYBDF-ArcadeShared.git")
+
+set(CLONE_DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/../common")
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    execute_process(
+        COMMAND git clone ${REPO_URL} ${CLONE_DESTINATION}
+        RESULT_VARIABLE GIT_CLONE_RESULT
+    )
+
+    if(GIT_CLONE_RESULT EQUAL 0)
+        message(STATUS "Clonage réussi!")
+    else()
+        message(FATAL_ERROR "Échec du clonage!")
+    endif()
+endif()
+
 option(BUILD_TESTS "Build tests" OFF)
 
 if(BUILD_TESTS)

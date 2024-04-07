@@ -21,12 +21,12 @@ ScoreTextEntity::~ScoreTextEntity()
 
 void ScoreTextEntity::updateScore(int score) noexcept
 {
-    for (auto &component : _components) {
-        if (component->getType() == shared::games::components::ComponentType::TEXT) {
-            auto scoreText = std::dynamic_pointer_cast<ScoreTextDisplayable>(component);
-            scoreText->_text = "Score: " + std::to_string(score);
-        }
-    }
+    // for (auto &component : _components) {
+    //     if (component->getType() == shared::games::components::ComponentType::TEXT) {
+    //         auto scoreText = std::dynamic_pointer_cast<ScoreTextDisplayable>(component);
+    //         scoreText->_text = "Score: " + std::to_string(score);
+    //     }
+    // }
 }
 
 const shared::games::components::ComponentsMap &ScoreTextEntity::getComponents(void) const noexcept
