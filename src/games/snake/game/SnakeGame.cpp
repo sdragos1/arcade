@@ -14,7 +14,8 @@ static float maxLeft = 0;
 static float maxRight = 32;
 
 SnakeGame::SnakeGame()
-    :   _entities(), _snakeEntities()
+    :   _entities(), _snakeEntities(), _score(nullptr), _moveCd(DeltaTime(0)),
+        _moveSpeed(0), _prevScore(0)
 {
     gameInit();
 }
@@ -36,7 +37,7 @@ void SnakeGame::gameInit()
     std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2f(15, 9), 2);
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
-    std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
+    _score = std::make_shared<ScoreTextEntity>();
     _snakeEntities.push_back(head);
     _snakeEntities.push_back(body);
     _snakeEntities.push_back(body2);
@@ -47,7 +48,7 @@ void SnakeGame::gameInit()
     _entities.push_back(body);
     _entities.push_back(body2);
     _entities.push_back(tail);
-    _entities.push_back(score);
+    _entities.push_back(_score);
 }
 
 void SnakeGame::compute(DeltaTime dt)
@@ -71,7 +72,7 @@ void SnakeGame::compute(DeltaTime dt)
         _prevScore = getScore();
         for (auto it = _entities.begin(); it != _entities.end(); ++it) {
             if (auto scoreEntity = std::dynamic_pointer_cast<ScoreTextEntity>(*it)) {
-                // scoreEntity->updateScore(getScore());
+                scoreEntity->updateScore(getScore());
             }
         }
         updateApplePosition();

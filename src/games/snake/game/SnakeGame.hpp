@@ -174,6 +174,7 @@ class SnakeGame : public IGame {
         entity::EntitiesMap _entities;
         SnakeHeadKeyboard::Direction _direction;
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
+        std::shared_ptr<ScoreTextEntity> _score;
         DeltaTime _moveCd;
         int _moveSpeed;
         unsigned int _prevScore;

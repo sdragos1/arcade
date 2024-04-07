@@ -73,3 +73,8 @@ const shared::games::entity::IEntity &ScoreTextDisplayable::getEntity() noexcept
 {
     return _entity;
 }
+
+void ScoreTextDisplayable::setScore(int score) noexcept
+{
+    _props.content = "Score: " + std::to_string(score);
+}
