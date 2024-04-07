@@ -274,6 +274,8 @@ class Core
         shared::games::entity::EntitiesMap              _gameEntities;
         bool                                            _launchGame;
         std::string                                     _playerName;
+
+        std::map<std::string, std::shared_ptr<ITexture>> _textureContainer;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;

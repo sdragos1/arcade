@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities(), _textureContainer()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -93,15 +93,31 @@ void Core::_displayText(std::shared_ptr<components::ITextComponent> displayable)
 
 void Core::_displayTexture(std::shared_ptr<components::ITextureComponent> displayable)
 {
-    TextureProps entityProps{
-        .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
-            displayable->getTextureProps().sources.ascii),
-        .binTileSize = displayable->getTextureProps().sources.binTileSize,
-        .origin = displayable->getTextureProps().origin,
-        .size = displayable->getSize(),
-        .position = displayable->getPosition()
-    };
-    _currWindow->render(entityProps);
+    std::string pathBuffer = displayable->getTextureProps().sources.bin + displayable->getTextureProps().sources.ascii;
+
+    auto textureIterator = _textureContainer.find(pathBuffer);
+    if (textureIterator != _textureContainer.end()) {
+        TextureProps entityProps{
+            .texture = textureIterator->second,
+            .binTileSize = displayable->getTextureProps().sources.binTileSize,
+            .origin = displayable->getTextureProps().origin,
+            .size = displayable->getSize(),
+            .position = displayable->getPosition()
+        };
+        _currWindow->render(entityProps);
+    } else {
+        auto newTexture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
+                                                    displayable->getTextureProps().sources.ascii);
+        _textureContainer[pathBuffer] = newTexture;
+        TextureProps entityProps {
+            .texture = newTexture,
+            .binTileSize = displayable->getTextureProps().sources.binTileSize,
+            .origin = displayable->getTextureProps().origin,
+            .size = displayable->getSize(),
+            .position = displayable->getPosition()
+        };
+        _currWindow->render(entityProps);
+    }
 }
 
 void Core::_displayManager()
@@ -209,6 +225,11 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
                     std::dynamic_pointer_cast<events::MouseMoveEvent>(event));
             }
         }
+        if (type == components::ComponentType::COLLIDABLE) {
+            auto collidable =
+                std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+            _handleCollisions(collidable, entity);
+        }
     }
 }
 
@@ -243,6 +264,7 @@ std::size_t Core::_handleEvents()
     return 0;
 }
 
+
 int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
     switch (keyEvent->getKeyCode().character)
@@ -265,19 +287,6 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
     }
 }
 
-void Core::_collisionsManager()
-{
-    for (auto &entity : _gameEntities) {
-        for (auto &component : entity->getComponents()) {
-            if (component->getType() == components::COLLIDABLE) {
-                auto collidable =
-                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
-                _handleCollisions(collidable, entity);
-            }
-        }
-    }
-}
-
 std::size_t Core::runArcade()
 {
     auto prevTime = std::chrono::high_resolution_clock::now();
@@ -294,7 +303,6 @@ std::size_t Core::runArcade()
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
         resultEvent = _handleEvents();
-        _collisionsManager();
         if (resultEvent == BACK_MENU)
             return BACK_MENU;
         if (resultEvent == QUIT_ARCADE)
