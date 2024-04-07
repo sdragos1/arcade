@@ -30,10 +30,6 @@ tests_run: fclean
 	cmake --build $(BUILD_PATH)
 	ctest --test-dir $(BUILD_PATH)
 
-update_module:
-	@git submodule init
-	@git submodule update --remote --merge
-
 style: fclean
 	@cpplint --recursive src tests shared
 

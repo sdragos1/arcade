@@ -60,7 +60,7 @@ bool CoreUtils::isDisplayablePressed(std::shared_ptr<components::IDisplayableCom
     std::shared_ptr<events::IMouseEvent> mouseEvent)
 {
     Vector2f mousePos = mouseEvent->getPosition();
-    auto displayablePos = displayable->getPosition();
+    Vector2f displayablePos = displayable->getPosition();
     Vector2u displayableSize = displayable->getSize();
 
     if (mousePos.x >= displayablePos.x &&

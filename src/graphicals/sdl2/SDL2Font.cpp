@@ -13,12 +13,13 @@ SDL2Font::SDL2Font(std::string pathFont)
     _font = nullptr;
     _textSurface = nullptr;
     _textTexture = nullptr;
-    std::cout << "Constructor in SDL2Font" << std::endl;
+    // std::cout << "Constructor in SDL2Font" << std::endl;
 }
 
 SDL2Font::~SDL2Font()
 {
-    std::cout << "Destructor in SDL2Font" << std::endl;
+    // std::cout << "Destructor in SDL2Font" << std::endl;
+    TTF_CloseFont(_font);
 }
 
 void SDL2Font::setFont(unsigned int characterSize)
@@ -26,6 +27,7 @@ void SDL2Font::setFont(unsigned int characterSize)
     if (_font == nullptr) {
         _font = TTF_OpenFont(_path.c_str(), characterSize);
         if (_font == nullptr) {
+            std::cout << "ERROR: " << SDL_GetError() << std::endl;
             throw SDL2FontException("SDL2 Font", "Can't create SDL2 Font");
         }
     }
@@ -42,6 +44,7 @@ void SDL2Font::setSurface(std::string content, SDL_Color textColor)
     if (_textSurface == nullptr) {
         _textSurface = TTF_RenderText_Blended(_font, content.c_str(), textColor);
         if (_textSurface == nullptr) {
+            std::cout << "ERROR: " << SDL_GetError() << std::endl;
             throw SDL2FontException("SDL2 Font", "Can't create SDL2 Font");
         }
     }
@@ -58,6 +61,7 @@ void SDL2Font::setTexture(SDL_Renderer *renderer)
     if (_textTexture == nullptr) {
         _textTexture = SDL_CreateTextureFromSurface(renderer, _textSurface);
         if (_textTexture == nullptr) {
+            std::cout << "ERROR: " << SDL_GetError() << std::endl;
             throw SDL2FontException("SDL2 Font", "Can't create SDL2 Font");
         }
     }

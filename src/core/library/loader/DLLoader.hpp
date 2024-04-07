@@ -17,6 +17,10 @@ template <typename T>
 class DLLoader
 {
     public:
+        /**
+         * @brief Construct a new DLLoader object
+         * @param libraryPath
+         */
         explicit DLLoader(const std::string libraryPath) : _libraryInstance(nullptr)
         {
             _libraryPath = libraryPath;
@@ -26,11 +30,21 @@ class DLLoader
             }
         }
 
+        /**
+         * @brief Destroy the DLLoader object
+         */
         ~DLLoader()
         {
-            dlclose(_libraryInstance);
+            if (dlclose(_libraryInstance) != 0) {
+                std::cout << "ERROR: " << dlerror() << std::endl;
+            }
         }
 
+        /**
+         * @brief Get the Type object
+         * @param functionName
+         * @return shared::types::LibraryType
+         */
         shared::types::LibraryType getType(const std::string functionName)
         {
             shared::types::LibraryType (*createInstance)();
@@ -43,6 +57,11 @@ class DLLoader
             return createInstance();
         }
 
+        /**
+         * @brief Get the Instance object
+         * @param functionName
+         * @return T
+         */
         T getInstance(const std::string functionName)
         {
             T (*createInstance)();

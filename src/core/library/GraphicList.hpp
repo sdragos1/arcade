@@ -12,8 +12,8 @@
 #include <vector>
 #include <iostream>
 #include "loader/DLLoader.hpp"
-#include "../../common/types/Libraries.hpp"
-#include "../../common/graphics/IGraphicsProvider.hpp"
+#include "types/Libraries.hpp"
+#include "graphics/IGraphicsProvider.hpp"
 
 class GraphicList
 {
@@ -46,6 +46,11 @@ class GraphicList
         void decrementIndex();
 
         /**
+         * @brief Set new index of Library
+         */
+        void setIndex(std::size_t newIndex);
+
+        /**
          * @brief Get the Current Library object
          * @return std::shared_ptr<shared::graphics::IGraphicsProvider> Current Library
          */
@@ -56,6 +61,12 @@ class GraphicList
          * @return std::size_t Index of Library
          */
         std::size_t getIndex() const noexcept;
+
+        /**
+         * @brief Get the Library List object
+         * @return std::vector<shared::graphics::IGraphicsProvider *>
+         */
+        std::vector<shared::graphics::IGraphicsProvider *> getLibraryList();
 
     protected:
         std::vector<shared::graphics::IGraphicsProvider *>   _libraryList;

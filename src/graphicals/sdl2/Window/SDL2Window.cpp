@@ -9,6 +9,7 @@
 
 SDL2Window::SDL2Window(const shared::graphics::IWindow::WindowInitProps &windowProps) :
 _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.size.y * 40)
+_sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.size.y * 40)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
@@ -28,12 +29,14 @@ _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.s
     if (windowProps.mode == shared::graphics::IWindow::FULLSCREEN) {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
         0, windowProps.size.x * 40, windowProps.size.y * 40,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
             throw SDL2WindowException("SDL2 Window", SDL_GetError());
         }
     } else {
         _window = SDL_CreateWindow(windowProps.title.c_str(), 0,
+        0, windowProps.size.x * 40, windowProps.size.y * 40,
         0, windowProps.size.x * 40, windowProps.size.y * 40,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (_window == nullptr) {
@@ -54,8 +57,6 @@ _sdl2basicTiles(40, 40), _sdl2basicwindow(windowProps.size.x * 40, windowProps.s
 
 SDL2Window::~SDL2Window()
 {
-    SDL_DestroyRenderer(_renderer);
-    SDL_DestroyWindow(_window);
     TTF_Quit();
     SDL_Quit();
     std::cout << "Destructor in SDL2Window" << std::endl;
@@ -77,8 +78,8 @@ Vector2u SDL2Window::getSize() const
     int windowHeight = 0;
     SDL_GetWindowSize(_window, &windowWidth, &windowHeight);
 
-    return ((Vector2u) {static_cast<unsigned int>(windowWidth),
-    static_cast<unsigned int>(windowHeight)});
+    return ((Vector2u) {static_cast<unsigned int>(windowWidth) / 40,
+    static_cast<unsigned int>(windowHeight) / 40});
 }
 
 void SDL2Window::setFramerateLimit(unsigned int fps)
@@ -147,7 +148,17 @@ void SDL2Window::render(const shared::graphics::TextureProps &props)
             static_cast<int>(props.size.y) * static_cast<int>(props.binTileSize.y)
         };
 
+        SDL_Rect srcRect = {
+            static_cast<int>(props.origin.x) * static_cast<int>(props.binTileSize.x),
+            static_cast<int>(props.origin.y) * static_cast<int>(props.binTileSize.y),
+            static_cast<int>(props.size.x) * static_cast<int>(props.binTileSize.x),
+            static_cast<int>(props.size.y) * static_cast<int>(props.binTileSize.y)
+        };
+
         SDL_Rect destRect = {x, y,
+            static_cast<int>(props.size.x) * static_cast<int>(_sdl2basicTiles.x),
+            static_cast<int>(props.size.y) * static_cast<int>(_sdl2basicTiles.y)};
+        if (SDL_RenderCopy(_renderer, sdl2Texture->getTexture(), &srcRect, &destRect) < 0) {
             static_cast<int>(props.size.x) * static_cast<int>(_sdl2basicTiles.x),
             static_cast<int>(props.size.y) * static_cast<int>(_sdl2basicTiles.y)};
         if (SDL_RenderCopy(_renderer, sdl2Texture->getTexture(), &srcRect, &destRect) < 0) {
@@ -216,6 +227,8 @@ void SDL2Window::display(void)
 void SDL2Window::close(void)
 {
     _running = false;
+    SDL_DestroyRenderer(_renderer);
+    SDL_DestroyWindow(_window);
 }
 
 bool SDL2Window::isOpen(void) const

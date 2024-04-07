@@ -20,6 +20,8 @@ Core::Core(std::string defaultLib)
         _librariesGame =  std::make_unique<GameList>(librariesPath);
         _librariesRenderer = std::make_unique<GraphicList>(librariesPath, defaultLib);
         _currLibIndex = _librariesRenderer->getIndex();
+        _launchGame = false;
+        _playerName = "";
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
         throw std::runtime_error("Can't create Core class");
@@ -47,6 +49,8 @@ void Core::_handleGraphicSwitch()
     if (_currLibIndex != _librariesRenderer->getIndex()) {
         _currLibIndex = _librariesRenderer->getIndex();
         _currRenderer = _librariesRenderer->getCurrentLibrary();
+        _currWindow->close();
+        _currWindow.release();
         _initGraphicLib();
     }
 }
@@ -208,22 +212,27 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
     }
 }
 
-void Core::_handleEvents()
+std::size_t Core::_handleEvents()
 {
     std::vector<events::EventPtr> events = _currWindow->getEvents();
 
     if (events.size() == 0) {
-        return;
+        return 0;
     }
     for (auto &event : events) {
         if (event->getType() == events::EventType::WINDOW_CLOSE) {
             _currWindow->close();
-            return;
+            return QUIT_ARCADE;
         }
         if (event->getType() == events::EventType::KEY_PRESS) {
             auto keyEvent = std::dynamic_pointer_cast<events::KeyPressedEvent>(event);
-            if (_handleGeneralEvents(keyEvent) == 0) {
-                return;
+            std::size_t result = _handleGeneralEvents(keyEvent);
+            if (result == 0) {
+                return 0;
+            } else if (result == BACK_MENU) {
+                return BACK_MENU;
+            } else if (result == QUIT_ARCADE) {
+                return QUIT_ARCADE;
             }
         }
         for (auto &entity : _gameEntities) {
@@ -231,8 +240,8 @@ void Core::_handleEvents()
         }
     }
     events.clear();
+    return 0;
 }
-
 
 int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
@@ -240,19 +249,23 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
     {
         case 'a':
             _currWindow->close();
-            return 0;
+            return QUIT_ARCADE;
         case 'd':
             _librariesRenderer->incrementIndex();
             return 0;
         case 'q':
             _librariesRenderer->decrementIndex();
             return 0;
+        case 'e':
+            _currWindow->close();
+            _currWindow.release();
+            return BACK_MENU;
         default:
-            return 1;
+            return 3;
     }
 }
 
-void Core::_handleCollisions()
+void Core::_collisionsManager()
 {
     for (auto &entity : _gameEntities) {
         for (auto &component : entity->getComponents()) {
@@ -265,9 +278,10 @@ void Core::_handleCollisions()
     }
 }
 
-void Core::runArcade()
+std::size_t Core::runArcade()
 {
     auto prevTime = std::chrono::high_resolution_clock::now();
+    std::size_t resultEvent = 0;
 
     _currGame = _librariesGame->getCurrentGame();
     _initGraphicLib();
@@ -283,10 +297,21 @@ void Core::runArcade()
         }
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
-        _handleEvents();
-        _handleCollisions();
+        resultEvent = _handleEvents();
+        _collisionsManager();
+        if (resultEvent == BACK_MENU)
+            return BACK_MENU;
+        if (resultEvent == QUIT_ARCADE)
+            return QUIT_ARCADE;
         _currWindow->clear();
         _displayManager();
         _currWindow->display();
+        _highscoreHandlers();
     }
+    return 0;
+}
+
+bool Core::getLaunchArcade() const
+{
+    return _launchGame;
 }
