@@ -5,8 +5,8 @@
 ** SnakeTailCollidable
 */
 
-#ifndef SNAKETAILCOLLIDABLE_HPP_
-#define SNAKETAILCOLLIDABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_SNAKE_TAIL_COMPONENTS_SNAKETAILCOLLIDABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_SNAKE_TAIL_COMPONENTS_SNAKETAILCOLLIDABLE_HPP_
 
 #include "games/components/ICollidableComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
@@ -57,4 +57,4 @@ class SnakeTailCollidable : public shared::games::components::ICollidableCompone
         Vector2u _size;
 };
 
-#endif /* !SnakeTailCOLLIDABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_SNAKE_TAIL_COMPONENTS_SNAKETAILCOLLIDABLE_HPP_

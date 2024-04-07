@@ -5,8 +5,8 @@
 ** SnakeGame
 */
 
-#ifndef SNAKEGAME_HPP_
-#define SNAKEGAME_HPP_
+#ifndef SRC_GAMES_SNAKE_GAME_SNAKEGAME_HPP_
+#define SRC_GAMES_SNAKE_GAME_SNAKEGAME_HPP_
 
 #include <iostream>
 #include <fstream>
@@ -194,4 +194,4 @@ static GameManifest snakeGameManifest = {
     }
 };
 
-#endif /* !SNAKEGAME_HPP_ */
+#endif  // SRC_GAMES_SNAKE_GAME_SNAKEGAME_HPP_

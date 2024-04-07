@@ -5,8 +5,8 @@
 ** BackgroundDisplayable
 */
 
-#ifndef BACKGROUNDDISPLAYABLE_HPP_
-#define BACKGROUNDDISPLAYABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_COMPONENTS_BACKGROUNDDISPLAYABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_COMPONENTS_BACKGROUNDDISPLAYABLE_HPP_
 
 #include "games/components/ITextureComponent.hpp"
 
@@ -85,4 +85,4 @@ class BackgroundDisplayable : public shared::games::components::ITextureComponen
         shared::games::components::TextureProps _textureProps;
 };
 
-#endif /* !BackgroundDISPLAYABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_COMPONENTS_BACKGROUNDDISPLAYABLE_HPP_

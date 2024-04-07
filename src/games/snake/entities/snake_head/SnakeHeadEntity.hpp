@@ -34,5 +34,4 @@ class SnakeHeadEntity : public entity::IEntity {
 
     private:
         components::ComponentsMap _components;
-
 };

@@ -67,6 +67,7 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
         void onKeyRelease(std::shared_ptr<IGame> ctx, KeyData key) override;
 
         Direction _direction;
+
     private:
         const entity::IEntity &_entity;
 };

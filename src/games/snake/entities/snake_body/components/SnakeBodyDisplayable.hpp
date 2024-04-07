@@ -5,8 +5,8 @@
 ** SnakeBodyDisplayable
 */
 
-#ifndef SNAKEBODYDISPLAYABLE_HPP_
-#define SNAKEBODYDISPLAYABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYDISPLAYABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYDISPLAYABLE_HPP_
 
 #include "games/components/ITextureComponent.hpp"
 
@@ -111,4 +111,5 @@ class SnakeBodyDisplayable : public components::ITextureComponent {
         Vector2u _size;
         unsigned int _zIndex;
 };
-#endif /* !SNAKEBODYDISPLAYABLE_HPP_ */
+
+#endif  // SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYDISPLAYABLE_HPP_

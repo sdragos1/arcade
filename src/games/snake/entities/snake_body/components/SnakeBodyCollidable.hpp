@@ -5,8 +5,8 @@
 ** SnakeBodyCollidable
 */
 
-#ifndef SNAKEBODYCOLLIDABLE_HPP_
-#define SNAKEBODYCOLLIDABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYCOLLIDABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYCOLLIDABLE_HPP_
 
 #include "games/components/ICollidableComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
@@ -60,4 +60,4 @@ class SnakeBodyCollidable : public shared::games::components::ICollidableCompone
         unsigned int _id;
 };
 
-#endif /* !SnakeBodyCOLLIDABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_SNAKE_BODY_COMPONENTS_SNAKEBODYCOLLIDABLE_HPP_

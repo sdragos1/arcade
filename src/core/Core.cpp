@@ -270,7 +270,8 @@ void Core::_collisionsManager()
     for (auto &entity : _gameEntities) {
         for (auto &component : entity->getComponents()) {
             if (component->getType() == components::COLLIDABLE) {
-                auto collidable = std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+                auto collidable =
+                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
                 _handleCollisions(collidable, entity);
             }
         }

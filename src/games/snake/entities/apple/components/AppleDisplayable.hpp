@@ -5,8 +5,8 @@
 ** AppleDisplayable
 */
 
-#ifndef APPLEDISPLAYABLE_HPP_
-#define APPLEDISPLAYABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLEDISPLAYABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLEDISPLAYABLE_HPP_
 
 #include "games/components/ITextureComponent.hpp"
 
@@ -86,4 +86,4 @@ class AppleDisplayable : public shared::games::components::ITextureComponent {
         shared::games::components::TextureProps _textureProps;
 };
 
-#endif /* !APPLEDISPLAYABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLEDISPLAYABLE_HPP_

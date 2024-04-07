@@ -5,8 +5,8 @@
 ** AppleCollidable
 */
 
-#ifndef APPLECOLLIDABLE_HPP_
-#define APPLECOLLIDABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLECOLLIDABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLECOLLIDABLE_HPP_
 
 #include <iostream>
 #include "games/components/ICollidableComponent.hpp"
@@ -53,11 +53,10 @@ class AppleCollidable : public shared::games::components::ICollidableComponent {
             std::shared_ptr<shared::games::components::ICollidableComponent> target) override;
 
         unsigned int _score;
+
     private:
         const shared::games::entity::IEntity &_entity;
         Vector2f _position;
         Vector2u _size;
-
 };
-
-#endif /* !APPLECOLLIDABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_APPLE_COMPONENTS_APPLECOLLIDABLE_HPP_

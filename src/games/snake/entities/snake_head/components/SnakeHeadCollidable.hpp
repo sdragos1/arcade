@@ -5,8 +5,8 @@
 ** SnakeHeadCollidable
 */
 
-#ifndef SNAKEHEADCOLLIDABLE_HPP_
-#define SNAKEHEADCOLLIDABLE_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_SNAKE_HEAD_COMPONENTS_SNAKEHEADCOLLIDABLE_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_SNAKE_HEAD_COMPONENTS_SNAKEHEADCOLLIDABLE_HPP_
 
 #include <iostream>
 #include "games/components/ICollidableComponent.hpp"
@@ -62,4 +62,4 @@ class SnakeHeadCollidable : public shared::games::components::ICollidableCompone
         bool _lose;
 };
 
-#endif /* !SnakeHeadCOLLIDABLE_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_SNAKE_HEAD_COMPONENTS_SNAKEHEADCOLLIDABLE_HPP_

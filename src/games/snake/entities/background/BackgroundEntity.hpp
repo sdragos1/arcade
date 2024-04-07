@@ -5,8 +5,8 @@
 ** BackgroundEntity
 */
 
-#ifndef BACKGROUNDENTITY_HPP_
-#define BACKGROUNDENTITY_HPP_
+#ifndef  SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_BACKGROUNDENTITY_HPP_
+#define  SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_BACKGROUNDENTITY_HPP_
 
 #include "components/BackgroundDisplayable.hpp"
 #include "games/IEntity.hpp"
@@ -34,4 +34,4 @@ class BackgroundEntity : public shared::games::entity::IEntity {
         shared::games::components::ComponentsMap _components;
 };
 
-#endif /* !BACKGROUNDENTITY_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_BACKGROUND_BACKGROUNDENTITY_HPP_

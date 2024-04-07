@@ -5,8 +5,8 @@
 ** AppleEntity
 */
 
-#ifndef APPLEENTITY_HPP_
-#define APPLEENTITY_HPP_
+#ifndef SRC_GAMES_SNAKE_ENTITIES_APPLE_APPLEENTITY_HPP_
+#define SRC_GAMES_SNAKE_ENTITIES_APPLE_APPLEENTITY_HPP_
 
 #include "components/AppleDisplayable.hpp"
 #include "components/AppleCollidable.hpp"
@@ -34,4 +34,4 @@ class AppleEntity : public shared::games::entity::IEntity {
         shared::games::components::ComponentsMap _components;
 };
 
-#endif /* !APPLEENTITY_HPP_ */
+#endif  // SRC_GAMES_SNAKE_ENTITIES_APPLE_APPLEENTITY_HPP_
