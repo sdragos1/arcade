@@ -29,6 +29,7 @@ class SolarFoxPlayerKeyboard : public AKeyboardComponent {
 
         bool isBoost() const;
         bool isShooting() const;
+        bool restartsGame() const;
 
     private:
         shared::types::Vector2i getDirectionVector();
@@ -36,4 +37,5 @@ class SolarFoxPlayerKeyboard : public AKeyboardComponent {
         components::IKeyboardComponent::ArrowCode _lastDirection;
         bool _boost;
         bool _shooting;
+        bool _restartGame;
 };
