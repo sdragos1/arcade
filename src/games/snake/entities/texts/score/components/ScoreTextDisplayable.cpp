@@ -7,7 +7,8 @@
 
 #include "ScoreTextDisplayable.hpp"
 
-ScoreTextDisplayable::ScoreTextDisplayable(const std::string &content, const shared::games::entity::IEntity &entity)
+ScoreTextDisplayable::ScoreTextDisplayable(const std::string &content,
+    const shared::games::entity::IEntity &entity)
     : _text(content),
     _props(
         {

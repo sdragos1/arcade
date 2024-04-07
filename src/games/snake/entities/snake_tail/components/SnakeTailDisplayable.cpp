@@ -18,7 +18,7 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
         {
             .sources = {
                 .ascii = "assets/snake/snake_tail.txt",
-                .bin = "assets/snake/tail.png",
+                .bin = "assets/snake/snake.png",
                 .binTileSize = {40, 40}
             },
             .origin = {0, 0}

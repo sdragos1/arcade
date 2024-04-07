@@ -29,7 +29,8 @@ const entity::IEntity &SnakeHeadKeyboard::getEntity() noexcept
     return _entity;
 }
 
-void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, shared::games::components::IKeyboardComponent::KeyData key)
+void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
+    shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     std::shared_ptr<SnakeHeadDisplayable> displayable = nullptr;
@@ -57,7 +58,7 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, shared::games::co
             return;
         displayable->_oldPosition = displayable->_position;
         _direction = LEFT;
-    } else if (key.code.arrow ==  shared::games::components::IKeyboardComponent::ArrowCode::RIGHT) {
+    } else if (key.code.arrow == shared::games::components::IKeyboardComponent::ArrowCode::RIGHT) {
         if (_direction == LEFT)
             return;
         displayable->_oldPosition = displayable->_position;
@@ -65,7 +66,8 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx, shared::games::co
     }
 }
 
-void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx, shared::games::components::IKeyboardComponent::KeyData key)
+void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
+    shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
     (void)key;

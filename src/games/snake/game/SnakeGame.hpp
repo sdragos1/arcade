@@ -21,7 +21,6 @@
 #include "../entities/apple/AppleEntity.hpp"
 #include "../entities/background/BackgroundEntity.hpp"
 #include "../entities/texts/score/ScoreTextEntity.hpp"
-#include "../entities/texts/highscore/HighScoreTextEntity.hpp"
 
 using namespace shared::games;
 
@@ -118,22 +117,66 @@ class SnakeGame : public IGame {
          */
         int increaseDifficulty(int score);
 
+        /**
+         * @brief Search for the direction of the snake
+         * @param it
+         * @return true
+         * @return false
+         */
         bool findDirection(auto it);
+
+        /**
+         * @brief Update the head position
+         * @param it
+         * @return Vector2f
+         */
         Vector2f updateHeadPosition(auto it);
+
+        /**
+         * @brief Update the head collidable position
+         * @param it
+         * @param pos
+         */
         void updateHeadCollidablePosition(auto it, Vector2f pos);
+
+        /**
+         * @brief Update the body collidable position
+         * @param it
+         * @param pos
+         */
         void updateBodyCollidablePosition(auto it, Vector2f pos);
+
+        /**
+         * @brief Update the tail collidable position
+         * @param it
+         * @param pos
+         */
         void updateTailCollidablePosition(auto it, Vector2f pos);
+
+        /**
+         * @brief Update the apple position
+         */
         void updateApplePosition();
+
+        /**
+         * @brief Check if the player has lost
+         * @return true
+         * @return false
+         */
         bool checkLose();
+
+        /**
+         * @brief Init the game
+         */
+        void gameInit();
 
     private:
         entity::EntitiesMap _entities;
         SnakeHeadKeyboard::Direction _direction;
         std::list<std::shared_ptr<entity::IEntity>> _snakeEntities;
-
+        DeltaTime _moveCd;
         int _moveSpeed;
         unsigned int _prevScore;
-        DeltaTime _moveCd;
 };
 
 /**
