@@ -31,8 +31,8 @@ class SolarFoxEnemy : public AEntity {
 
 static components::TextureProps SolarEnemyTextureProps = {
     .sources = {
-        .ascii = "assets/games/solarfox/enemies/bonbon_sheet.ascii",
-        .bin = "assets/games/solarfox/enemies/bonbon_sheet.png",
+        .ascii = "assets/solarfox/bonbon_sheet.ascii",
+        .bin = "assets/solarfox/bonbon_sheet.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},
