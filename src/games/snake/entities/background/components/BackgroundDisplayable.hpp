@@ -12,7 +12,6 @@
 
 class BackgroundDisplayable : public shared::games::components::ITextureComponent {
     public:
-
         /**
          * @brief Construct a new Background Displayable object
          * @param entity

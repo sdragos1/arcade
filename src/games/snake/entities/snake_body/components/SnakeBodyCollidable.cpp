@@ -7,11 +7,13 @@
 
 #include "SnakeBodyCollidable.hpp"
 
-SnakeBodyCollidable::SnakeBodyCollidable(const shared::games::entity::IEntity &entity, unsigned int id)
+SnakeBodyCollidable::SnakeBodyCollidable(const shared::games::entity::IEntity &entity,
+    unsigned int id)
     : _entity(entity), _position(0, 0), _size(0, 0), _id(id)
 {
-    for (auto &component : _entity.getComponents()) {
-        if (auto displayable = std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(component)) {
+    for (auto &comp : _entity.getComponents()) {
+        if (auto displayable =
+            std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(comp)) {
             _position = displayable->getPosition();
             _size = displayable->getSize();
             break;
@@ -53,7 +55,8 @@ void SnakeBodyCollidable::setPosition(Vector2f pos) noexcept
     _position = pos;
 }
 
-void SnakeBodyCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
+void SnakeBodyCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx,
+    std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
     (void)ctx;
     (void)target;

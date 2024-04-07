@@ -12,8 +12,9 @@
 SnakeTailCollidable::SnakeTailCollidable(const shared::games::entity::IEntity &entity)
     : _entity(entity), _position(0, 0), _size(0, 0)
 {
-    for (auto &component : _entity.getComponents()) {
-        if (auto displayable = std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(component)) {
+    for (auto &comp : _entity.getComponents()) {
+        if (auto displayable =
+            std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(comp)) {
             _position = displayable->getPosition();
             _size = displayable->getSize();
             break;
@@ -50,7 +51,8 @@ void SnakeTailCollidable::setPosition(Vector2f pos) noexcept
     _position = pos;
 }
 
-void SnakeTailCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
+void SnakeTailCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx,
+    std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
     (void)ctx;
     (void)target;

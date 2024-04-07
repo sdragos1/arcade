@@ -26,7 +26,6 @@ using namespace shared::games;
 
 class SnakeGame : public IGame {
     public:
-
         /**
          * @brief Construct a new Snake Game object
          */

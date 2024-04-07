@@ -13,7 +13,6 @@ using namespace shared::games;
 
 class SnakeHeadDisplayable : public components::ITextureComponent {
     public:
-
         /**
          * @brief Construct a new Snake Head Displayable object
          * @param entity

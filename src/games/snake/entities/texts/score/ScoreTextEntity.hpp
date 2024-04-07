@@ -12,7 +12,6 @@
 
 class ScoreTextEntity : public shared::games::entity::IEntity {
     public:
-
         /**
          * @brief Construct a new Score Text Entity object
          */

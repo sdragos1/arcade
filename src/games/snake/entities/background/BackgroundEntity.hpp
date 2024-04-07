@@ -27,7 +27,8 @@ class BackgroundEntity : public shared::games::entity::IEntity {
          * @brief Get the Components object
          * @return const components::ComponentsMap&
          */
-        const shared::games::components::ComponentsMap &getComponents(void) const noexcept override;
+        const shared::games::components::ComponentsMap &getComponents(
+            void) const noexcept override;
 
     private:
         shared::games::components::ComponentsMap _components;

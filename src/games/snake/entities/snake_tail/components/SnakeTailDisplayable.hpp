@@ -13,7 +13,6 @@ using namespace shared::games;
 
 class SnakeTailDisplayable : public components::ITextureComponent {
     public:
-
         /**
          * @brief Construct a new Snake Tail Displayable object
          * @param entity

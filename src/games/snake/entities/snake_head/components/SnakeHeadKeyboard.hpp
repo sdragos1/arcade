@@ -17,7 +17,6 @@ using namespace shared::games;
 
 class SnakeHeadKeyboard : public components::IKeyboardComponent {
     public:
-
         /**
          * @brief Enum for the direction of the snake
          */

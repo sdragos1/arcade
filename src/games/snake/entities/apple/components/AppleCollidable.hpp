@@ -49,7 +49,8 @@ class AppleCollidable : public shared::games::components::ICollidableComponent {
          * @param ctx Context of the game
          * @param target Target entity
          */
-        void onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target) override;
+        void onCollide(std::shared_ptr<shared::games::IGame> ctx,
+            std::shared_ptr<shared::games::components::ICollidableComponent> target) override;
 
         unsigned int _score;
     private:

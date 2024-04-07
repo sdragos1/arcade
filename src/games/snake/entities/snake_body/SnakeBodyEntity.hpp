@@ -15,7 +15,6 @@ using namespace shared::games;
 
 class SnakeBodyEntity : public entity::IEntity {
     public:
-
         /**
          * @brief Construct a new Snake Body Entity object
          * @param position

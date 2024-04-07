@@ -10,7 +10,8 @@
 ScoreTextEntity::ScoreTextEntity()
     : _components()
 {
-    std::shared_ptr<ScoreTextDisplayable> scoreText = std::make_shared<ScoreTextDisplayable>("Score: 0", *this);
+    std::shared_ptr<ScoreTextDisplayable> scoreText =
+        std::make_shared<ScoreTextDisplayable>("Score: 0", *this);
     _components.push_back(scoreText);
 }
 

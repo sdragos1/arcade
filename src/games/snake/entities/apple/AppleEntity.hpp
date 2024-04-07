@@ -14,7 +14,6 @@
 
 class AppleEntity : public shared::games::entity::IEntity {
     public:
-
         /**
          * @brief Construct a new Apple Entity object
          */
