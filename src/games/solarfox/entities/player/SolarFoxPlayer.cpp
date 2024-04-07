@@ -54,3 +54,14 @@ bool SolarFoxPlayer::isDestroyed() const
     }
     return false;
 }
+
+bool SolarFoxPlayer::isRestarting() const
+{
+    for (auto &component : _components) {
+        if (component->getType() == components::ComponentType::KEYBOARD) {
+            auto keyboard = std::dynamic_pointer_cast<SolarFoxPlayerKeyboard>(component);
+            return keyboard->restartsGame();
+        }
+    }
+    return false;
+}

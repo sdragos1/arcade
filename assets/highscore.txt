@@ -1,4 +1,4 @@
 axel|Pacman|25
 axel|Firefow|69
 szz|Snake|36
-edezdze|SolarFox|0
+dzedzedze|SolarFox|300

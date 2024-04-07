@@ -262,6 +262,8 @@ class Core
          */
         void _collisionsManager();
 
+        void _handleGameSwitch();
+
         // Sound Functions
 
         std::unique_ptr<GameList>                       _librariesGame;
@@ -271,6 +273,7 @@ class Core
         IGraphicsProvider *                             _currRenderer;
         std::unique_ptr<IWindow>                        _currWindow;
         std::size_t                                     _currLibIndex;
+        std::size_t                                     _currGameIndex;
         shared::games::entity::EntitiesMap              _gameEntities;
         bool                                            _launchGame;
         std::string                                     _playerName;

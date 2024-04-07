@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _gameEntities()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _currGameIndex(0), _gameEntities()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -31,6 +31,17 @@ Core::Core(std::string defaultLib)
 Core::~Core()
 {
     std::cout << "Destructor in Core" << std::endl;
+}
+
+void Core::_handleGameSwitch()
+{
+    if (_currGameIndex != _librariesGame->getIndex()) {
+        _currGameIndex = _librariesGame->getIndex();
+        _currGame = _librariesGame->getCurrentGame();
+        _currWindow->close();
+        _currWindow.release();
+        _initGraphicLib();
+    }
 }
 
 void Core::_initGraphicLib()
@@ -256,6 +267,12 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
         case 'q':
             _librariesRenderer->decrementIndex();
             return 0;
+        case 'z':
+            _librariesGame->incrementIndex();
+            return 0;
+        case 's':
+            _librariesGame->decrementIndex();
+            return 0;
         case 'e':
             _currWindow->close();
             _currWindow.release();
@@ -286,6 +303,7 @@ std::size_t Core::runArcade()
     _currGame = _librariesGame->getCurrentGame();
     _initGraphicLib();
     while (_currWindow->isOpen()) {
+        _handleGameSwitch();
         _handleGraphicSwitch();
         auto currentTime = std::chrono::high_resolution_clock::now();
         auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime -

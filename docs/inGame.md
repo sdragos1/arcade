@@ -23,4 +23,10 @@ To change graphics libraries and use the next one, simply press the **d** key.
 
 To change the graphic libraries and use the previous one, simply press the **q** key.
 
+To change games to use the next one, simply press the **z** key.
+
+To change games to use the previous one, simply press the **s** key.
+
+To restart a game press the **r** key.
+
 ------------

@@ -85,6 +85,9 @@ SolarFoxGame::~SolarFoxGame()
 
 void SolarFoxGame::compute(DeltaTime dt)
 {
+    if (_player->isRestarting() == true) {
+        _gameRestart(true);
+    }
     if (dt == DeltaTime::zero()) {
         _playerMoveTime += DeltaTime(1);
         _projectileMoveTime += DeltaTime(1);
@@ -438,5 +441,5 @@ const unsigned int SolarFoxGame::getFps() const noexcept
 
 const int SolarFoxGame::getScore() const noexcept
 {
-    return 0;
+    return _score->getScore();
 }

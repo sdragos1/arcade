@@ -10,9 +10,10 @@
 
 SnakeHeadKeyboard::SnakeHeadKeyboard(const entity::IEntity &entity)
     :
-    _entity(entity)
+    _entity(entity),
+    _direction(RIGHT),
+    _restartsGame(false)
 {
-    _direction = RIGHT;
 }
 
 SnakeHeadKeyboard::~SnakeHeadKeyboard()
@@ -40,6 +41,10 @@ void SnakeHeadKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
             displayable = std::dynamic_pointer_cast<SnakeHeadDisplayable>(component);
             break;
         }
+    }
+    if (key.code.character == 'r') {
+        _restartsGame = true;
+        std::cout << "dze" << std::endl;
     }
     if (key.type != shared::games::components::IKeyboardComponent::KeyType::ARROW)
         return;
@@ -70,5 +75,12 @@ void SnakeHeadKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
     shared::games::components::IKeyboardComponent::KeyData key)
 {
     (void)ctx;
-    (void)key;
+    if (key.code.character == 'r') {
+        _restartsGame = false;
+    }
+}
+
+bool SnakeHeadKeyboard::restartsGame() const
+{
+    return _restartsGame;
 }

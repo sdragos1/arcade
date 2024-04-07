@@ -12,14 +12,13 @@ ScoreTextDisplayable::ScoreTextDisplayable(const std::string &content,
     : _text(content),
     _props(
         {
-            content,
-            shared::games::components::ITextComponent::CENTER,
-            shared::games::components::ITextComponent::TOP,
-            {
-                "assets/snake/upheavtt.ttf",
-                30
-            },
-            shared::types::Color(0, 0, 0, 0)
+            ITextComponent::TextProps{
+                std::string(content),
+                ITextComponent::TextAlign::CENTER,
+                ITextComponent::TextVerticalAlign::TOP,
+                ITextComponent::TextFontProps{"assets/fonts/Crang.ttf", 20},
+                shared::types::Color{255, 255, 255, 255}
+            }
         }),
     _size(30, 30),
     _zIndex(2),
@@ -72,4 +71,9 @@ const shared::games::components::ComponentType ScoreTextDisplayable::getType() c
 const shared::games::entity::IEntity &ScoreTextDisplayable::getEntity() noexcept
 {
     return _entity;
+}
+
+void ScoreTextDisplayable::setScore(int score) noexcept
+{
+    _props.content = "Score: " + std::to_string(score);
 }

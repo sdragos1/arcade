@@ -30,3 +30,14 @@ const components::ComponentsMap &SnakeHeadEntity::getComponents(void) const noex
 {
     return _components;
 }
+
+bool SnakeHeadEntity::restartsGame() const
+{
+    for (auto &component : _components) {
+        if (component->getType() == components::ComponentType::KEYBOARD) {
+            auto keyboard = std::dynamic_pointer_cast<SnakeHeadKeyboard>(component);
+            return keyboard->restartsGame();
+        }
+    }
+    return false;
+}

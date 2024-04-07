@@ -11,6 +11,7 @@ SolarFoxPlayerKeyboard::SolarFoxPlayerKeyboard(entity::IEntity &entity)
     : AKeyboardComponent(entity), _lastDirection(components::IKeyboardComponent::ArrowCode::UP)
     , _boost(false)
     , _shooting(false)
+    , _restartGame(false)
 {
 }
 
@@ -55,6 +56,9 @@ void SolarFoxPlayerKeyboard::onKeyPress(std::shared_ptr<IGame> ctx,
     if (keyData.code.character == SOLARFOX_SHOOT_KEY) {
         _shooting = true;
     }
+    if (keyData.code.character == 'r') {
+        _restartGame = true;
+    }
 }
 
 void SolarFoxPlayerKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
@@ -66,6 +70,9 @@ void SolarFoxPlayerKeyboard::onKeyRelease(std::shared_ptr<IGame> ctx,
     }
     if (keyData.code.character == SOLARFOX_SHOOT_KEY) {
         _shooting = false;
+    }
+    if (keyData.code.character == 'r') {
+        _restartGame = false;
     }
 }
 
@@ -82,4 +89,9 @@ bool SolarFoxPlayerKeyboard::isBoost() const
 bool SolarFoxPlayerKeyboard::isShooting() const
 {
     return _shooting;
+}
+
+bool SolarFoxPlayerKeyboard::restartsGame() const
+{
+    return _restartGame;
 }
