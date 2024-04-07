@@ -52,8 +52,12 @@ void SnakeGame::gameInit()
 
 void SnakeGame::compute(DeltaTime dt)
 {
-    _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds
-        (static_cast<int>(std::abs(dt.count()))));
+    if (dt == DeltaTime::zero()) {
+        _moveCd += DeltaTime(1);
+    } else {
+        _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds
+            (static_cast<int>(std::abs(dt.count()))));
+    }
 
     if (_moveSpeed > 0) {
         if (_moveCd.count() >= _moveSpeed) {
