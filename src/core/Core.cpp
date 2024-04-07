@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _currGameIndex(0), _gameEntities()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _currGameIndex(0), _gameEntities(), _textureMap()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -104,9 +104,14 @@ void Core::_displayText(std::shared_ptr<components::ITextComponent> displayable)
 
 void Core::_displayTexture(std::shared_ptr<components::ITextureComponent> displayable)
 {
+    std::cout << "Displaying texture" << std::endl;
+    if (_textureMap[displayable->getTextureProps().sources.ascii + displayable->getTextureProps().sources.bin] == nullptr) {
+        _textureMap[displayable->getTextureProps().sources.ascii + displayable->getTextureProps().sources.bin] =
+            _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
+                displayable->getTextureProps().sources.ascii);
+    }
     TextureProps entityProps{
-        .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
-            displayable->getTextureProps().sources.ascii),
+        .texture = _textureMap[displayable->getTextureProps().sources.ascii + displayable->getTextureProps().sources.bin],
         .binTileSize = displayable->getTextureProps().sources.binTileSize,
         .origin = displayable->getTextureProps().origin,
         .size = displayable->getSize(),

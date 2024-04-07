@@ -268,7 +268,6 @@ class Core
 
         std::unique_ptr<GameList>                       _librariesGame;
         std::unique_ptr<GraphicList>                    _librariesRenderer;
-        std::map<void *, std::shared_ptr<ITexture>>     _textures;
         std::shared_ptr<IGame>                          _currGame;
         IGraphicsProvider *                             _currRenderer;
         std::unique_ptr<IWindow>                        _currWindow;
@@ -277,6 +276,8 @@ class Core
         shared::games::entity::EntitiesMap              _gameEntities;
         bool                                            _launchGame;
         std::string                                     _playerName;
+
+        std::map <std::string, std::shared_ptr<shared::graphics::ITexture>> _textureMap;
 };
 
 typedef std::unique_ptr<Core> UniqueCore;
