@@ -185,6 +185,13 @@ Vector2f SnakeGame::updateBodyPositions(auto it)
     return tailNewPosition;
 }
 
+void SnakeGame::updateTailCollidablePosition(auto it, Vector2f pos)
+{
+    if (auto tail = std::dynamic_pointer_cast<SnakeTailCollidable>(*it)) {
+        tail->setPosition(pos);
+    }
+}
+
 void SnakeGame::updateTailPosition(Vector2f tailNewPosition)
 {
     for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
@@ -194,6 +201,9 @@ void SnakeGame::updateTailPosition(Vector2f tailNewPosition)
                 if (auto tail = std::dynamic_pointer_cast<SnakeTailDisplayable>(*it)) {
                     tail.get()->setPosition(tailNewPosition);
                 }
+            }
+            if (it->get()->getType() == components::ComponentType::COLLIDABLE) {
+                updateTailCollidablePosition(it, tailNewPosition);
             }
         }
     }

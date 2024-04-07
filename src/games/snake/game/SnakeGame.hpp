@@ -122,6 +122,7 @@ class SnakeGame : public IGame {
         Vector2f updateHeadPosition(auto it);
         void updateHeadCollidablePosition(auto it, Vector2f pos);
         void updateBodyCollidablePosition(auto it, Vector2f pos);
+        void updateTailCollidablePosition(auto it, Vector2f pos);
         void updateApplePosition();
         bool checkLose();
 

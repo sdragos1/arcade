@@ -61,4 +61,7 @@ void SnakeHeadCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, s
             _lose = true;
         }
     }
+    if (auto snakeTail = std::dynamic_pointer_cast<SnakeTailCollidable>(target)) {
+        _lose = true;
+    }
 }

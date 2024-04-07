@@ -12,6 +12,7 @@
 #include "games/components/ICollidableComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
 #include "../../snake_body/components/SnakeBodyCollidable.hpp"
+#include "../../snake_tail/components/SnakeTailCollidable.hpp"
 
 class SnakeHeadCollidable : public shared::games::components::ICollidableComponent {
     public:
