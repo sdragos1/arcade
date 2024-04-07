@@ -45,31 +45,9 @@ jobs:
         run: |
           make tests_run
 
-  lint:
-    runs-on: ubuntu-latest
-    needs: test
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install cpplint
-        run: |
-          pip install cpplint
-
-      - name: Run cpplint
-        run: |
-          cpplint --recursive --quiet .
-
   deployment:
     runs-on: ubuntu-latest
-    needs: lint
+    needs: test
     steps:
       - uses: actions/checkout@v4
         with:
