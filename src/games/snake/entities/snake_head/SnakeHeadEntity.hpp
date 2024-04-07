@@ -7,22 +7,18 @@
 
 #pragma once
 
-<<<<<<<< HEAD:src/games/abstracts/entity/AEntity.hpp
-========
+
+#include "components/SnakeHeadCollidable.hpp"
 #include "components/SnakeHeadDisplayable.hpp"
 #include "components/SnakeHeadKeyboard.hpp"
-#include "components/SnakeHeadCollidable.hpp"
->>>>>>>> main:src/games/snake/entities/snake_head/SnakeHeadEntity.hpp
 #include "games/IEntity.hpp"
 
 using namespace shared::games;
 
 class AEntity : public entity::IEntity {
     public:
-<<<<<<<< HEAD:src/games/abstracts/entity/AEntity.hpp
         AEntity();
         ~AEntity();
-========
         /**
          * @brief Construct a new Snake Head Entity object
          */
@@ -32,18 +28,22 @@ class AEntity : public entity::IEntity {
          * @brief Destroy a new Snake Head Entity object
          */
         ~SnakeHeadEntity();
->>>>>>>> main:src/games/snake/entities/snake_head/SnakeHeadEntity.hpp
 
         /**
          * @brief Get the Components object
          * @return const components::ComponentsMap&
          */
         const components::ComponentsMap &getComponents(void) const noexcept override;
-<<<<<<<< HEAD:src/games/abstracts/entity/AEntity.hpp
     protected:
-========
 
     private:
->>>>>>>> main:src/games/snake/entities/snake_head/SnakeHeadEntity.hpp
-        components::ComponentsMap _components;
+
+class SnakeHeadEntity : public entity::IEntity {
+    public:
+        SnakeHeadEntity();
+        ~SnakeHeadEntity();
+
+        const components::ComponentsMap &getComponents(void) const noexcept override;
+
+    private:
 };
