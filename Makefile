@@ -18,7 +18,6 @@ clean:
 fclean:	clean
 	rm -f $(NAME)
 	rm -rf ./lib
-	rm -rf common/
 
 re:	fclean all
 
