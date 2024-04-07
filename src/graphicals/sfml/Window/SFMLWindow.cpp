@@ -8,8 +8,7 @@
 #include "SFMLWindow.hpp"
 
 SFMLWindow::SFMLWindow(const shared::graphics::IWindow::WindowInitProps &windowProps) :
-_sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x * _sfmlbasicTiles.x,
-    windowProps.size.y * _sfmlbasicTiles.y)
+_sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x * 40, windowProps.size.y * 40)
 {
     _title = windowProps.title;
     _fps = windowProps.fps;
@@ -17,10 +16,10 @@ _sfmlbasicTiles(40, 40), _sfmlbasicwindow(windowProps.size.x * _sfmlbasicTiles.x
     _mode = windowProps.mode;
 
     if (windowProps.mode == shared::graphics::IWindow::FULLSCREEN) {
-        _window.create(sf::VideoMode(_sfmlbasicwindow.x, _sfmlbasicwindow.y),
+        _window.create(sf::VideoMode(windowProps.size.x * 40, windowProps.size.y * 40),
         windowProps.title, sf::Style::Fullscreen);
     } else {
-        _window.create(sf::VideoMode(_sfmlbasicwindow.x, _sfmlbasicwindow.y),
+        _window.create(sf::VideoMode(windowProps.size.x * 40, windowProps.size.y * 40),
         windowProps.title, sf::Style::Default);
     }
     _window.setFramerateLimit(windowProps.fps);
@@ -94,7 +93,8 @@ void SFMLWindow::setIcon(const std::string &icon)
 {
     sf::Image iconImage;
     if (iconImage.loadFromFile(icon))
-        _window.setIcon(iconImage.getSize().x, iconImage.getSize().y, iconImage.getPixelsPtr());
+        _window.setIcon(iconImage.getSize().x, iconImage.getSize().y,
+        iconImage.getPixelsPtr());
     _icon = icon;
 }
 
@@ -106,20 +106,16 @@ void SFMLWindow::render(const shared::graphics::TextureProps &props)
         sf::Texture entityTexture = sfmlTexture->getTexture();
         sf::Sprite sprite(entityTexture);
 
-        sprite.setOrigin(0, 0);
-
         sf::IntRect rect
          (props.origin.x * props.binTileSize.x, props.origin.y * props.binTileSize.y,
-         props.size.x * props.binTileSize.x, props.size.y * props.binTileSize.y);
+         props.size.x * props.binTileSize.x, props.size.y * props.b inTileSize.y);
         sprite.setTextureRect(rect);
+
+        sprite.setOrigin(0, 0);
 
         sprite.setPosition(
         props.position.x * _sfmlbasicTiles.x,
         props.position.y * _sfmlbasicTiles.y);
-
-        sprite.setScale(
-            props.size.x * _sfmlbasicTiles.x / props.binTileSize.x,
-            props.size.y * _sfmlbasicTiles.y / props.binTileSize.y);
 
         _window.draw(sprite);
     }
@@ -282,14 +278,14 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2f) {(event.mouseButton.x / sizeTiles.x),
-                    (event.mouseButton.y / sizeTiles.y)}));
+                    (Vector2f) {(event.mouseButton.x / static_cast<float>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
-                    (event.mouseButton.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / static_cast<float>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseButtonReleased:
@@ -297,20 +293,20 @@ std::vector<shared::graphics::events::EventPtr> SFMLWindow::getEvents(void)
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
-                    (event.mouseButton.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / static_cast<float>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.mouseButton.button == sf::Mouse::Left) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
-                    (event.mouseButton.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.mouseButton.x / static_cast<float>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case sf::Event::MouseMoved:
                 eventsList.push_back(std::make_shared<shared::graphics::events::MouseMoveEvent>
-                    ((Vector2f) {(event.mouseButton.x / (sizeTiles.x)),
-                    (event.mouseButton.y / (sizeTiles.y))}));
+                    ((Vector2f) {(event.mouseButton.x / static_cast<float>(sizeTiles.x)),
+                    (event.mouseButton.y / static_cast<float>(sizeTiles.y))}));
                 break;
             case sf::Event::KeyPressed:
                 KeyFindType = mapSFMLKeyToKeyType(event.key.code);

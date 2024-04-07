@@ -188,8 +188,12 @@ void SDL2Window::render(const shared::graphics::TextProps &props)
         vertical = (windowHeight) - (textHeight);
     }
 
-    SDL_Rect dstRect = {horizontal + static_cast<int>(props.position.x),
-    vertical + static_cast<int>(props.position.y), textWidth, textHeight};
+    SDL_Rect dstRect = {
+        horizontal + static_cast<int>(props.position.x * static_cast<float>(_sdl2basicTiles.x)),
+        vertical + static_cast<int>(props.position.y * static_cast<float>(_sdl2basicTiles.y)),
+        textWidth,
+        textHeight
+    };
     if (SDL_RenderCopy(_renderer, sdl2Font->getTexture(), nullptr, &dstRect) < 0) {
         std::cout << SDL_GetError() << std::endl;
     }
@@ -321,14 +325,14 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2f) {(event.button.x / (sizeTiles.x)),
-                    (event.button.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.button.button == SDL_BUTTON_LEFT) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonPressEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2f) {(event.button.x / (sizeTiles.x)),
-                    (event.button.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case SDL_MOUSEBUTTONUP:
@@ -336,20 +340,20 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::RIGHT,
-                    (Vector2f) {(event.button.x / (sizeTiles.x)),
-                    (event.button.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 } else if (event.button.button == SDL_BUTTON_LEFT) {
                     eventsList.push_back
                     (std::make_shared<shared::graphics::events::MouseButtonReleaseEvent>
                     (shared::graphics::events::IMouseButtonEvent::LEFT,
-                    (Vector2f) {(event.button.x / (sizeTiles.x)),
-                    (event.button.y / (sizeTiles.y))}));
+                    (Vector2f) {(event.button.x / static_cast<float>(sizeTiles.x)),
+                    (event.button.y / static_cast<float>(sizeTiles.y))}));
                 }
                 break;
             case SDL_MOUSEMOTION:
                 eventsList.push_back(std::make_shared<shared::graphics::events::MouseMoveEvent>
-                    ((Vector2f) {(event.motion.x / (sizeTiles.x)),
-                    (event.motion.y / (sizeTiles.y))}));
+                    ((Vector2f) {(event.motion.x / static_cast<float>(sizeTiles.x)),
+                    (event.motion.y / static_cast<float>(sizeTiles.y))}));
                 break;
             case SDL_KEYDOWN:
                 keycode = event.key.keysym.sym;
@@ -373,4 +377,3 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
     }
     return eventsList;
 }
-

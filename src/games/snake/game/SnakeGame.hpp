@@ -13,6 +13,7 @@
 #include <sstream>
 #include <string>
 #include <list>
+#include <algorithm>
 #include <memory>
 #include "games/IGame.hpp"
 #include "../entities/snake_head/SnakeHeadEntity.hpp"
