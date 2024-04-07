@@ -25,7 +25,8 @@ SolarFoxGame::SolarFoxGame()
     _playerShootTime(std::chrono::milliseconds(0)),
     _projectileMoveTime(std::chrono::milliseconds(0)),
     _playerProjectileShootTime(std::chrono::milliseconds(0)),
-    _enemyMoveTime(std::chrono::milliseconds(0))
+    _enemyMoveTime(std::chrono::milliseconds(0)),
+    _enemyShootStageTime(std::chrono::milliseconds(0))
 {
     _score = std::make_shared<SolarFoxScore>();
     _gameInit();
@@ -57,7 +58,6 @@ void SolarFoxGame::_initPowerups()
         _entities.push_back(powerup);
         _powerups.push_back(powerup);
     }
-    std::cout << _powerups.size() << std::endl;
 }
 
 void SolarFoxGame::_initEnemies()
@@ -85,7 +85,16 @@ SolarFoxGame::~SolarFoxGame()
 
 void SolarFoxGame::compute(DeltaTime dt)
 {
-    _updateTimes(dt);
+    if (dt == DeltaTime::zero()) {
+        _playerMoveTime += DeltaTime(1);
+        _projectileMoveTime += DeltaTime(1);
+        _playerProjectileShootTime += DeltaTime(1);
+        _enemyMoveTime += DeltaTime(1);
+        _enemyShootStageTime += DeltaTime(1);
+        _playerShootTime += DeltaTime(1);
+    } else {
+        _updateTimes(dt);
+    }
     _computePlayer();
     _computePowerups();
     _computeEnemies();
@@ -94,12 +103,12 @@ void SolarFoxGame::compute(DeltaTime dt)
 
 void SolarFoxGame::_updateTimes(DeltaTime dt)
 {
-    _playerMoveTime -= dt;
-    _projectileMoveTime -= dt;
-    _playerProjectileShootTime -= dt;
-    _enemyMoveTime -= dt;
-    _enemyShootStageTime -= dt;
-    _playerShootTime -= dt;
+    _playerMoveTime += dt;
+    _projectileMoveTime += dt;
+    _playerProjectileShootTime += dt;
+    _enemyMoveTime += dt;
+    _enemyShootStageTime += dt;
+    _playerShootTime += dt;
 }
 
 void SolarFoxGame::_computePlayer()

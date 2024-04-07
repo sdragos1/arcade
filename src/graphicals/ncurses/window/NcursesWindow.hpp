@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <iostream>
+#include <unistd.h>
 #include <ncurses.h>
 #include "../NcursesFont.hpp"
 #include "../NcursesTexture.hpp"

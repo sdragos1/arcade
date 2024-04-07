@@ -23,6 +23,6 @@ int main(int argc, char **argv)
         arcadeCore->runArcade();
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
-        return 84;
+        // return 84;
     }
 }

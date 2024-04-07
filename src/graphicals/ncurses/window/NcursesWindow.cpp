@@ -99,10 +99,10 @@ void NcursesWindow::render(const TextProps &props)
         case TextAlign::LEFT:
             break;
         case TextAlign::CENTER:
-            start_x = (_ncursesbasicwindow.x - props.content.length()) / 2;
+            start_x = (_ncursesbasicwindow.x - props.content.length()) / 2 + 30;
             break;
         case TextAlign::RIGHT:
-            start_x = _ncursesbasicwindow.x - props.content.length() + 1;
+            start_x = _ncursesbasicwindow.x - props.content.length() + 1 + 30;
             break;
     }
     switch (props.verticalAlign) {
@@ -127,6 +127,7 @@ void NcursesWindow::clear()
 
 void NcursesWindow::display()
 {
+    usleep(100000 / 60);
     renderTitle();
 }
 
@@ -266,8 +267,10 @@ void NcursesWindow::renderTitle() const
             mvwhline(_window, index, 0, ACS_VLINE, 1);
         }
         for (int index = 0; index < _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y; index++) {
-            mvwhline(_window, index, _ncursesbasicwindow.x +  NCURSES_ORIGIN_OFFSET_X, ACS_VLINE, 1);
+            mvwhline(_window, index, _ncursesbasicwindow.x +
+                NCURSES_ORIGIN_OFFSET_X, ACS_VLINE, 1);
         }
-        mvwhline(_window, _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y , 0, ACS_HLINE, _ncursesbasicwindow.x + 2);
+        mvwhline(_window, _ncursesbasicwindow.y + NCURSES_ORIGIN_OFFSET_Y ,
+            0, ACS_HLINE, _ncursesbasicwindow.x + 2);
         wattroff(_window, A_ALTCHARSET);
 }

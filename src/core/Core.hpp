@@ -10,6 +10,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <cmath>
 #include <map>
 #include <iostream>
 #include <dirent.h>
@@ -96,8 +97,6 @@ class Core
         void _displayManager();
 
         void _handleCollisions();
-
-        // Sound Functions
 
         std::unique_ptr<GameList>       _librariesGame;
         std::unique_ptr<GraphicList>    _librariesRenderer;

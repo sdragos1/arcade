@@ -274,9 +274,13 @@ void Core::runArcade()
     while (_currWindow->isOpen()) {
         _handleGraphicSwitch();
         auto currentTime = std::chrono::high_resolution_clock::now();
-        auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(prevTime -
-            currentTime);
-        _currGame->compute(deltaTime);
+        auto deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime -
+            prevTime);
+        if (_currRenderer->getManifest().name == "NCURSES") {
+            _currGame->compute(DeltaTime::zero());
+        } else {
+            _currGame->compute(deltaTime);
+        }
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
         _handleEvents();

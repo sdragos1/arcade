@@ -43,7 +43,7 @@ class SolarFoxProjectile : public AEntity {
 
 static components::TextureProps SolarFoxEnemyProjectileTextureProps = {
     .sources = {
-        .ascii = "assets/solarfox/projectile.txt",
+        .ascii = "assets/games/solarfox/projectiles/enemy_projectile.ascii",
         .bin = "assets/games/solarfox/projectiles/enemy_projectile.png",
         .binTileSize = {16, 16},
     },
