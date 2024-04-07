@@ -85,6 +85,9 @@ SolarFoxGame::~SolarFoxGame()
 
 void SolarFoxGame::compute(DeltaTime dt)
 {
+    if (_player->isRestarting() == true) {
+        _gameRestart(true);
+    }
     if (dt == DeltaTime::zero()) {
         _playerMoveTime += DeltaTime(1);
         _projectileMoveTime += DeltaTime(1);

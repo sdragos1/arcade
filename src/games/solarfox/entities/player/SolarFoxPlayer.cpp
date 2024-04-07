@@ -51,6 +51,13 @@ bool SolarFoxPlayer::isDestroyed() const
             auto collidable = std::dynamic_pointer_cast<SolarFoxPlayerCollidable>(component);
             return collidable->isDestroyed();
         }
+    }
+    return false;
+}
+
+bool SolarFoxPlayer::isRestarting() const
+{
+    for (auto &component : _components) {
         if (component->getType() == components::ComponentType::KEYBOARD) {
             auto keyboard = std::dynamic_pointer_cast<SolarFoxPlayerKeyboard>(component);
             return keyboard->restartsGame();

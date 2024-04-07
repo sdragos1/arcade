@@ -19,6 +19,7 @@ class SolarFoxPlayer : public AEntity {
 
         bool isShooting() const;
         bool isDestroyed() const;
+        bool isRestarting() const;
 };
 
 static components::TextureProps SolarPlayerTextureProps = {
