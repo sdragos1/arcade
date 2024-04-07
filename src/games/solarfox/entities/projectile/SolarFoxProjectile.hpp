@@ -43,8 +43,8 @@ class SolarFoxProjectile : public AEntity {
 
 static components::TextureProps SolarFoxEnemyProjectileTextureProps = {
     .sources = {
-        .ascii = "assets/games/solarfox/projectiles/enemy_projectile.ascii",
-        .bin = "assets/games/solarfox/projectiles/enemy_projectile.png",
+        .ascii = "assets/solarfox/enemy_projectile.ascii",
+        .bin = "assets/solarfox/enemy_projectile.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},
@@ -52,8 +52,8 @@ static components::TextureProps SolarFoxEnemyProjectileTextureProps = {
 
 static components::TextureProps SolarFoxPlayerProjectileTextureProps = {
     .sources = {
-        .ascii = "assets/games/solarfox/projectiles/player_beam_sheet.ascii",
-        .bin = "assets/games/solarfox/projectiles/player_beam_sheet.png",
+        .ascii = "assets/solarfox/player_beam_sheet.ascii",
+        .bin = "assets/solarfox/player_beam_sheet.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},

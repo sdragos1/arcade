@@ -14,8 +14,8 @@ SolarFoxEnemy::SolarFoxEnemy(shared::types::Vector2f position, shared::types::Ve
     _textureProps(
         components::TextureProps{
             .sources = {
-                .ascii = "assets/games/solarfox/enemies/bonbon_sheet.ascii",
-                .bin = "assets/games/solarfox/enemies/bonbon_sheet.png",
+                .ascii = "assets/solarfox/bonbon_sheet.ascii",
+                .bin = "assets/solarfox/bonbon_sheet.png",
                 .binTileSize = {16, 16},
             },
             .origin = origin,

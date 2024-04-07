@@ -25,8 +25,8 @@ class SolarFoxPowerup : public AEntity {
 
 static components::TextureProps SolarFoxPowerupTextureProps = {
     .sources = {
-        .ascii = "assets/games/solarfox/powerup/powerup_sheet.ascii",
-        .bin = "assets/games/solarfox/powerup/powerup_sheet.png",
+        .ascii = "assets/solarfox/powerup_sheet.ascii",
+        .bin = "assets/solarfox/powerup_sheet.png",
         .binTileSize = {16, 16},
     },
     .origin = {0, 0},
@@ -34,8 +34,8 @@ static components::TextureProps SolarFoxPowerupTextureProps = {
 
 static components::TextureProps SolarFoxPowerupBadTextureProps = {
     .sources = {
-        .ascii = "assets/games/solarfox/powerup/powerup_sheet.ascii",
-        .bin = "assets/games/solarfox/powerup/powerup_sheet.png",
+        .ascii = "assets/solarfox/powerup_sheet.ascii",
+        .bin = "assets/solarfox/powerup_sheet.png",
         .binTileSize = {16, 16},
     },
     .origin = {1, 0},
