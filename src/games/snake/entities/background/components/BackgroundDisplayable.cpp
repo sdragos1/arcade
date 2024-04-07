@@ -12,7 +12,7 @@ BackgroundDisplayable::BackgroundDisplayable(const shared::games::entity::IEntit
     _entity(entity),
     _position({0, 0}),
     _size({32, 18}),
-    _zIndex(10),
+    _zIndex(0),
     _textureProps(
         {
             .sources = {

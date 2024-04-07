@@ -10,7 +10,7 @@
 
 Core::Core(std::string defaultLib)
     : _librariesGame(nullptr), _librariesRenderer(nullptr), _currGame(nullptr),
-    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _currGameIndex(0), _gameEntities()
+    _currRenderer(nullptr), _currWindow(nullptr), _currLibIndex(0), _currGameIndex(0), _gameEntities(), _textureMap()
 {
     try {
         std::vector<std::string>  librariesPath;
@@ -53,6 +53,7 @@ void Core::_initGraphicLib()
         .fps = _currGame->getFps(),
         .title = _currGame->getManifest().name,
         .icon = _currGame->getManifest().iconPath});
+    _textureMap.clear();
 }
 
 void Core::_handleGraphicSwitch()
@@ -104,9 +105,17 @@ void Core::_displayText(std::shared_ptr<components::ITextComponent> displayable)
 
 void Core::_displayTexture(std::shared_ptr<components::ITextureComponent> displayable)
 {
+    std::string textureKey = displayable->getTextureProps().sources.ascii + displayable->getTextureProps().sources.bin;
+
+    auto cachedTextureIter = _textureMap.find(textureKey);
+    if (cachedTextureIter == _textureMap.end()) {
+        std::shared_ptr<shared::graphics::ITexture> newTexture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
+                                                              displayable->getTextureProps().sources.ascii);
+        _textureMap[textureKey] = newTexture;
+    }
+    auto cachedTexture = _textureMap[textureKey];
     TextureProps entityProps{
-        .texture = _currRenderer->createTexture(displayable->getTextureProps().sources.bin,
-            displayable->getTextureProps().sources.ascii),
+        .texture = cachedTexture,
         .binTileSize = displayable->getTextureProps().sources.binTileSize,
         .origin = displayable->getTextureProps().origin,
         .size = displayable->getSize(),
