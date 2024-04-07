@@ -121,8 +121,9 @@ class SnakeGame : public IGame {
         bool findDirection(auto it);
         Vector2f updateHeadPosition(auto it);
         void updateHeadCollidablePosition(auto it, Vector2f pos);
-
+        void updateBodyCollidablePosition(auto it, Vector2f pos);
         void updateApplePosition();
+        bool checkLose();
 
     private:
         entity::EntitiesMap _entities;

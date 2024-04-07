@@ -7,6 +7,7 @@
 
 #include "SnakeGame.hpp"
 
+static unsigned int snakeBodyIdCounter = 3;
 static float maxTop = -1;
 static float maxBot = 18;
 static float maxLeft = -1;
@@ -21,8 +22,8 @@ SnakeGame::SnakeGame()
     std::shared_ptr<HighScoreTextEntity> highScore = std::make_shared<HighScoreTextEntity>();
     std::shared_ptr<BackgroundEntity> background = std::make_shared<BackgroundEntity>();
     std::shared_ptr<SnakeHeadEntity> head = std::make_shared<SnakeHeadEntity>();
-    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2f(16, 9));
-    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2f(15, 9));
+    std::shared_ptr<SnakeBodyEntity> body = std::make_shared<SnakeBodyEntity>(Vector2f(16, 9), 1);
+    std::shared_ptr<SnakeBodyEntity> body2 = std::make_shared<SnakeBodyEntity>(Vector2f(15, 9), 2);
     std::shared_ptr<SnakeTailEntity> tail = std::make_shared<SnakeTailEntity>();
     std::shared_ptr<AppleEntity> apple = std::make_shared<AppleEntity>();
     std::shared_ptr<ScoreTextEntity> score = std::make_shared<ScoreTextEntity>();
@@ -48,10 +49,12 @@ void SnakeGame::compute(DeltaTime dt)
 {
     _moveCd += std::chrono::duration_cast<DeltaTime>(std::chrono::milliseconds(static_cast<int>(std::abs(dt.count()))));
 
-    if (_moveCd.count() >= _moveSpeed) {
-        moveSnake();
-        updatePosition();
-        _moveCd = std::chrono::milliseconds(0);
+    if (_moveSpeed > 0) {
+        if (_moveCd.count() >= _moveSpeed) {
+            moveSnake();
+            updatePosition();
+            _moveCd = std::chrono::milliseconds(0);
+        }
     }
     if (getScore() == (_prevScore + 1)) {
         increaseSnakeSize();
@@ -59,6 +62,9 @@ void SnakeGame::compute(DeltaTime dt)
         updateApplePosition();
     }
     _moveSpeed = increaseDifficulty(getScore());
+    if (checkLose() == true) {
+        _moveSpeed = 0;
+    }
 }
 
 const GameManifest &SnakeGame::getManifest() const noexcept
@@ -83,7 +89,6 @@ const unsigned int SnakeGame::getFps(void) const noexcept
 
 const int SnakeGame::getScore() const noexcept
 {
-    //get the score from the apple entity appleCollidable component
     for (auto it = _entities.begin(); it != _entities.end(); ++it) {
         for (auto compIt = it->get()->getComponents().begin(); compIt != it->get()->getComponents().end(); ++compIt) {
             if (compIt->get()->getType() == components::ComponentType::COLLIDABLE) {
@@ -94,6 +99,20 @@ const int SnakeGame::getScore() const noexcept
         }
     }
     return 0;
+}
+
+bool SnakeGame::checkLose(void)
+{
+    for (auto it = _snakeEntities.begin(); it != _snakeEntities.end(); ++it) {
+        for (auto compIt = it->get()->getComponents().begin(); compIt != it->get()->getComponents().end(); ++compIt) {
+            if (compIt->get()->getType() == components::ComponentType::COLLIDABLE) {
+                if (auto head = std::dynamic_pointer_cast<SnakeHeadCollidable>(*compIt)) {
+                    return head->getLose();
+                }
+            }
+        }
+    }
+    return false;
 }
 
 void SnakeGame::updateApplePosition()
@@ -132,6 +151,13 @@ bool SnakeGame::hasHeadMoved(auto it)
     return false;
 }
 
+void SnakeGame::updateBodyCollidablePosition(auto it, Vector2f previousPosition)
+{
+    if (auto body = std::dynamic_pointer_cast<SnakeBodyCollidable>(*it)) {
+        body->setPosition(previousPosition);
+    }
+}
+
 Vector2f SnakeGame::updateBodyPositions(auto it)
 {
     auto head = std::dynamic_pointer_cast<SnakeHeadDisplayable>(*it);
@@ -150,7 +176,9 @@ Vector2f SnakeGame::updateBodyPositions(auto it)
                     previousPosition = tailNewPosition;
                 }
             }
-            // set the collidable component to position
+            if (compIt->get()->getType() == components::ComponentType::COLLIDABLE) {
+                updateBodyCollidablePosition(compIt, previousPosition);
+            }
         }
         prevIt = it;
     }
@@ -279,7 +307,8 @@ void SnakeGame::increaseSnakeSize()
     auto tailComponent = std::dynamic_pointer_cast<SnakeTailDisplayable>(tailEntity->getComponents().front());
 
     Vector2f newPosition = tailComponent->getPosition();
-    std::shared_ptr<SnakeBodyEntity> newBody = std::make_shared<SnakeBodyEntity>(newPosition);
+    std::shared_ptr<SnakeBodyEntity> newBody = std::make_shared<SnakeBodyEntity>(newPosition, snakeBodyIdCounter);
+    snakeBodyIdCounter++;
 
     auto insertPos = std::next(tailIt).base();
     _snakeEntities.insert(insertPos, newBody);

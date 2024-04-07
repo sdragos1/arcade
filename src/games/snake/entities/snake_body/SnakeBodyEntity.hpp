@@ -8,6 +8,7 @@
 #pragma once
 
 #include "components/SnakeBodyDisplayable.hpp"
+#include "components/SnakeBodyCollidable.hpp"
 #include "games/IEntity.hpp"
 
 using namespace shared::games;
@@ -19,7 +20,7 @@ class SnakeBodyEntity : public entity::IEntity {
          * @brief Construct a new Snake Body Entity object
          * @param position
          */
-        SnakeBodyEntity(Vector2f position);
+        SnakeBodyEntity(Vector2f position, unsigned int id);
 
         /**
          * @brief Destroy a new Snake Body Entity object
@@ -34,4 +35,5 @@ class SnakeBodyEntity : public entity::IEntity {
 
     private:
         components::ComponentsMap _components;
+        unsigned int _id;
 };

@@ -9,6 +9,7 @@
 #define SNAKEBODYCOLLIDABLE_HPP_
 
 #include "games/components/ICollidableComponent.hpp"
+#include "games/components/IDisplayableComponent.hpp"
 
 class SnakeBodyCollidable : public shared::games::components::ICollidableComponent {
     public:
@@ -16,7 +17,7 @@ class SnakeBodyCollidable : public shared::games::components::ICollidableCompone
          * @brief Construct a new SnakeBody Collidable object
          * @param entity
          */
-        explicit SnakeBodyCollidable(const shared::games::entity::IEntity &entity);
+        explicit SnakeBodyCollidable(const shared::games::entity::IEntity &entity, unsigned int id);
 
         /**
          * @brief Destroy the SnakeBody Collidable object
@@ -35,6 +36,14 @@ class SnakeBodyCollidable : public shared::games::components::ICollidableCompone
          */
         const shared::games::entity::IEntity &getEntity() noexcept override;
 
+        Vector2f &getPosition(void) noexcept override;
+
+        Vector2u &getSize(void) noexcept override;
+
+        unsigned int getId(void) noexcept;
+
+        void setPosition(Vector2f pos) noexcept;
+
         /**
          * @brief On collide event handler for the component
          * @param ctx Context of the game
@@ -44,6 +53,9 @@ class SnakeBodyCollidable : public shared::games::components::ICollidableCompone
 
     private:
         const shared::games::entity::IEntity &_entity;
+        Vector2f _position;
+        Vector2u _size;
+        unsigned int _id;
 };
 
 #endif /* !SnakeBodyCOLLIDABLE_HPP_ */

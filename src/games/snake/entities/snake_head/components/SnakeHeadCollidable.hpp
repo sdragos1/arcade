@@ -11,7 +11,7 @@
 #include <iostream>
 #include "games/components/ICollidableComponent.hpp"
 #include "games/components/IDisplayableComponent.hpp"
-#include "../../apple/components/AppleCollidable.hpp"
+#include "../../snake_body/components/SnakeBodyCollidable.hpp"
 
 class SnakeHeadCollidable : public shared::games::components::ICollidableComponent {
     public:
@@ -44,6 +44,8 @@ class SnakeHeadCollidable : public shared::games::components::ICollidableCompone
 
         Vector2u &getSize(void) noexcept override;
 
+        bool getLose(void) noexcept;
+
         /**
          * @brief On collide event handler for the component
          * @param ctx Context of the game
@@ -55,6 +57,7 @@ class SnakeHeadCollidable : public shared::games::components::ICollidableCompone
         const shared::games::entity::IEntity &_entity;
         Vector2f _position;
         Vector2u _size;
+        bool _lose;
 };
 
 #endif /* !SnakeHeadCOLLIDABLE_HPP_ */

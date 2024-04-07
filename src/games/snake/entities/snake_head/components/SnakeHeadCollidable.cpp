@@ -8,7 +8,7 @@
 #include "SnakeHeadCollidable.hpp"
 
 SnakeHeadCollidable::SnakeHeadCollidable(const shared::games::entity::IEntity &entity)
-    : _entity(entity), _position(0, 0), _size(0, 0)
+    : _entity(entity), _position(0, 0), _size(0, 0), _lose(false)
 {
     for (auto &component : _entity.getComponents()) {
         if (auto displayable = std::dynamic_pointer_cast<shared::games::components::IDisplayableComponent>(component)) {
@@ -48,8 +48,17 @@ void SnakeHeadCollidable::setPosition(Vector2f pos) noexcept
     _position = pos;
 }
 
+bool SnakeHeadCollidable::getLose() noexcept
+{
+    return _lose;
+}
+
 void SnakeHeadCollidable::onCollide(std::shared_ptr<shared::games::IGame> ctx, std::shared_ptr<shared::games::components::ICollidableComponent> target)
 {
     (void)ctx;
-    //does it colide with itself?
+    if (auto snakeBody = std::dynamic_pointer_cast<SnakeBodyCollidable>(target)) {
+        if (snakeBody->getId() > 1) {
+            _lose = true;
+        }
+    }
 }
