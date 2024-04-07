@@ -65,6 +65,11 @@ void SnakeGame::compute(DeltaTime dt)
     if (getScore() == (_prevScore + 1)) {
         increaseSnakeSize();
         _prevScore = getScore();
+        for (auto it = _entities.begin(); it != _entities.end(); ++it) {
+            if (auto scoreEntity = std::dynamic_pointer_cast<ScoreTextEntity>(*it)) {
+                scoreEntity->updateScore(getScore());
+            }
+        }
         updateApplePosition();
     }
     _moveSpeed = increaseDifficulty(getScore());

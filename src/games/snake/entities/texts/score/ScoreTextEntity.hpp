@@ -9,6 +9,7 @@
 
 #include "components/ScoreTextDisplayable.hpp"
 #include "games/IEntity.hpp"
+#include <iostream>
 
 class ScoreTextEntity : public shared::games::entity::IEntity {
     public:
@@ -28,6 +29,8 @@ class ScoreTextEntity : public shared::games::entity::IEntity {
          */
         const shared::games::components::ComponentsMap
             &getComponents(void) const noexcept override;
+
+        void updateScore(int score) noexcept;
 
     private:
         shared::games::components::ComponentsMap _components;

@@ -77,9 +77,9 @@ class ScoreTextDisplayable : public shared::games::components::ITextComponent {
          * @return const shared::games::entity::IEntity&
          */
         const shared::games::entity::IEntity &getEntity() noexcept override;
+        std::string &_text;
 
     private:
-        const std::string &_text;
         shared::games::components::ITextComponent::TextProps _props;
         Vector2u _size;
         unsigned int _zIndex;
