@@ -170,6 +170,8 @@ class SnakeGame : public IGame {
          */
         void gameInit();
 
+        void checkGameRestart();
+
     private:
         entity::EntitiesMap _entities;
         SnakeHeadKeyboard::Direction _direction;

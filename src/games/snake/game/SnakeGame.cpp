@@ -53,6 +53,7 @@ void SnakeGame::gameInit()
 
 void SnakeGame::compute(DeltaTime dt)
 {
+    checkGameRestart();
     if (dt == DeltaTime::zero()) {
         _moveCd += DeltaTime(1);
     } else {
@@ -81,6 +82,18 @@ void SnakeGame::compute(DeltaTime dt)
     if (checkLose() == true) {
         _moveSpeed = 0;
         gameInit();
+    }
+}
+
+void SnakeGame::checkGameRestart()
+{
+    for (auto &snakeE : _snakeEntities) {
+        auto head = std::dynamic_pointer_cast<SnakeHeadEntity>(snakeE);
+        if (!head)
+            continue;
+        if (head->restartsGame() == true) {
+            gameInit();
+        }
     }
 }
 

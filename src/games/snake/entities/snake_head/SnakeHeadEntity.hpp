@@ -32,6 +32,7 @@ class SnakeHeadEntity : public entity::IEntity {
          */
         const components::ComponentsMap &getComponents(void) const noexcept override;
 
+        bool restartsGame() const;
     private:
         components::ComponentsMap _components;
 };

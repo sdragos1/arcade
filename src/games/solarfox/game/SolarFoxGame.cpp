@@ -438,5 +438,5 @@ const unsigned int SolarFoxGame::getFps() const noexcept
 
 const int SolarFoxGame::getScore() const noexcept
 {
-    return 0;
+    return _score->getScore();
 }

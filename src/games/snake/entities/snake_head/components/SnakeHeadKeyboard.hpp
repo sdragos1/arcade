@@ -66,8 +66,11 @@ class SnakeHeadKeyboard : public components::IKeyboardComponent {
          */
         void onKeyRelease(std::shared_ptr<IGame> ctx, KeyData key) override;
 
+        bool restartsGame() const;
+
         Direction _direction;
 
     private:
         const entity::IEntity &_entity;
+        bool _restartsGame;
 };
