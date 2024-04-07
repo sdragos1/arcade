@@ -71,4 +71,3 @@ SDL_Texture* SDL2Font::getTexture() const
 {
     return _textTexture;
 }
-

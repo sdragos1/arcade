@@ -377,4 +377,3 @@ std::vector<std::shared_ptr<shared::graphics::events::IEvent>> SDL2Window::getEv
     }
     return eventsList;
 }
-
