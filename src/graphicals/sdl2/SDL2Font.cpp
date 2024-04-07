@@ -13,10 +13,12 @@ SDL2Font::SDL2Font(std::string pathFont)
     _font = nullptr;
     _textSurface = nullptr;
     _textTexture = nullptr;
+    // std::cout << "Constructor in SDL2Font" << std::endl;
 }
 
 SDL2Font::~SDL2Font()
 {
+    // std::cout << "Destructor in SDL2Font" << std::endl;
     TTF_CloseFont(_font);
 }
 

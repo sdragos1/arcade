@@ -209,11 +209,6 @@ void Core::_handleEntityEvents(entity::EntityPtr &entity, events::EventPtr event
                     std::dynamic_pointer_cast<events::MouseMoveEvent>(event));
             }
         }
-        if (type == components::ComponentType::COLLIDABLE) {
-            auto collidable =
-                std::dynamic_pointer_cast<components::ICollidableComponent>(component);
-            _handleCollisions(collidable, entity);
-        }
     }
 }
 
@@ -248,7 +243,6 @@ std::size_t Core::_handleEvents()
     return 0;
 }
 
-
 int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent)
 {
     switch (keyEvent->getKeyCode().character)
@@ -271,6 +265,19 @@ int Core::_handleGeneralEvents(std::shared_ptr<events::KeyPressedEvent> keyEvent
     }
 }
 
+void Core::_collisionsManager()
+{
+    for (auto &entity : _gameEntities) {
+        for (auto &component : entity->getComponents()) {
+            if (component->getType() == components::COLLIDABLE) {
+                auto collidable =
+                    std::dynamic_pointer_cast<components::ICollidableComponent>(component);
+                _handleCollisions(collidable, entity);
+            }
+        }
+    }
+}
+
 std::size_t Core::runArcade()
 {
     auto prevTime = std::chrono::high_resolution_clock::now();
@@ -287,6 +294,7 @@ std::size_t Core::runArcade()
         prevTime = currentTime;
         _gameEntities = _currGame->getEntities();
         resultEvent = _handleEvents();
+        _collisionsManager();
         if (resultEvent == BACK_MENU)
             return BACK_MENU;
         if (resultEvent == QUIT_ARCADE)

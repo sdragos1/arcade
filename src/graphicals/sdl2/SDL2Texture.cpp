@@ -11,10 +11,12 @@ SDL2Texture::SDL2Texture(std::string pathTexture)
 {
     _path = pathTexture;
     _entitieTexture = nullptr;
+    // std::cout << "Constructor in SDL2Texture" << std::endl;
 }
 
 SDL2Texture::~SDL2Texture()
 {
+    // std::cout << "Destructor in SDL2Texture" << std::endl;
 }
 
 void SDL2Texture::setTexture(SDL_Renderer *renderer)

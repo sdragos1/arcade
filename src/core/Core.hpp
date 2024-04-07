@@ -257,6 +257,11 @@ class Core
         std::vector<shared::graphics::TextProps> listNamelib, \
         shared::graphics::TextProps titlelib);
 
+        /**
+         * @brief handle the collisions
+         */
+        void _collisionsManager();
+
         // Sound Functions
 
         std::unique_ptr<GameList>                       _librariesGame;
