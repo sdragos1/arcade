@@ -21,7 +21,7 @@ ScoreTextDisplayable::ScoreTextDisplayable(const std::string &content,
             }
         }),
     _size(30, 30),
-    _zIndex(2),
+    _zIndex(1),
     _position(0, 0),
     _entity(entity)
 {

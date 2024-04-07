@@ -13,7 +13,7 @@ SnakeHeadDisplayable::SnakeHeadDisplayable(const entity::IEntity &entity)
     _position({17, 9}),
     _oldPosition({17, 9}),
     _size({1, 1}),
-    _zIndex(1),
+    _zIndex(2),
     _textureProps(
         {
             .sources = {

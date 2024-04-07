@@ -13,7 +13,7 @@ SnakeTailDisplayable::SnakeTailDisplayable(const entity::IEntity &entity)
     _position({14, 9}),
     _oldPosition({14, 9}),
     _size({1, 1}),
-    _zIndex(1),
+    _zIndex(2),
     _textureProps(
         {
             .sources = {

@@ -13,7 +13,7 @@ SnakeBodyDisplayable::SnakeBodyDisplayable(const entity::IEntity &entity, Vector
     _position(position),
     _oldPosition(position),
     _size({1, 1}),
-    _zIndex(1),
+    _zIndex(2),
     _textureProps(
         {
             .sources = {
